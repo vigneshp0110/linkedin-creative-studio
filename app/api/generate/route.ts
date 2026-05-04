@@ -1,8 +1,6 @@
 export const dynamic = 'force-dynamic'
 
 import { NextRequest, NextResponse } from 'next/server'
-import OpenAI from 'openai'
-import Anthropic from '@anthropic-ai/sdk'
 import {
   buildCopySystemPrompt,
   buildCopyUserPrompt,
@@ -11,11 +9,15 @@ import {
 import { AdCopy, GenerateRequest } from '@/lib/types'
 
 export async function POST(req: NextRequest) {
+  const [{ default: OpenAI }, { default: Anthropic }] = await Promise.all([
+    import('openai'),
+    import('@anthropic-ai/sdk'),
+  ])
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
   const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+
   const body: GenerateRequest = await req.json()
 
-  // Step 1: Generate ad copy via Claude Sonnet 4.6
   const copyMessage = await anthropic.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 1024,
@@ -29,7 +31,6 @@ export async function POST(req: NextRequest) {
   const copyJsonMatch = copyText.match(/\{[\s\S]*\}/)
   const copy: AdCopy = copyJsonMatch ? JSON.parse(copyJsonMatch[0]) : {}
 
-  // Step 2: Generate square + landscape images in parallel via gpt-image-2
   const [squareRes, landscapeRes] = await Promise.all([
     openai.images.generate({
       model: 'gpt-image-2',
@@ -48,12 +49,9 @@ export async function POST(req: NextRequest) {
   const toDataUrl = (b64: string | null | undefined) =>
     b64 ? `data:image/png;base64,${b64}` : null
 
-  const squareB64 = squareRes.data?.[0]?.b64_json
-  const landscapeB64 = landscapeRes.data?.[0]?.b64_json
-
   return NextResponse.json({
     copy,
-    squareImage: toDataUrl(squareB64),
-    landscapeImage: toDataUrl(landscapeB64),
+    squareImage: toDataUrl(squareRes.data?.[0]?.b64_json),
+    landscapeImage: toDataUrl(landscapeRes.data?.[0]?.b64_json),
   })
 }
