@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  outputFileTracingIncludes: {
+    "/": ["./kb/**"],
+    "/api/kb": ["./kb/**"],
+    "/api/generate": ["./kb/**"],
+  },
 };
 
 export default nextConfig;
