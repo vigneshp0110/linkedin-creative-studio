@@ -10,10 +10,9 @@ import {
 } from '@/lib/prompt-builder'
 import { AdCopy, GenerateRequest } from '@/lib/types'
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-
 export async function POST(req: NextRequest) {
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
   const body: GenerateRequest = await req.json()
 
   // Step 1: Generate ad copy via Claude Sonnet 4.6

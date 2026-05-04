@@ -5,9 +5,8 @@ import Anthropic from '@anthropic-ai/sdk'
 import { buildConceptsSystemPrompt, buildConceptsUserPrompt } from '@/lib/prompt-builder'
 import { CreativeConcept } from '@/lib/types'
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-
 export async function POST(req: NextRequest) {
+  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
   const body = await req.json()
 
   const message = await anthropic.messages.create({

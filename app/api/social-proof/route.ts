@@ -15,9 +15,6 @@ import {
 
 export const maxDuration = 120
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-
 async function fileToUploadable(file: File, name: string) {
   const buf = Buffer.from(await file.arrayBuffer())
   return toFile(buf, name, { type: file.type || 'image/png' })
@@ -29,6 +26,7 @@ function parseDirections(text: string): { name: string; description: string }[] 
 }
 
 async function generateImages(
+  openai: OpenAI,
   uploadableImages: Awaited<ReturnType<typeof fileToUploadable>>[],
   prompts: string[],
   size: '1024x1024' | '1536x1024'
@@ -48,6 +46,8 @@ async function generateImages(
 }
 
 export async function POST(req: NextRequest) {
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
   const formData = await req.formData()
   const type = formData.get('type') as 'badges' | 'testimonial'
   const format = (formData.get('format') as 'square' | 'landscape') ?? 'square'
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
 
     if (isLandscape) {
       const rawDirs = JSON.parse(formData.get('visualDirections') as string) as { id: string; name: string; description: string }[]
-      const results = await generateImages(
+      const results = await generateImages(openai, 
         uploadables,
         rawDirs.map(d => buildBadgeImagePrompt({ tagline, cta, badgeCount }, d, 'landscape')),
         size
@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
     const rawDirs = parseDirections(msg.content[0].type === 'text' ? msg.content[0].text : '[]')
     const dirs = rawDirs.slice(0, 3).map((d, i) => ({ id: `var-${Date.now()}-${i}`, ...d }))
 
-    const results = await generateImages(
+    const results = await generateImages(openai, 
       uploadables,
       dirs.map(d => buildBadgeImagePrompt({ tagline, cta, badgeCount }, d, 'square')),
       size
@@ -122,7 +122,7 @@ export async function POST(req: NextRequest) {
 
     if (isLandscape) {
       const rawDirs = JSON.parse(formData.get('visualDirections') as string) as { id: string; name: string; description: string }[]
-      const results = await generateImages(
+      const results = await generateImages(openai, 
         uploadables,
         rawDirs.map(d => buildTestimonialImagePrompt({ quote, name, title, company, cta, hasLogo }, d, 'landscape')),
         size
@@ -144,7 +144,7 @@ export async function POST(req: NextRequest) {
     const rawDirs = parseDirections(msg.content[0].type === 'text' ? msg.content[0].text : '[]')
     const dirs = rawDirs.slice(0, 3).map((d, i) => ({ id: `var-${Date.now()}-${i}`, ...d }))
 
-    const results = await generateImages(
+    const results = await generateImages(openai, 
       uploadables,
       dirs.map(d => buildTestimonialImagePrompt({ quote, name, title, company, cta, hasLogo }, d, 'square')),
       size
