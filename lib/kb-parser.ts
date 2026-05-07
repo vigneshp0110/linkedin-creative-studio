@@ -2,6 +2,13 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { Angle, Campaign, KBVertical, Theme } from './types'
 
+const CAMPAIGN_THEME_KB_CONFIG = [
+  { id: 'xactly-displacement', file: 'xactly-displacement.md', label: 'Xactly Displacement' },
+  { id: 'spreadsheet-displacement', file: 'spreadsheet-displacement.md', label: 'Spreadsheet Displacement' },
+  { id: 'mid-year-comp-change', file: 'mid-year-comp-change.md', label: 'Mid-Year Comp Change' },
+  { id: 'ai-native-build-vs-buy', file: 'ai-native-build-vs-buy.md', label: 'AI Native: Build vs Buy' },
+]
+
 const KB_CONFIG = [
   { id: 'software', file: 'software.md', label: 'Software' },
   { id: 'it-services', file: 'it-services.md', label: 'IT Services' },
@@ -153,4 +160,24 @@ export function parseVertical(verticalId: string): KBVertical | null {
 
 export function getVerticalList(): { id: string; label: string }[] {
   return KB_CONFIG.map(({ id, label }) => ({ id, label }))
+}
+
+export function getCampaignThemeList(): { id: string; label: string; available: boolean }[] {
+  const kbDir = path.join(process.cwd(), 'kb')
+  return CAMPAIGN_THEME_KB_CONFIG.map(({ id, label, file }) => ({
+    id,
+    label,
+    available: fs.existsSync(path.join(kbDir, file)),
+  }))
+}
+
+export function parseCampaignTheme(themeId: string): KBVertical | null {
+  const config = CAMPAIGN_THEME_KB_CONFIG.find(k => k.id === themeId)
+  if (!config) return null
+  const kbDir = path.join(process.cwd(), 'kb')
+  try {
+    return parseKBFile(path.join(kbDir, config.file), config.id, config.label)
+  } catch {
+    return null
+  }
 }

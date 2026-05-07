@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-export type AppMode = 'pain-solution' | 'educational' | 'social-proof'
+export type AppMode = 'pain-solution' | 'educational' | 'social-proof' | 'campaign-themes'
 
 const NAV_ITEMS: { id: AppMode; label: string; icon: React.ReactNode; comingSoon?: boolean }[] = [
   {
@@ -34,6 +34,17 @@ const NAV_ITEMS: { id: AppMode; label: string; icon: React.ReactNode; comingSoon
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
         <path d="M3 7c0-1.1.9-2 2-2h1.5C7.3 3.3 8.5 2 9 2s1.7 1.3 2.5 3H13a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" stroke="currentColor" strokeWidth="1.5"/>
         <path d="M6.5 9.5l1.5 1.5 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+  },
+  {
+    id: 'campaign-themes',
+    label: 'Campaign Themes',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <path d="M2 4h14M2 9h10M2 14h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <circle cx="14" cy="12" r="3" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M14 11v1.5l1 1" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
   },

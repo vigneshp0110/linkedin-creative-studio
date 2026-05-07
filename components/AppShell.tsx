@@ -5,8 +5,15 @@ import LeftNav, { AppMode } from './LeftNav'
 import CreativeStudio from './CreativeStudio'
 import EducationalAssets from './EducationalAssets'
 import SocialProof from './SocialProof'
+import CampaignThemes from './CampaignThemes'
 
-export default function AppShell({ verticals }: { verticals: { id: string; label: string }[] }) {
+export default function AppShell({
+  verticals,
+  campaignThemes,
+}: {
+  verticals: { id: string; label: string }[]
+  campaignThemes: { id: string; label: string; available: boolean }[]
+}) {
   const [mode, setMode] = useState<AppMode>('pain-solution')
 
   return (
@@ -30,6 +37,7 @@ export default function AppShell({ verticals }: { verticals: { id: string; label
           {mode === 'pain-solution' && <CreativeStudio verticals={verticals} />}
           {mode === 'educational' && <EducationalAssets />}
           {mode === 'social-proof' && <SocialProof />}
+          {mode === 'campaign-themes' && <CampaignThemes campaignThemes={campaignThemes} />}
         </div>
       </div>
     </div>
