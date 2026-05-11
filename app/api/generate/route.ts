@@ -18,18 +18,21 @@ export async function POST(req: NextRequest) {
 
   const body: GenerateRequest = await req.json()
 
-  const copyMessage = await anthropic.messages.create({
-    model: 'claude-sonnet-4-6',
-    max_tokens: 1024,
-    system: buildCopySystemPrompt(),
-    messages: [
-      { role: 'user', content: buildCopyUserPrompt(body) },
-    ],
-  })
-
-  const copyText = copyMessage.content[0].type === 'text' ? copyMessage.content[0].text : ''
-  const copyJsonMatch = copyText.match(/\{[\s\S]*\}/)
-  const copy: AdCopy = copyJsonMatch ? JSON.parse(copyJsonMatch[0]) : {}
+  let copy: AdCopy
+  if (body.providedCopy) {
+    // Skip Claude — use the caller-supplied copy directly
+    copy = body.providedCopy
+  } else {
+    const copyMessage = await anthropic.messages.create({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 1024,
+      system: buildCopySystemPrompt(),
+      messages: [{ role: 'user', content: buildCopyUserPrompt(body) }],
+    })
+    const copyText = copyMessage.content[0].type === 'text' ? copyMessage.content[0].text : ''
+    const copyJsonMatch = copyText.match(/\{[\s\S]*\}/)
+    copy = copyJsonMatch ? JSON.parse(copyJsonMatch[0]) : {}
+  }
 
   const [squareRes, landscapeRes] = await Promise.all([
     openai.images.generate({

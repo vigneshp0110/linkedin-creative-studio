@@ -46,6 +46,10 @@ NARRATIVE: ${req.concept.narrativeStructure}
 The copy must match the tone and angle of the selected concept above. The hook is the creative direction — let it shape the headline and body.`
     : ''
 
+  const customContextLine = req.customContext?.trim()
+    ? `\nMARKETER CONTEXT (use this language and framing directly in the copy where relevant):\n${req.customContext.trim()}`
+    : ''
+
   return `Generate LinkedIn ad copy for this campaign:
 
 VERTICAL: ${req.verticalLabel}
@@ -53,7 +57,7 @@ CAMPAIGN / AUDIENCE: ${req.campaignName}
 PAIN THEME: ${req.themeName}
 SPECIFIC ANGLE (Freq: ${req.angle.frequency}): ${req.angle.description}
 ${req.angle.quote ? `BUYER VERBATIM: "${req.angle.quote}"` : ''}
-${conceptLines}
+${conceptLines}${customContextLine}
 If a buyer verbatim is provided, borrow their exact phrasing where it fits naturally.`
 }
 
@@ -244,16 +248,21 @@ Return a raw JSON array of exactly 10 objects — no markdown fences, no explana
 ]`
 }
 
-export function buildConceptsUserPrompt(req: { verticalLabel: string; campaignName: string; themeName: string; angle: { description: string; frequency: number; quote?: string } }): string {
+export function buildConceptsUserPrompt(req: { verticalLabel: string; campaignName: string; themeName: string; angle: { description: string; frequency: number; quote?: string }; customContext?: string }): string {
+  const customContextBlock = req.customContext?.trim()
+    ? `\nMARKETER CONTEXT (treat this as primary creative direction — honour the specific language, claims, or framing provided here):
+${req.customContext.trim()}`
+    : ''
+
   return `Generate 10 creative concepts for this ad angle:
 
 VERTICAL: ${req.verticalLabel}
 CAMPAIGN / AUDIENCE: ${req.campaignName}
 PAIN THEME: ${req.themeName}
 ANGLE (Freq: ${req.angle.frequency}): ${req.angle.description}
-${req.angle.quote ? `BUYER VERBATIM: "${req.angle.quote}"` : ''}
+${req.angle.quote ? `BUYER VERBATIM: "${req.angle.quote}"` : ''}${customContextBlock}
 
-The buyer verbatim (if provided) reflects how this person actually talks about this pain — concepts that borrow that language will resonate harder.`
+The buyer verbatim (if provided) reflects how this person actually talks about this pain — concepts that borrow that language will resonate harder.${req.customContext?.trim() ? ' The marketer context above takes priority — integrate it directly into the concepts.' : ''}`
 }
 
 // ─── Educational Asset Generation ────────────────────────────────────────────

@@ -170,6 +170,7 @@ export default function CampaignThemes({
   const [personaGroupId, setPersonaGroupId] = useState('')
   const [themeId, setThemeId] = useState('')
   const [angleId, setAngleId] = useState('')
+  const [customContext, setCustomContext] = useState('')
 
   const [personaGroups, setPersonaGroups] = useState<Campaign[]>([])
   const [isLoadingKB, setIsLoadingKB] = useState(false)
@@ -179,9 +180,18 @@ export default function CampaignThemes({
   const [selectedConceptId, setSelectedConceptId] = useState<string | null>(null)
   const [conceptError, setConceptError] = useState<string | null>(null)
 
+  // "Use my own concept" mode
+  const [useOwnConcept, setUseOwnConcept] = useState(false)
+  const [ownConceptText, setOwnConceptText] = useState('')
+
   const [isGenerating, setIsGenerating] = useState(false)
   const [result, setResult] = useState<Result | null>(null)
   const [generateError, setGenerateError] = useState<string | null>(null)
+
+  // Inline copy editing
+  const [editedCopy, setEditedCopy] = useState<AdCopy | null>(null)
+  const [isCopyEditing, setIsCopyEditing] = useState(false)
+  const [isReRendering, setIsReRendering] = useState(false)
 
   const [isCreativePanelOpen, setIsCreativePanelOpen] = useState(false)
   const [isAnglesExpanded, setIsAnglesExpanded] = useState(false)
@@ -262,6 +272,7 @@ export default function CampaignThemes({
           campaignName: selectedPersonaGroup.name,
           themeName: selectedTheme.name,
           angle: selectedAngle,
+          customContext: customContext.trim() || undefined,
         }),
       })
       if (!res.ok) throw new Error(`Failed: ${res.status}`)
@@ -274,10 +285,30 @@ export default function CampaignThemes({
     }
   }
 
+  const buildConceptForGenerate = (): CreativeConcept | undefined => {
+    if (useOwnConcept) {
+      if (!ownConceptText.trim()) return undefined
+      return {
+        id: 'custom',
+        conceptNumber: 0,
+        hook: ownConceptText,
+        visualDirection: ownConceptText,
+        emotionalRegister: '',
+        narrativeStructure: '',
+        ctaDirection: '',
+        scrollStopper: '',
+      }
+    }
+    return selectedConcept ?? undefined
+  }
+
   const generateCreative = async () => {
-    if (!selectedCampaignTheme || !selectedPersonaGroup || !selectedTheme || !selectedAngle || !selectedConcept) return
+    const concept = buildConceptForGenerate()
+    if (!selectedCampaignTheme || !selectedPersonaGroup || !selectedTheme || !selectedAngle || !concept) return
     setIsGenerating(true)
     setResult(null)
+    setEditedCopy(null)
+    setIsCopyEditing(false)
     setGenerateError(null)
     setIsCreativePanelOpen(true)
 
@@ -290,8 +321,9 @@ export default function CampaignThemes({
           campaignName: selectedPersonaGroup.name,
           themeName: selectedTheme.name,
           angle: selectedAngle,
-          concept: selectedConcept,
+          concept,
           layout: 'statement',
+          customContext: customContext.trim() || undefined,
         }),
       })
       if (!res.ok) {
@@ -300,6 +332,7 @@ export default function CampaignThemes({
       }
       const data = await res.json()
       setResult(data)
+      setEditedCopy(data.copy)
     } catch (e: unknown) {
       setGenerateError(e instanceof Error ? e.message : 'Generation failed.')
     } finally {
@@ -307,8 +340,42 @@ export default function CampaignThemes({
     }
   }
 
-  const canGenerateConcepts = !!(selectedAngle && !isLoadingConcepts)
-  const canGenerateCreative = !!(selectedConcept && !isGenerating)
+  const reRenderCreative = async () => {
+    const concept = buildConceptForGenerate()
+    if (!selectedCampaignTheme || !selectedPersonaGroup || !selectedTheme || !selectedAngle || !concept || !editedCopy) return
+    setIsReRendering(true)
+    setGenerateError(null)
+
+    try {
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          verticalLabel: selectedCampaignTheme.label,
+          campaignName: selectedPersonaGroup.name,
+          themeName: selectedTheme.name,
+          angle: selectedAngle,
+          concept,
+          layout: 'statement',
+          providedCopy: editedCopy,
+        }),
+      })
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        throw new Error((err as { error?: string }).error ?? `Failed: ${res.status}`)
+      }
+      const data = await res.json()
+      setResult({ ...data, copy: editedCopy })
+      setIsCopyEditing(false)
+    } catch (e: unknown) {
+      setGenerateError(e instanceof Error ? e.message : 'Re-render failed.')
+    } finally {
+      setIsReRendering(false)
+    }
+  }
+
+  const canGenerateConcepts = !!(selectedAngle && !isLoadingConcepts && !useOwnConcept)
+  const canGenerateCreative = !!((useOwnConcept ? ownConceptText.trim() : selectedConcept) && !isGenerating && !isReRendering)
   const hasCreative = !!(result || isGenerating || generateError)
 
   return (
@@ -376,6 +443,21 @@ export default function CampaignThemes({
                 '⚡ Generate Concepts'
               )}
             </button>
+          </div>
+
+          {/* Custom context box */}
+          <div className="flex flex-col gap-1">
+            <label className="text-[10px] font-semibold uppercase tracking-widest text-white/35">
+              Your Copy / Context
+              <span className="ml-2 font-normal normal-case tracking-normal text-white/20">optional — paste talking points, custom copy, or extra direction</span>
+            </label>
+            <textarea
+              value={customContext}
+              onChange={e => setCustomContext(e.target.value)}
+              rows={3}
+              placeholder="e.g. Highlight that Everstage pays reps in real-time, not end of quarter. Target CFOs who just came out of a painful comp audit."
+              className="w-full resize-none rounded-lg border border-white/10 bg-[#070E1A] px-3 py-2.5 text-sm text-white placeholder-white/20 outline-none transition focus:border-[#F5A623]/50 focus:ring-1 focus:ring-[#F5A623]/20"
+            />
           </div>
 
           {/* Angle chips */}
@@ -448,17 +530,43 @@ export default function CampaignThemes({
 
         {/* Concepts panel */}
         <section className="flex min-w-0 flex-1 flex-col gap-3 rounded-2xl border border-white/8 bg-[#0A1628] p-5">
-          <div className="flex items-center justify-between">
-            <div>
+          <div className="flex items-center justify-between gap-3">
+            <div className="min-w-0">
               <h2 className="text-sm font-semibold text-white">Creative Concepts</h2>
               <p className="mt-0.5 text-[11px] text-white/35">
-                {concepts.length > 0
-                  ? `${concepts.length} concepts — pick one to generate`
-                  : 'Select an angle and generate concepts'}
+                {useOwnConcept
+                  ? 'Describe your concept — image generates directly from it'
+                  : concepts.length > 0
+                    ? `${concepts.length} concepts — pick one to generate`
+                    : 'Select an angle and generate concepts'}
               </p>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center gap-2">
+              {/* Toggle: Claude concepts vs own concept */}
+              <div className="flex rounded-lg border border-white/10 p-0.5">
+                <button
+                  onClick={() => setUseOwnConcept(false)}
+                  className={`rounded-md px-2.5 py-1 text-[11px] font-medium transition ${
+                    !useOwnConcept
+                      ? 'bg-white/10 text-white'
+                      : 'text-white/35 hover:text-white/60'
+                  }`}
+                >
+                  ⚡ Claude
+                </button>
+                <button
+                  onClick={() => setUseOwnConcept(true)}
+                  className={`rounded-md px-2.5 py-1 text-[11px] font-medium transition ${
+                    useOwnConcept
+                      ? 'bg-[#F5A623]/15 text-[#F5A623]'
+                      : 'text-white/35 hover:text-white/60'
+                  }`}
+                >
+                  ✎ My Concept
+                </button>
+              </div>
+
               {hasCreative && !isCreativePanelOpen && (
                 <button
                   onClick={() => setIsCreativePanelOpen(true)}
@@ -467,7 +575,7 @@ export default function CampaignThemes({
                   Creative →
                 </button>
               )}
-              {selectedConcept && (
+              {(selectedConcept || (useOwnConcept && ownConceptText.trim())) && (
                 <button
                   onClick={generateCreative}
                   disabled={!canGenerateCreative}
@@ -492,44 +600,78 @@ export default function CampaignThemes({
             </div>
           )}
 
-          {isLoadingConcepts && (
-            <div className="grid grid-cols-2 gap-2 overflow-y-auto">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="h-48 animate-pulse rounded-xl bg-white/4" />
-              ))}
+          {/* Own concept mode */}
+          {useOwnConcept && (
+            <div className="flex flex-1 flex-col gap-3">
+              <textarea
+                value={ownConceptText}
+                onChange={e => setOwnConceptText(e.target.value)}
+                rows={8}
+                placeholder={`Describe your creative concept in as much detail as you want.\n\ne.g. Dark navy background. Bold white stat "73% of reps don't trust their commission statement" in the centre — the number huge, in gold. Below: one line subhead. Bottom left: Everstage logo. CTA button bottom right: "See why".`}
+                className="w-full flex-1 resize-none rounded-xl border border-white/10 bg-[#070E1A] px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition focus:border-[#F5A623]/50 focus:ring-1 focus:ring-[#F5A623]/20"
+              />
+              <button
+                onClick={generateCreative}
+                disabled={!canGenerateCreative}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#F5A623] py-2.5 text-sm font-bold text-[#0A1628] transition hover:bg-[#f0a020] disabled:cursor-not-allowed disabled:opacity-30"
+              >
+                {isGenerating ? (
+                  <>
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#0A1628]/20 border-t-[#0A1628]" />
+                    Generating…
+                  </>
+                ) : (
+                  '→ Generate Creative from My Concept'
+                )}
+              </button>
             </div>
           )}
 
-          {!isLoadingConcepts && concepts.length > 0 && (
-            <div
-              className={`grid gap-2 overflow-y-auto pr-1 transition-all duration-300 ${
-                isCreativePanelOpen ? 'grid-cols-1' : 'grid-cols-2'
-              }`}
-              style={{ maxHeight: 'calc(100vh - 300px)' }}
-            >
-              {concepts.map(concept => (
-                <ConceptCard
-                  key={concept.id}
-                  concept={concept}
-                  selected={selectedConceptId === concept.id}
-                  onSelect={() => {
-                    setSelectedConceptId(concept.id)
-                    setResult(null)
-                    setGenerateError(null)
-                  }}
-                />
-              ))}
-            </div>
-          )}
+          {/* Claude-generated concepts */}
+          {!useOwnConcept && (
+            <>
+              {isLoadingConcepts && (
+                <div className="grid grid-cols-2 gap-2 overflow-y-auto">
+                  {Array.from({ length: 6 }).map((_, i) => (
+                    <div key={i} className="h-48 animate-pulse rounded-xl bg-white/4" />
+                  ))}
+                </div>
+              )}
 
-          {!isLoadingConcepts && concepts.length === 0 && (
-            <div className="flex flex-1 flex-col items-center justify-center gap-2 py-16 text-center">
-              <div className="text-3xl opacity-10">◻</div>
-              <p className="text-xs text-white/20">
-                Select a campaign theme, persona group, theme, and angle —<br />
-                then click Generate Concepts
-              </p>
-            </div>
+              {!isLoadingConcepts && concepts.length > 0 && (
+                <div
+                  className={`grid gap-2 overflow-y-auto pr-1 transition-all duration-300 ${
+                    isCreativePanelOpen ? 'grid-cols-1' : 'grid-cols-2'
+                  }`}
+                  style={{ maxHeight: 'calc(100vh - 300px)' }}
+                >
+                  {concepts.map(concept => (
+                    <ConceptCard
+                      key={concept.id}
+                      concept={concept}
+                      selected={selectedConceptId === concept.id}
+                      onSelect={() => {
+                        setSelectedConceptId(concept.id)
+                        setResult(null)
+                        setEditedCopy(null)
+                        setIsCopyEditing(false)
+                        setGenerateError(null)
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {!isLoadingConcepts && concepts.length === 0 && (
+                <div className="flex flex-1 flex-col items-center justify-center gap-2 py-16 text-center">
+                  <div className="text-3xl opacity-10">◻</div>
+                  <p className="text-xs text-white/20">
+                    Select a campaign theme, persona group, theme, and angle —<br />
+                    then click Generate Concepts
+                  </p>
+                </div>
+              )}
+            </>
           )}
         </section>
 
@@ -547,7 +689,7 @@ export default function CampaignThemes({
                 </p>
               </div>
               <div className="flex items-center gap-2">
-                {result && !isGenerating && (
+                {result && !isGenerating && !isReRendering && !isCopyEditing && (
                   <button
                     onClick={generateCreative}
                     className="flex items-center gap-1.5 rounded-md border border-white/10 px-3 py-1 text-xs font-medium text-white/60 transition hover:border-[#F5A623]/40 hover:text-[#F5A623]"
@@ -572,35 +714,94 @@ export default function CampaignThemes({
             )}
 
             {(result?.copy || isGenerating) && (
-              <div className="rounded-xl border border-white/8 bg-[#070E1A] p-4">
-                <p className="mb-2.5 text-[11px] font-semibold uppercase tracking-widest text-white/30">
-                  Ad Copy
-                </p>
-                {result?.copy ? (
-                  <div className="grid grid-cols-2 gap-x-5 gap-y-2.5 text-xs">
+              <div className={`rounded-xl border bg-[#070E1A] p-4 transition ${isCopyEditing ? 'border-[#F5A623]/30' : 'border-white/8'}`}>
+                <div className="mb-2.5 flex items-center justify-between">
+                  <p className="text-[11px] font-semibold uppercase tracking-widest text-white/30">
+                    Ad Copy
+                  </p>
+                  {result?.copy && (
+                    <button
+                      onClick={() => setIsCopyEditing(v => !v)}
+                      className={`text-[11px] font-medium transition ${isCopyEditing ? 'text-[#F5A623]' : 'text-white/35 hover:text-white/70'}`}
+                    >
+                      {isCopyEditing ? '✓ Done editing' : '✎ Edit copy'}
+                    </button>
+                  )}
+                </div>
+                {result?.copy && editedCopy ? (
+                  <div className="grid grid-cols-2 gap-x-5 gap-y-3 text-xs">
                     <div>
                       <span className="text-[10px] uppercase tracking-widest text-white/25">Headline</span>
-                      <p className="mt-0.5 font-semibold text-white">{result.copy.headline}</p>
+                      {isCopyEditing ? (
+                        <input
+                          value={editedCopy.headline}
+                          onChange={e => setEditedCopy(c => c ? { ...c, headline: e.target.value } : c)}
+                          className="mt-1 w-full rounded-md border border-white/15 bg-white/5 px-2 py-1 text-xs font-semibold text-white outline-none focus:border-[#F5A623]/50"
+                        />
+                      ) : (
+                        <p className="mt-0.5 font-semibold text-white">{editedCopy.headline}</p>
+                      )}
                     </div>
                     <div>
                       <span className="text-[10px] uppercase tracking-widest text-white/25">Subheadline</span>
-                      <p className="mt-0.5 text-white/75">{result.copy.subheadline}</p>
+                      {isCopyEditing ? (
+                        <input
+                          value={editedCopy.subheadline}
+                          onChange={e => setEditedCopy(c => c ? { ...c, subheadline: e.target.value } : c)}
+                          className="mt-1 w-full rounded-md border border-white/15 bg-white/5 px-2 py-1 text-xs text-white/80 outline-none focus:border-[#F5A623]/50"
+                        />
+                      ) : (
+                        <p className="mt-0.5 text-white/75">{editedCopy.subheadline}</p>
+                      )}
                     </div>
                     <div>
                       <span className="text-[10px] uppercase tracking-widest text-white/25">Body</span>
-                      <ul className="mt-0.5 space-y-0.5 text-white/65">
-                        {result.copy.body.map((b, i) => <li key={i}>• {b}</li>)}
-                      </ul>
+                      {isCopyEditing ? (
+                        <textarea
+                          value={editedCopy.body.join('\n')}
+                          onChange={e => setEditedCopy(c => c ? { ...c, body: e.target.value.split('\n').filter(Boolean) } : c)}
+                          rows={3}
+                          className="mt-1 w-full resize-none rounded-md border border-white/15 bg-white/5 px-2 py-1 text-xs text-white/70 outline-none focus:border-[#F5A623]/50"
+                        />
+                      ) : (
+                        <ul className="mt-0.5 space-y-0.5 text-white/65">
+                          {editedCopy.body.map((b, i) => <li key={i}>• {b}</li>)}
+                        </ul>
+                      )}
                     </div>
                     <div>
                       <span className="text-[10px] uppercase tracking-widest text-white/25">CTA</span>
-                      <p className="mt-0.5 inline-block rounded-md bg-[#F5A623] px-2.5 py-1 text-[11px] font-bold text-[#0A1628]">
-                        {result.copy.cta}
-                      </p>
+                      {isCopyEditing ? (
+                        <input
+                          value={editedCopy.cta}
+                          onChange={e => setEditedCopy(c => c ? { ...c, cta: e.target.value } : c)}
+                          className="mt-1 w-full rounded-md border border-white/15 bg-white/5 px-2 py-1 text-xs font-bold text-[#F5A623] outline-none focus:border-[#F5A623]/50"
+                        />
+                      ) : (
+                        <p className="mt-0.5 inline-block rounded-md bg-[#F5A623] px-2.5 py-1 text-[11px] font-bold text-[#0A1628]">
+                          {editedCopy.cta}
+                        </p>
+                      )}
                     </div>
                   </div>
                 ) : (
                   <div className="h-12 animate-pulse rounded-lg bg-white/4" />
+                )}
+                {isCopyEditing && (
+                  <button
+                    onClick={reRenderCreative}
+                    disabled={isReRendering}
+                    className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-lg bg-[#F5A623] py-2 text-xs font-bold text-[#0A1628] transition hover:bg-[#f0a020] disabled:opacity-50"
+                  >
+                    {isReRendering ? (
+                      <>
+                        <span className="h-3 w-3 animate-spin rounded-full border-2 border-[#0A1628]/20 border-t-[#0A1628]" />
+                        Re-rendering…
+                      </>
+                    ) : (
+                      '↺ Re-render image with edited copy'
+                    )}
+                  </button>
                 )}
               </div>
             )}

@@ -33,6 +33,8 @@ export interface GenerateRequest {
   angle: Angle
   layout: LayoutTemplate
   concept?: CreativeConcept
+  customContext?: string
+  providedCopy?: AdCopy
 }
 
 export interface AdCopy {
