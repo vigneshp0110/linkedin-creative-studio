@@ -4,6 +4,7 @@ export const maxDuration = 120
 import { NextRequest, NextResponse } from 'next/server'
 import * as fs from 'fs'
 import * as path from 'path'
+import sharp from 'sharp'
 import {
   buildCopySystemPrompt,
   buildCopyUserPrompt,
@@ -20,10 +21,17 @@ export async function POST(req: NextRequest) {
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
   const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
-  // Load the Everstage logo to pass as a reference image
+  // Load the Everstage logo and pad it to a 1024×1024 square (required by images.edit)
   const logoPath = path.join(process.cwd(), 'public/logos/logo-full.png')
   const logoBuf = fs.readFileSync(logoPath)
-  const logoFile = await toFile(logoBuf, 'logo.png', { type: 'image/png' })
+  const squareLogoBuf = await sharp(logoBuf)
+    .resize(1024, 1024, {
+      fit: 'contain',
+      background: { r: 0, g: 0, b: 0, alpha: 0 },
+    })
+    .png()
+    .toBuffer()
+  const logoFile = await toFile(squareLogoBuf, 'logo.png', { type: 'image/png' })
 
   const body: GenerateRequest = await req.json()
 
