@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/": ["./kb/**"],
     "/api/kb": ["./kb/**"],
-    "/api/generate": ["./kb/**"],
+    "/api/generate": ["./kb/**", "./public/logos/**"],
   },
 };
 

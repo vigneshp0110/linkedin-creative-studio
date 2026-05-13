@@ -117,7 +117,7 @@ ${visualDirection}
 
 BRAND REQUIREMENTS:
 - Deep navy (#0A1628) or dark background unless the visual direction specifies otherwise
-- "everstage" wordmark logo must appear — white version on dark backgrounds, navy on light
+- LOGO: The input image contains the official Everstage logo (circular icon + "everstage" wordmark). You MUST reproduce this exact logo on the creative — do not draw a substitute. On dark backgrounds render it in white; on light backgrounds render it in navy. Place it bottom-left unless the visual direction specifies otherwise. Keep proportions intact.
 - Brand colors: navy #0A1628, royal blue #1B3FCC, gold #F5A623, lime green #B8F060, teal #4DC8B4
 - CTA button in gold (#F5A623) with dark text
 - Text must be crisp, legible, and high-contrast against its background
