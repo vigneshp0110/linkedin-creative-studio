@@ -88,7 +88,6 @@ export async function POST(req: NextRequest) {
         prompt,
         n: 1,
         size,
-        response_format: 'b64_json',
       } as Parameters<typeof openai.images.generate>[0]) as ImagesResponse
       console.log('[generate] images.generate succeeded for size', size)
       return res
