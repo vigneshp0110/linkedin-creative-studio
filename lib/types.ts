@@ -33,8 +33,15 @@ export interface GenerateRequest {
   angle: Angle
   layout: LayoutTemplate
   concept?: CreativeConcept
+  implication?: Implication
   customContext?: string
   providedCopy?: AdCopy
+}
+
+export interface Implication {
+  id: string
+  label: string
+  expansion: string
 }
 
 export interface AdCopy {

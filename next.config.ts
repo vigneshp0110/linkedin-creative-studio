@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     "/": ["./kb/**"],
     "/api/kb": ["./kb/**"],
     "/api/generate": ["./kb/**", "./public/logos/**"],
+    "/api/implications": ["./implications/**"],
   },
 };
 

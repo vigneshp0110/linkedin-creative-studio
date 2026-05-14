@@ -1,0 +1,17 @@
+export const dynamic = 'force-dynamic'
+
+import { NextRequest, NextResponse } from 'next/server'
+import { getImplications } from '@/lib/implications-loader'
+
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url)
+  const campaignThemeId = searchParams.get('campaignTheme') ?? ''
+  const personaGroupId = searchParams.get('personaGroup') ?? ''
+
+  if (!campaignThemeId || !personaGroupId) {
+    return NextResponse.json({ implications: [] })
+  }
+
+  const implications = getImplications(campaignThemeId, personaGroupId)
+  return NextResponse.json({ implications })
+}

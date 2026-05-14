@@ -248,7 +248,12 @@ Return a raw JSON array of exactly 10 objects — no markdown fences, no explana
 ]`
 }
 
-export function buildConceptsUserPrompt(req: { verticalLabel: string; campaignName: string; themeName: string; angle: { description: string; frequency: number; quote?: string }; customContext?: string }): string {
+export function buildConceptsUserPrompt(req: { verticalLabel: string; campaignName: string; themeName: string; angle: { description: string; frequency: number; quote?: string }; implication?: { label: string; expansion: string }; customContext?: string }): string {
+  const implicationBlock = req.implication
+    ? `\nSELECTED IMPLICATION — this is the emotional core the marketer has validated. Every concept must be anchored to this identity-level truth:
+"${req.implication.label}": ${req.implication.expansion}`
+    : ''
+
   const customContextBlock = req.customContext?.trim()
     ? `\nMARKETER CONTEXT (treat this as primary creative direction — honour the specific language, claims, or framing provided here):
 ${req.customContext.trim()}`
@@ -260,9 +265,9 @@ VERTICAL: ${req.verticalLabel}
 CAMPAIGN / AUDIENCE: ${req.campaignName}
 PAIN THEME: ${req.themeName}
 ANGLE (Freq: ${req.angle.frequency}): ${req.angle.description}
-${req.angle.quote ? `BUYER VERBATIM: "${req.angle.quote}"` : ''}${customContextBlock}
+${req.angle.quote ? `BUYER VERBATIM: "${req.angle.quote}"` : ''}${implicationBlock}${customContextBlock}
 
-The buyer verbatim (if provided) reflects how this person actually talks about this pain — concepts that borrow that language will resonate harder.${req.customContext?.trim() ? ' The marketer context above takes priority — integrate it directly into the concepts.' : ''}`
+The buyer verbatim (if provided) reflects how this person actually talks about this pain — concepts that borrow that language will resonate harder. The selected implication (if provided) is the validated emotional truth this persona feels — let it shape the hook, tone, and narrative of every concept.${req.customContext?.trim() ? ' The marketer context above takes priority — integrate it directly into the concepts.' : ''}`
 }
 
 // ─── Educational Asset Generation ────────────────────────────────────────────

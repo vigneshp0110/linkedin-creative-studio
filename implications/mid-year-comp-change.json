@@ -1,0 +1,94 @@
+{
+  "ops-x-leadership": [
+    {
+      "id": "loss-of-control",
+      "label": "Loss of Control",
+      "expansion": "The system is supposed to be yours to run. Right now, it runs you."
+    },
+    {
+      "id": "credibility-at-risk",
+      "label": "Credibility at Risk",
+      "expansion": "Every downstream error traces back to your team. You become the bottleneck everyone blames when comp goes wrong."
+    }
+  ],
+  "ops-x-champion": [
+    {
+      "id": "scapegoat-risk",
+      "label": "Scapegoat Risk",
+      "expansion": "When a number is wrong and there's no audit trail, you own the error. There's no proof of what the plan originally said."
+    },
+    {
+      "id": "invisible-labor",
+      "label": "Invisible Labor",
+      "expansion": "No credit when it works. Full blame when it doesn't."
+    },
+    {
+      "id": "cant-execute",
+      "label": "Can't Execute What Leadership Asks",
+      "expansion": "You're stuck telling your manager the system can't do what they need. That's not a tool problem — that's a credibility gap."
+    }
+  ],
+  "finance-x-leadership": [
+    {
+      "id": "loss-of-authority",
+      "label": "Loss of Authority",
+      "expansion": "If comp changes happen without clean financial modelling, the CFO starts questioning whether Finance has a real handle on spend."
+    },
+    {
+      "id": "blind-side-risk",
+      "label": "Blind-Side Risk",
+      "expansion": "By the time the exposure surfaces at close, it's a problem you're explaining — not preventing."
+    },
+    {
+      "id": "holding-the-bag",
+      "label": "Holding the Bag",
+      "expansion": "The plan wasn't wrong. You're carrying risk you didn't create."
+    }
+  ],
+  "finance-x-champion": [
+    {
+      "id": "compliance-exposure",
+      "label": "Compliance Exposure",
+      "expansion": "If the books are ever questioned, you can't reconstruct what changed, when, or why. That's not a process gap — that's a liability."
+    },
+    {
+      "id": "permanent-catchup",
+      "label": "Permanent Catch-Up Mode",
+      "expansion": "You never get ahead. Always cleaning up the last change when the next one lands."
+    },
+    {
+      "id": "period-close-asterisk",
+      "label": "Every Period Close Has an Asterisk",
+      "expansion": "You can never fully close a period. Every month-end has an open question attached to it."
+    }
+  ],
+  "sales-comp-x-leadership": [
+    {
+      "id": "trust-erosion",
+      "label": "Trust Erosion",
+      "expansion": "The moment attainment drops overnight without warning, you've lost them. Disengaged reps don't close pipeline."
+    },
+    {
+      "id": "cant-trust-data",
+      "label": "Can't Trust Your Own Data",
+      "expansion": "When quotas change without version history, you're forecasting off numbers you're not sure are correct."
+    },
+    {
+      "id": "defending-decisions",
+      "label": "Defending Decisions You Didn't Make",
+      "expansion": "The comp leader becomes the face of a business decision they had no control over."
+    }
+  ],
+  "sales-comp-x-champion": [
+    {
+      "id": "constant-firefighting",
+      "label": "Constant Firefighting",
+      "expansion": "Every new hire, every promotion, every territory change becomes a manual emergency. No system — just you, a spreadsheet, and a deadline."
+    },
+    {
+      "id": "youre-the-bottleneck",
+      "label": "You're the Bottleneck",
+      "expansion": "When the process can't handle change, everything routes through you. One error away from a rep disputing their pay."
+    }
+  ]
+}
