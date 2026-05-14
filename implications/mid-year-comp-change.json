@@ -1,94 +1,292 @@
 {
-  "ops-x-leadership": [
-    {
-      "id": "loss-of-control",
-      "label": "Loss of Control",
-      "expansion": "The system is supposed to be yours to run. Right now, it runs you."
+  "ops-x-leadership": {
+    "account-territory-reassignment-at-scale": {
+      "angle-2": [
+        {
+          "id": "manual-reassignment-exposure",
+          "label": "One Reassignment, Infinite Downstream Risk",
+          "expansion": "Every territory move you make by hand is a thread you pulled — and you won't know what unraveled until a rep disputes their Q3 payout."
+        },
+        {
+          "id": "logic-owner-by-default",
+          "label": "You Become the Commission System",
+          "expansion": "When there's no infrastructure to handle reassignment cleanly, the logic lives in your head. You're not running the process — you are the process."
+        }
+      ],
+      "angle-1": [
+        {
+          "id": "rebuild-every-time",
+          "label": "Perpetual Rebuild Tax",
+          "expansion": "Every reassignment shouldn't require you to tear down and reconstruct the entire comp structure. When it does, you're not running ops — you're doing damage control on a system that was never built to flex."
+        },
+        {
+          "id": "no-clean-record",
+          "label": "No Clean Source of Truth",
+          "expansion": "When leadership asks who owned what account and when, you're piecing together a timeline from spreadsheet versions and memory. That's not a system — that's a liability you're carrying alone."
+        },
+        {
+          "id": "rep-trust-erosion",
+          "label": "Rep Trust on the Line",
+          "expansion": "Every misattributed deal or missed credit tied to a reassignment lands on you. Reps don't see the complexity — they see a paycheck that doesn't match what they were promised."
+        }
+      ]
     },
-    {
-      "id": "credibility-at-risk",
-      "label": "Credibility at Risk",
-      "expansion": "Every downstream error traces back to your team. You become the bottleneck everyone blames when comp goes wrong."
+    "mid-year-comp-restructure-complexity": {
+      "angle-2": [
+        {
+          "id": "strategy-hostage-to-tooling",
+          "label": "Strategy Held Hostage",
+          "expansion": "You've aligned on the right comp structure. But the system can't execute it — so leadership sits on a decision that should already be live."
+        },
+        {
+          "id": "ops-owns-the-delay",
+          "label": "Ops Owns the Delay",
+          "expansion": "The business is waiting on you — not because the thinking is wrong, but because the tooling can't keep up. You become the reason the change didn't happen."
+        },
+        {
+          "id": "dread-as-a-design-constraint",
+          "label": "Dread as a Design Constraint",
+          "expansion": "When you scope a new comp structure around what the system can handle, the fear of implementation is already shaping what you're willing to propose."
+        }
+      ],
+      "angle-1": [
+        {
+          "id": "system-runs-you",
+          "label": "Loss of Control",
+          "expansion": "The plan is supposed to serve the business pivot. Instead, your spreadsheet decides what's possible. Leadership changes the strategy — you inherit the chaos."
+        },
+        {
+          "id": "change-order-scapegoat",
+          "label": "Scapegoat Risk",
+          "expansion": "When a rep gets paid on the old structure because a version wasn't propagated correctly, there's no audit trail proving when the change was made — just your name on the file."
+        },
+        {
+          "id": "ops-ceiling",
+          "label": "Competence Ceiling",
+          "expansion": "Every mid-year restructure exposes the same limit: your process can't keep up with the business. Leadership doesn't see the spreadsheet — they see an ops function that can't execute."
+        }
+      ]
     }
-  ],
-  "ops-x-champion": [
-    {
-      "id": "scapegoat-risk",
-      "label": "Scapegoat Risk",
-      "expansion": "When a number is wrong and there's no audit trail, you own the error. There's no proof of what the plan originally said."
+  },
+  "ops-x-champion": {
+    "plan-amendment-without-rebuilding-history": {
+      "angle-1": [
+        {
+          "id": "restatement-owns-you",
+          "label": "History Becomes Your Problem",
+          "expansion": "When the plan changes mid-year, every prior period becomes a question mark you have to re-answer. You're not managing compensation — you're managing a restatement."
+        },
+        {
+          "id": "no-clean-record",
+          "label": "No Defensible Source of Truth",
+          "expansion": "If someone audits attainment against the new structure, you have no clean record to point to. The plan changed, but the history didn't — and that gap is yours to explain."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "retroactive-rebuild-trap",
+          "label": "The Rebuild Is On You",
+          "expansion": "When leadership decides to backdate a change, the tool says no — so you become the workaround. Every hour you spend manually reconstructing history is an hour you're doing the system's job."
+        },
+        {
+          "id": "history-rewrite-liability",
+          "label": "You Own What You Can't Prove",
+          "expansion": "A retroactive change with no audit trail means you're the only record of what happened. If a rep disputes it, there's no versioned history to show — just your word against theirs."
+        }
+      ]
     },
-    {
-      "id": "invisible-labor",
-      "label": "Invisible Labor",
-      "expansion": "No credit when it works. Full blame when it doesn't."
-    },
-    {
-      "id": "cant-execute",
-      "label": "Can't Execute What Leadership Asks",
-      "expansion": "You're stuck telling your manager the system can't do what they need. That's not a tool problem — that's a credibility gap."
+    "version-control-across-plan-periods": {
+      "angle-1": [
+        {
+          "id": "history-rewritten",
+          "label": "History Gets Rewritten",
+          "expansion": "When the original plan is gone, so is your proof. You can't defend what the plan said in January if March's version is the only one that exists."
+        },
+        {
+          "id": "scapegoat-with-no-receipt",
+          "label": "Scapegoat With No Receipt",
+          "expansion": "A rep disputes their Q1 payout under a plan that no longer exists on paper. You remember what it said. That's not the same as being able to show it."
+        }
+      ]
     }
-  ],
-  "finance-x-leadership": [
-    {
-      "id": "loss-of-authority",
-      "label": "Loss of Authority",
-      "expansion": "If comp changes happen without clean financial modelling, the CFO starts questioning whether Finance has a real handle on spend."
-    },
-    {
-      "id": "blind-side-risk",
-      "label": "Blind-Side Risk",
-      "expansion": "By the time the exposure surfaces at close, it's a problem you're explaining — not preventing."
-    },
-    {
-      "id": "holding-the-bag",
-      "label": "Holding the Bag",
-      "expansion": "The plan wasn't wrong. You're carrying risk you didn't create."
+  },
+  "finance-x-leadership": {
+    "accrual-budget-impact-of-mid-year-changes": {
+      "angle-1": [
+        {
+          "id": "reforecast-on-demand",
+          "label": "Reactive by Design",
+          "expansion": "Every mid-year change turns you into a cleanup crew. You're not forecasting the business — you're catching up to decisions Finance wasn't part of making."
+        },
+        {
+          "id": "number-you-cant-defend",
+          "label": "The Number You Can't Stand Behind",
+          "expansion": "When the accrual shifts mid-period, you're presenting a commission expense figure with an asterisk. Leadership sees a restatement — you see your credibility walking out the door."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "approving-blind",
+          "label": "Approving Blind",
+          "expansion": "You're being asked to sign off on a comp change with no forward-looking cost model. That's not an approval — that's a guess with your name on it."
+        },
+        {
+          "id": "budget-integrity-at-stake",
+          "label": "Budget Integrity at Stake",
+          "expansion": "When accruals shift mid-year and the variance hits the P&L, Finance doesn't get to say they were surprised. You own the number — even when you never owned the decision."
+        }
+      ]
     }
-  ],
-  "finance-x-champion": [
-    {
-      "id": "compliance-exposure",
-      "label": "Compliance Exposure",
-      "expansion": "If the books are ever questioned, you can't reconstruct what changed, when, or why. That's not a process gap — that's a liability."
-    },
-    {
-      "id": "permanent-catchup",
-      "label": "Permanent Catch-Up Mode",
-      "expansion": "You never get ahead. Always cleaning up the last change when the next one lands."
-    },
-    {
-      "id": "period-close-asterisk",
-      "label": "Every Period Close Has an Asterisk",
-      "expansion": "You can never fully close a period. Every month-end has an open question attached to it."
+  },
+  "finance-x-champion": {
+    "reprocessing-change-audit-trail": {
+      "angle-1": [
+        {
+          "id": "no-proof-you-were-right",
+          "label": "No Proof You Were Right",
+          "expansion": "When someone questions the number, you can't show your work. There's no record of what the plan said before the change — only what it says now."
+        },
+        {
+          "id": "reprocessing-owns-you",
+          "label": "Reprocessing Owns You",
+          "expansion": "Every mid-year change sends you back to period one. The close isn't a finish line — it's just the start of another manual rebuild you have to run alone."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "retroactive-reconciliation-void",
+          "label": "Reconciliation Without Ground Truth",
+          "expansion": "When a retroactive change rewrites history, you're not reconciling numbers — you're reconstructing them. Every period you thought was closed quietly isn't."
+        },
+        {
+          "id": "manual-investigation-ownership",
+          "label": "You Become the Audit",
+          "expansion": "There's no system of record, so the investigation is you — your time, your credibility, your name on a number you had to manually reverse-engineer."
+        }
+      ]
     }
-  ],
-  "sales-comp-x-leadership": [
-    {
-      "id": "trust-erosion",
-      "label": "Trust Erosion",
-      "expansion": "The moment attainment drops overnight without warning, you've lost them. Disengaged reps don't close pipeline."
+  },
+  "sales-comp-x-leadership": {
+    "mid-year-quota-change-rep-communication": {
+      "angle-2": [
+        {
+          "id": "version-chaos-credibility",
+          "label": "Version Chaos Credibility",
+          "expansion": "When a rep pulls up last month's plan doc and it doesn't match what you announced, you're not the source of truth anymore — you're the source of confusion."
+        },
+        {
+          "id": "change-you-cant-prove",
+          "label": "Change You Can't Prove",
+          "expansion": "You made the update, sent the email, held the call — but if there's no audit trail showing who saw what and when, you're one dispute away from owning a rollout you can't defend."
+        }
+      ],
+      "angle-1": [
+        {
+          "id": "trust-collapse-overnight",
+          "label": "Trust Collapsed Overnight",
+          "expansion": "You didn't change the relationship — a number did. But the rep doesn't see the system, they see you. You become the person who moved the goalposts."
+        },
+        {
+          "id": "attainment-math-you-cant-defend",
+          "label": "Math You Can't Defend",
+          "expansion": "The rep's dashboard says 74% attainment. Last week it said 91%. Nothing changed in their pipeline — only your decision did. Now you're explaining arithmetic instead of leading."
+        },
+        {
+          "id": "credibility-priced-into-the-plan",
+          "label": "Credibility Priced Into the Plan",
+          "expansion": "Every future comp announcement arrives with a shadow of doubt. You said the number once. Then you changed it. Reps stop trusting the plan — and they stop trusting you to protect them."
+        }
+      ]
     },
-    {
-      "id": "cant-trust-data",
-      "label": "Can't Trust Your Own Data",
-      "expansion": "When quotas change without version history, you're forecasting off numbers you're not sure are correct."
-    },
-    {
-      "id": "defending-decisions",
-      "label": "Defending Decisions You Didn't Make",
-      "expansion": "The comp leader becomes the face of a business decision they had no control over."
+    "rep-promotion-mid-year": {
+      "angle-2": [
+        {
+          "id": "manual-math-owns-you",
+          "label": "The Math Owns You",
+          "expansion": "A promotion should be a moment you own. Instead, you're buried in a spreadsheet, reverse-engineering attainment history just to honor a decision that's already been made."
+        },
+        {
+          "id": "wrong-number-wrong-rep",
+          "label": "One Wrong Carry, One Angry Rep",
+          "expansion": "If that carryforward is off by even a percentage point, the rep who just got promoted is the first one to notice — and you're the one explaining it."
+        }
+      ],
+      "angle-1": [
+        {
+          "id": "promotion-becomes-punishment",
+          "label": "Promotion Becomes Punishment",
+          "expansion": "You championed a rep's promotion. Now the comp transition is broken, and they're questioning their first paycheck in the new role. That win you created just became your liability."
+        },
+        {
+          "id": "manual-as-the-system",
+          "label": "Manual Is the System",
+          "expansion": "Every promotion triggers a one-off fix you have to build by hand. The process doesn't scale — and neither do you."
+        }
+      ]
     }
-  ],
-  "sales-comp-x-champion": [
-    {
-      "id": "constant-firefighting",
-      "label": "Constant Firefighting",
-      "expansion": "Every new hire, every promotion, every territory change becomes a manual emergency. No system — just you, a spreadsheet, and a deadline."
+  },
+  "sales-comp-x-champion": {
+    "new-hire-ramp-quota-proration": {
+      "angle-1": [
+        {
+          "id": "ramp-math-owns-you",
+          "label": "The Math Owns You",
+          "expansion": "Every new hire joining mid-quarter means you're back in a spreadsheet, reverse-engineering a proration formula. The system didn't break — you just never had one."
+        },
+        {
+          "id": "first-paycheck-credibility",
+          "label": "First Paycheck Is a Test",
+          "expansion": "A new rep's first commission check is when they decide if they trust comp. One ramp error and you've already lost them — before they've closed a single deal."
+        },
+        {
+          "id": "invisible-error-surface",
+          "label": "Errors Surface Late",
+          "expansion": "Manual proration mistakes don't show up until a rep disputes their number at quarter-end. By then, you're not fixing a calculation — you're defending your process to the CRO."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "manual-update-owns-you",
+          "label": "The Process Owns You",
+          "expansion": "Ramp schedules are supposed to run on autopilot. Instead, you're the human cron job — manually re-entering percentages every month so the math stays honest."
+        },
+        {
+          "id": "one-missed-update-blame",
+          "label": "One Miss, Full Blame",
+          "expansion": "If you forget to update a ramp tier mid-month, the rep's quota is wrong, their attainment is wrong, and you're the reason a new hire's first paycheck is a trust-breaker."
+        },
+        {
+          "id": "architect-reduced-to-admin",
+          "label": "Architect Reduced to Admin",
+          "expansion": "You designed the ramp structure. Now you spend your time executing it by hand — not because it's complex, but because the system won't do what you already decided."
+        }
+      ]
     },
-    {
-      "id": "youre-the-bottleneck",
-      "label": "You're the Bottleneck",
-      "expansion": "When the process can't handle change, everything routes through you. One error away from a rep disputing their pay."
+    "role-territory-change-mid-quarter": {
+      "angle-1": [
+        {
+          "id": "manual-split-ownership",
+          "label": "You Own Every Rounding Error",
+          "expansion": "When attainment has to be hand-split across two roles, the math is yours to defend. One disputed number and you're the one in the rep's Slack at 9pm explaining a spreadsheet."
+        },
+        {
+          "id": "transition-limbo-credibility",
+          "label": "The Plan Lags the Business",
+          "expansion": "Leadership moved the rep. You're still reconciling who they used to be. The business already made the call — your system just hasn't caught up."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "disputed-deals-disputed-judgment",
+          "label": "Disputed Deals, Disputed Judgment",
+          "expansion": "When two reps both claim credit for the same closed deal, you're not just resolving a dispute — you're the one who drew the line, and now your call defines who trusts you."
+        },
+        {
+          "id": "no-clean-answer-only-your-answer",
+          "label": "No Clean Answer, Only Your Answer",
+          "expansion": "There's no system of record for who touched what before the boundary moved. So every ruling is a judgment call — and judgment calls can always be wrong, publicly."
+        }
+      ]
     }
-  ]
+  }
 }

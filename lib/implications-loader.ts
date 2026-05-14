@@ -2,26 +2,37 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { Implication } from './types'
 
-type ImplicationsMap = Record<string, Implication[]>
+// nested: comboId → themeId → angleId → Implication[]
+type ImplicationsMap = Record<string, Record<string, Record<string, Implication[]>>>
 
 const IMPLICATIONS_CONFIG: Record<string, string> = {
-  'mid-year-comp-change': 'mid-year-comp-change.json',
-  // add more campaign themes here as implications are authored
+  'xactly-displacement':     'xactly-displacement.json',
+  'spreadsheet-displacement': 'spreadsheet-displacement.json',
+  'mid-year-comp-change':    'mid-year-comp-change.json',
 }
 
-export function getImplications(campaignThemeId: string, personaGroupId: string): Implication[] {
+function loadMap(campaignThemeId: string): ImplicationsMap | null {
   const file = IMPLICATIONS_CONFIG[campaignThemeId]
-  if (!file) return []
+  if (!file) return null
   const filePath = path.join(process.cwd(), 'implications', file)
   try {
-    const content = fs.readFileSync(filePath, 'utf-8')
-    const map = JSON.parse(content) as ImplicationsMap
-    return map[personaGroupId] ?? []
+    return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as ImplicationsMap
   } catch {
-    return []
+    return null
   }
 }
 
-export function hasImplications(campaignThemeId: string): boolean {
+export function getImplications(
+  campaignThemeId: string,
+  personaGroupId: string,
+  themeId: string,
+  angleId: string
+): Implication[] {
+  const map = loadMap(campaignThemeId)
+  if (!map) return []
+  return map[personaGroupId]?.[themeId]?.[angleId] ?? []
+}
+
+export function hasImplicationsForCampaign(campaignThemeId: string): boolean {
   return campaignThemeId in IMPLICATIONS_CONFIG
 }

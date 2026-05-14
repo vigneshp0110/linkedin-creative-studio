@@ -1,0 +1,1041 @@
+{
+  "ops-x-leadership": {
+    "it-bottleneck-no-code-self-service": {
+      "angle-1": [
+        {
+          "id": "not-your-system-anymore",
+          "label": "It's Not Your System",
+          "expansion": "You own the comp process, but you can't touch the system that runs it. Every change requires a ticket, a queue, and someone else's calendar."
+        },
+        {
+          "id": "authority-without-access",
+          "label": "Authority Without Access",
+          "expansion": "Leadership holds you accountable for comp outcomes you're not empowered to control. You're responsible for a machine you're not allowed to operate."
+        },
+        {
+          "id": "it-becomes-the-decision-maker",
+          "label": "IT Becomes the Comp Team",
+          "expansion": "When IT controls what changes and when, they're effectively setting the pace of your business. You stop being the expert and start being the requester."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "ops-held-hostage",
+          "label": "Held Hostage by IT",
+          "expansion": "You own comp outcomes but can't touch the system that drives them. Every routine plan change requires a ticket, a queue, and someone else's priority list."
+        },
+        {
+          "id": "leadership-velocity-cost",
+          "label": "Strategy Waits on a Backlog",
+          "expansion": "Leadership calls for a plan adjustment — you have a timeline answer, not a comp answer. Your ability to execute looks like the bottleneck, even when the bottleneck is the tool."
+        },
+        {
+          "id": "admin-expertise-erased",
+          "label": "Your Expertise Doesn't Count",
+          "expansion": "You know exactly what the plan needs. But without code access, that knowledge stops at the door — and someone who doesn't understand the business makes the build."
+        }
+      ]
+    },
+    "ps-dependency-change-agility": {
+      "angle-1": [
+        {
+          "id": "strategy-held-hostage",
+          "label": "Strategy Held Hostage",
+          "expansion": "You're the one accountable for comp strategy, but a vendor's PS queue decides when — or whether — it actually moves. You stopped leading. You started waiting."
+        },
+        {
+          "id": "self-censoring-your-own-roadmap",
+          "label": "Roadmap Self-Censorship",
+          "expansion": "Your team stopped asking for changes they know the business needs. The backlog isn't in the system — it's in their heads, quietly killing your ability to respond to anything."
+        },
+        {
+          "id": "ps-ticket-as-proof-of-failure",
+          "label": "Vendor Dependency on Display",
+          "expansion": "Every ticket you open is a visible reminder that you don't own the system you're responsible for. Leadership sees the lag. They don't see the PS queue — they see you."
+        }
+      ],
+      "angle-3": [
+        {
+          "id": "expertise-hostage",
+          "label": "Expertise Held Hostage",
+          "expansion": "The moment your Xactly admin leaves, the system stops being a tool you own and becomes a puzzle you're paying someone else to solve. Your org chart changed — your comp system shouldn't require a rescue mission."
+        },
+        {
+          "id": "reorg-restart-risk",
+          "label": "Every Reorg Resets the Clock",
+          "expansion": "Leadership restructures the business to move faster. You're the one explaining why comp operations need six weeks and a consultant to catch up. The org moved forward — you're still at the starting line."
+        },
+        {
+          "id": "continuity-liability",
+          "label": "You're the Continuity Risk",
+          "expansion": "When institutional knowledge lives in one person and that person walks, the exposure routes back to whoever approved that dependency. In a post-reorg audit, that's you."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "capacity-consumed-by-maintenance",
+          "label": "Strategist Turned System Admin",
+          "expansion": "You hired for strategic RevOps — roadmap, pipeline velocity, revenue architecture. Instead, your best people are doing Xactly housekeeping. That's not a tool problem. That's a talent problem you're funding."
+        },
+        {
+          "id": "org-held-hostage-by-platform",
+          "label": "Platform Owns Your Headcount",
+          "expansion": "When the platform requires dedicated headcount just to stay operational, the vendor isn't serving your org — your org is serving the vendor. Leadership sees the HC. They don't always see why it exists."
+        },
+        {
+          "id": "change-agility-is-someone-elses-backlog",
+          "label": "Agility Gated by a Ticket Queue",
+          "expansion": "Every time the business needs comp to move — new plan, new role, mid-year adjustment — it routes through the person keeping Xactly alive. You can't move at the speed the business needs when change is someone's full-time job."
+        }
+      ]
+    },
+    "strategic-opportunity-cost": {
+      "angle-2": [
+        {
+          "id": "perpetual-firefighter",
+          "label": "Permanently Reactive",
+          "expansion": "You were hired to build something. Three years in, you're still just keeping the lights on — and the roadmap you promised leadership looks exactly like it did on day one."
+        },
+        {
+          "id": "strategic-credibility-erosion",
+          "label": "Vision Without Execution",
+          "expansion": "Every quarter you re-pitch the same initiatives. At some point, leadership stops believing you can deliver — not because the ideas are bad, but because the system won't let you touch them."
+        },
+        {
+          "id": "org-ceiling",
+          "label": "The Tool Sets Your Ceiling",
+          "expansion": "Your growth, your team's scope, your seat at the table — all of it is capped by how much Xactly needs babysitting. The tool isn't supporting your ambition. It's replacing it."
+        }
+      ],
+      "angle-1": [
+        {
+          "id": "firefighting-defines-you",
+          "label": "Firefighting Becomes Your Identity",
+          "expansion": "You were hired to architect strategy. But if every sprint is consumed by Xactly triage, 'the person who keeps comp from breaking' is the only version of you leadership sees."
+        },
+        {
+          "id": "strategy-tax",
+          "label": "The Strategy Tax",
+          "expansion": "Every quota model you didn't build, every territory experiment you deferred — that's not backlog. That's the revenue your org didn't capture because your bandwidth was funding someone else's infrastructure debt."
+        },
+        {
+          "id": "seat-at-the-table-deferred",
+          "label": "Seat at the Table, Deferred",
+          "expansion": "RevOps earns strategic influence by showing what's possible. When your best work is invisible maintenance, the promotion case and the cross-functional credibility both stay perpetually one quarter away."
+        }
+      ]
+    },
+    "implementation-speed-vendor-risk": {
+      "angle-1": [
+        {
+          "id": "held-hostage-by-consultants",
+          "label": "Held Hostage by Consultants",
+          "expansion": "You don't own the system — the SI does. Every change, every tweak, every urgent fix requires re-engaging a firm that charges by the hour and answers to no one on your timeline."
+        },
+        {
+          "id": "institutional-knowledge-void",
+          "label": "Knowledge That Never Landed",
+          "expansion": "Six months of implementation, and nothing transferred. The day the consultants leave, your team can't explain why the plan works — only that it does, until it doesn't."
+        },
+        {
+          "id": "leadership-confidence-erosion",
+          "label": "You Can't Speak to Your Own System",
+          "expansion": "When leadership asks why a payout looks wrong or wants to model a plan change, you have to say 'I'll need to check with the vendor.' That's not ops running comp — that's ops renting it."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "budget-credibility-collapse",
+          "label": "Budget Credibility Collapse",
+          "expansion": "You signed off on a number that tripled before the system went live. That's not a vendor problem anymore — that's your forecast problem."
+        },
+        {
+          "id": "hostage-to-the-integrator",
+          "label": "Hostage to the Integrator",
+          "expansion": "You bought software but you're paying for a consulting engagement you never scoped. The vendor controls the timeline, the cost, and your go-live — and you're just approving invoices."
+        },
+        {
+          "id": "year-one-roi-is-fiction",
+          "label": "Year-One ROI Is Fiction",
+          "expansion": "Every business case you built assumed license cost. When implementation fees exceed it, the ROI story you sold leadership is already underwater before a single rep logs in."
+        }
+      ]
+    },
+    "legacy-platform-trajectory": {
+      "angle-2": [
+        {
+          "id": "loyalty-to-the-known-loss",
+          "label": "Defending a Platform Nobody Likes",
+          "expansion": "Your team isn't loyal to Xactly — they're afraid of the unknown. You've been protecting a status quo no one actually believes in."
+        },
+        {
+          "id": "change-agent-credibility",
+          "label": "You Sensed It First, But Said Nothing",
+          "expansion": "You knew the platform wasn't working. But because the migration risk felt too loud to argue with, you let the pain compound. Now leadership is asking why you waited."
+        },
+        {
+          "id": "resistance-as-cover",
+          "label": "The Resistance Was Never Yours to Fix",
+          "expansion": "Team reluctance got misread as a people problem — when it was a visibility problem. You were managing friction that a better demo would have dissolved."
+        }
+      ],
+      "angle-1": [
+        {
+          "id": "building-on-borrowed-time",
+          "label": "Building on Borrowed Time",
+          "expansion": "Every workflow you've optimized, every workaround you've institutionalized — it's equity in a platform that's quietly becoming obsolete. You're not running ops, you're maintaining a legacy."
+        },
+        {
+          "id": "roadmap-hostage",
+          "label": "Roadmap Hostage",
+          "expansion": "When leadership asks what's next, you can't point to a vendor innovating alongside you. You're defending a platform's past, not selling its future — and everyone in the room knows it."
+        },
+        {
+          "id": "first-name-on-the-migration",
+          "label": "First Name on the Migration",
+          "expansion": "The longer you stay, the more the eventual rip-and-replace becomes your decision to explain. You didn't choose this platform to become the person who waited too long."
+        }
+      ]
+    }
+  },
+  "ops-x-champion": {
+    "manual-workflow-tax": {
+      "angle-1": [
+        {
+          "id": "day-lost-to-busywork",
+          "label": "Expertise Reduced to Data Entry",
+          "expansion": "You built your career on systems thinking and process design. Spending a full day clicking through 55 rep records isn't ops work — it's clerical work wearing your job title."
+        },
+        {
+          "id": "change-velocity-anchor",
+          "label": "You're the Reason It's Slow",
+          "expansion": "When leadership wants a plan change live by Monday, the bottleneck isn't the decision — it's you, manually executing it one record at a time. The tool made you the delay."
+        },
+        {
+          "id": "scale-ceiling-exposed",
+          "label": "The System Can't Grow With You",
+          "expansion": "At 55 reps it costs a full day. At 150 reps, it breaks entirely. You already know this — and you're the one who'll have to explain why comp ops can't support the next hiring wave."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "architect-reduced-to-typist",
+          "label": "Architect Reduced to Typist",
+          "expansion": "You built the comp logic once. Xactly makes you rebuild it every time. You're not designing the system anymore — you're just retyping it."
+        },
+        {
+          "id": "scale-without-leverage",
+          "label": "Scale Without Leverage",
+          "expansion": "Every new segment the business adds lands on your plate as a full recode project. You absorb the company's growth as your personal workload."
+        },
+        {
+          "id": "the-tool-you-championed-is-the-bottleneck",
+          "label": "The Tool You Championed Is the Bottleneck",
+          "expansion": "You're the one who owns Xactly. When a segment launch stalls because comp logic has to be rebuilt from scratch, that delay has your name on it."
+        }
+      ],
+      "angle-3": [
+        {
+          "id": "groundhog-day-tax",
+          "label": "Groundhog Day Tax",
+          "expansion": "You've solved this problem before — every single month. The fact that you're still solving it means the tool is making you the automation it refuses to be."
+        },
+        {
+          "id": "expertise-becomes-liability",
+          "label": "Expertise Becomes Liability",
+          "expansion": "You built the logic. You own the re-run. The deeper your institutional knowledge, the more irreplaceable — and the more trapped — you are in a process that should have been retired."
+        },
+        {
+          "id": "champion-credibility-drain",
+          "label": "Champion Credibility Drain",
+          "expansion": "You sold the org on this stack. Every refresh that still requires manual intervention is a quiet case against your judgment — one your stakeholders are already noticing."
+        }
+      ]
+    },
+    "quarter-close-admin-burden": {
+      "angle-1": [
+        {
+          "id": "ritual-you-cant-escape",
+          "label": "Ritual You Can't Escape",
+          "expansion": "Quarter-close isn't a process you run — it's a sentence you serve. Every 90 days, the same nights, the same Slack threads, the same question: why does this still take this long?"
+        },
+        {
+          "id": "system-you-championed-owns-you",
+          "label": "The System You Championed Owns You",
+          "expansion": "You were the one who pushed for Xactly. Now every all-hands close is a quiet reminder that the tool you backed still needs a spreadsheet to finish the job."
+        },
+        {
+          "id": "capacity-consumed-invisibly",
+          "label": "Capacity Consumed Invisibly",
+          "expansion": "No one sees the 11pm cross-referencing — they only see the output. Your team's best hours disappear into reconciliation work that looks like nothing from the outside."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "you-are-the-delay",
+          "label": "You Are the Delay",
+          "expansion": "Reps aren't waiting on payroll — they're waiting on you. Every day the validation drags, your name is the one attached to why commissions aren't out yet."
+        },
+        {
+          "id": "accuracy-as-afterthought",
+          "label": "Accuracy Becomes an Apology",
+          "expansion": "When statements finally land weeks late, the first thing reps do is check for errors. You spent days validating — and they still don't trust the number."
+        },
+        {
+          "id": "quarter-never-really-closes",
+          "label": "The Quarter Never Really Closes",
+          "expansion": "Everyone else moves on to Q-next. You're still reconciling Q-last. The scoreboard has moved but you're still explaining the final score."
+        }
+      ]
+    },
+    "data-integration-discrepancies": {
+      "angle-1": [
+        {
+          "id": "groundhog-month",
+          "label": "Groundhog Month",
+          "expansion": "You're not solving the discrepancy — you're scheduling it. The same gap appears, you explain it again, and next month you do it all over. You're not running the process; you're trapped in it."
+        },
+        {
+          "id": "credibility-by-spreadsheet",
+          "label": "Credibility by Spreadsheet",
+          "expansion": "Every time a rep points at two numbers that don't match, they're not questioning Xactly — they're questioning you. Your authority lives or dies by your ability to explain a delta that shouldn't exist."
+        },
+        {
+          "id": "champion-without-a-source-of-truth",
+          "label": "Champion Without a Source of Truth",
+          "expansion": "You're the person who sold leadership on this system. Now you're the one manually bridging it to Salesforce every month. That gap isn't a data problem — it's evidence the platform can't stand on its own."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "data-sherpa-not-owner",
+          "label": "Data Sherpa, Not Owner",
+          "expansion": "You spend the quarter chasing inputs from Finance, Sales, and RevOps just to feed a tool that should already know. You're not running comp — you're running data logistics."
+        },
+        {
+          "id": "system-of-record-vacuum",
+          "label": "No Single Source of Truth",
+          "expansion": "When a rep disputes a number, you have no authoritative system to point to — just a patchwork of exports and manual merges. Your credibility rides on a spreadsheet you hope no one audits."
+        },
+        {
+          "id": "quarterly-fragility-exposure",
+          "label": "Every Quarter Is a Rebuild",
+          "expansion": "The process resets from scratch each cycle because nothing is connected. You're not scaling a system — you're duct-taping the same broken workflow every 90 days and calling it a close."
+        }
+      ]
+    },
+    "sandbox-testing-overhead": {
+      "angle-2": [
+        {
+          "id": "spiff-reflects-you",
+          "label": "Competence Becomes Visible",
+          "expansion": "A spiff is supposed to be a fast lever — when it takes you a full day to pull it, leadership starts wondering if the tool is the problem or you are."
+        },
+        {
+          "id": "agility-tax",
+          "label": "You're the Speed Bump",
+          "expansion": "Sales wants to move fast on a promotion. You're the reason it doesn't. Not because you're slow — because the system charges you a full day just to say yes."
+        },
+        {
+          "id": "sandbox-labor-invisible",
+          "label": "Invisible Execution Tax",
+          "expansion": "Every spiff that ships clean looks effortless to everyone above you. No one sees the day you burned to make a three-week incentive work."
+        }
+      ],
+      "angle-1": [
+        {
+          "id": "double-maintenance-trap",
+          "label": "Doing Every Job Twice",
+          "expansion": "You built the sandbox to protect production. Instead, it became a second system you're responsible for keeping alive — and when they drift, the failure is yours to explain."
+        },
+        {
+          "id": "false-confidence-risk",
+          "label": "The Test That Lied to You",
+          "expansion": "Your sandbox said it would work. Production said otherwise. You're the one who signed off on the rollout — and there's no clean way to say the environments weren't in sync."
+        },
+        {
+          "id": "change-cycle-hostage",
+          "label": "Held Hostage by Deployment Timing",
+          "expansion": "Every plan change waits on coordination you don't fully control. The business moves; your release window doesn't — and you become the reason comp changes are slow."
+        }
+      ]
+    },
+    "rep-dispute-volume": {
+      "angle-1": [
+        {
+          "id": "trust-drain",
+          "label": "Trust You Can't Rebuild",
+          "expansion": "When reps can't see how their number was calculated, they don't trust the number — they distrust you. Every dispute is a vote of no confidence in the system you own."
+        },
+        {
+          "id": "worst-week-tax",
+          "label": "Quarter-End Hostage",
+          "expansion": "Forty hours a quarter, consumed by disputes — not during slow weeks, but the exact moments you need to be executing. You're not running the close. You're doing damage control."
+        },
+        {
+          "id": "black-box-blame",
+          "label": "Opacity Owns You",
+          "expansion": "You can't defend a calculation you can't show. When a rep escalates, you become the face of a black box — and the only way out is manual work no one sees and no one credits."
+        }
+      ]
+    }
+  },
+  "finance-x-leadership": {
+    "hidden-total-cost-of-ownership": {
+      "angle-1": [
+        {
+          "id": "budget-credibility-collapse",
+          "label": "Budget Credibility Collapse",
+          "expansion": "You signed off on a platform cost. Now the real number is 40% higher and sitting across three budget lines. That's not a vendor problem — that's your forecast that was wrong."
+        },
+        {
+          "id": "invisible-dependency",
+          "label": "Invisible Dependency",
+          "expansion": "Every renewal conversation assumes the consultants stay. You didn't buy a platform — you bought a platform plus a permanent services contract you can never fully exit."
+        },
+        {
+          "id": "cost-model-you-cant-defend",
+          "label": "Cost Model You Can't Defend",
+          "expansion": "When the CFO asks why comp tech spend keeps climbing, you're explaining variances across three budget owners. The number was never clean — and now it's your job to make it look like it was."
+        }
+      ],
+      "angle-3": [
+        {
+          "id": "budget-credibility-collapse",
+          "label": "Budget Credibility Collapse",
+          "expansion": "You signed off on a number that turned out not to be the number. Now every renewal conversation makes you look like you didn't read the contract — or didn't know what you were buying."
+        },
+        {
+          "id": "vendor-owns-your-roadmap",
+          "label": "Vendor Owns Your Roadmap",
+          "expansion": "Every capability you actually need is behind another invoice. You're not running a comp system — you're financing one, one add-on at a time."
+        },
+        {
+          "id": "the-ask-you-cant-justify",
+          "label": "The Ask You Can't Justify",
+          "expansion": "Going back to leadership for budget you already spent political capital to get isn't a vendor problem. It becomes your forecasting problem."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "approved-budget-fiction",
+          "label": "Approved Budget Is Fiction",
+          "expansion": "You signed off on a number that doesn't exist. The real cost lives across five line items no one aggregated — and finance leadership is accountable for the total, not the footnotes."
+        },
+        {
+          "id": "invisible-drag-on-your-watch",
+          "label": "Invisible Drag, Your Watch",
+          "expansion": "Over five years, $1.669M exits the business in a way that never triggers a single budget alert. You're not over budget — you're just quietly hemorrhaging, and no one's dashboard shows it."
+        },
+        {
+          "id": "vendor-optimized-for-opacity",
+          "label": "Vendor Optimized for Opacity",
+          "expansion": "Xactly didn't hide the cost by accident. The structure is designed so no single renewal feels alarming enough to question. You're not managing a vendor — you're being managed by one."
+        }
+      ]
+    },
+    "people-attrition-cost": {
+      "angle-1": [
+        {
+          "id": "invisible-platform-tax",
+          "label": "Invisible Platform Tax",
+          "expansion": "The attrition line in your HR budget is quietly paying for a technology failure you never approved. You're absorbing the cost without ever seeing the cause."
+        },
+        {
+          "id": "unaccountable-churn",
+          "label": "Unaccountable Churn",
+          "expansion": "When reps leave over pay confusion, it never traces back to the platform — so the platform never gets fixed. You keep renewing the tool that's quietly costing you six figures in turnover."
+        },
+        {
+          "id": "budget-owner-blind-spot",
+          "label": "Budget Owner Blind Spot",
+          "expansion": "You own the numbers, but the real cost is hiding in a category you're not watching. That's not a reporting gap — it's a credibility gap when leadership asks why attrition is running high."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "audit-trail-ownership",
+          "label": "Liability Without Ledger",
+          "expansion": "When overpayments surface in an audit and there's no clean calculation history, Finance owns the exposure — not the tool, not the process. You."
+        },
+        {
+          "id": "regulatory-blind-side",
+          "label": "Compliance Gap You Signed Off On",
+          "expansion": "If comp errors create wage and hour exposure, the question isn't whether your system failed — it's why you signed off on a process that couldn't prove it didn't."
+        },
+        {
+          "id": "recovery-credibility-cost",
+          "label": "Chasing Money You Already Booked",
+          "expansion": "Overpayment recovery is a governance failure wearing a collections hat. Every dollar you claw back is proof the number was wrong before it left your books."
+        }
+      ]
+    },
+    "admin-burden-as-hidden-headcount": {
+      "angle-1": [
+        {
+          "id": "headcount-you-never-approved",
+          "label": "Headcount You Never Approved",
+          "expansion": "You didn't hire a Xactly workaround manager. But you're paying for one. That decision got made without you — buried inside three job descriptions you signed off on."
+        },
+        {
+          "id": "efficiency-story-has-a-hole",
+          "label": "Your Efficiency Story Has a Hole",
+          "expansion": "You're accountable for RevOps productivity. If 30% of that capacity is invisible overhead, the headcount model you presented to the CFO is quietly wrong."
+        },
+        {
+          "id": "platform-cost-is-a-fiction",
+          "label": "The Platform Cost Is a Fiction",
+          "expansion": "The contract number is what you defended in the budget review. The real cost — the FTE absorbed by workarounds — never made it onto the slide. You're under-reporting by design."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "silent-budget-erosion",
+          "label": "Silent Budget Erosion",
+          "expansion": "You approved a $58K line item. Five years later it's $412K — and no single renewal felt large enough to escalate. The spend grew while you weren't watching."
+        },
+        {
+          "id": "vendor-dependency-trap",
+          "label": "Vendor Dependency Trap",
+          "expansion": "Every plan change that routes through a PS engagement means your team can't run this process without outside permission. You're not a customer — you're a subscriber to your own comp system."
+        },
+        {
+          "id": "complexity-as-liability",
+          "label": "Complexity Becomes Your Liability",
+          "expansion": "The more your business grows, the more you pay — not for value, but for their effort to keep up. You're being billed for your own success."
+        }
+      ]
+    },
+    "integration-engineering-debt": {
+      "angle-1": [
+        {
+          "id": "engineering-tax-on-leadership",
+          "label": "Hidden Headcount Tax",
+          "expansion": "You approved headcount to build product, not babysit a vendor integration. Every sprint your engineer spends on Xactly is a sprint you can't account for — and can't get back."
+        },
+        {
+          "id": "infrastructure-dependency-exposure",
+          "label": "Vendor Owns Your Stack",
+          "expansion": "When a single integration failure can freeze comp data for the entire org, you've handed operational control to a system you're already paying to replace."
+        },
+        {
+          "id": "cost-visibility-gap",
+          "label": "The Real Cost Stays Hidden",
+          "expansion": "The contract line is visible. The $120/hr of engineering time propping it up never shows in the Xactly budget — which means you're chronically underreporting what this platform actually costs you."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "silent-budget-erosion",
+          "label": "Silent Budget Erosion",
+          "expansion": "You approved the Xactly budget in Year 1. You didn't approve the hidden tax that compounds every year after — but you'll be the one defending a cost line that quietly doubled."
+        },
+        {
+          "id": "engineering-held-hostage",
+          "label": "Engineering Held Hostage",
+          "expansion": "Every sprint your engineers spend patching a diverging data model is a sprint not building revenue. You're funding technical debt disguised as a comp platform."
+        },
+        {
+          "id": "the-vendor-that-outlasted-its-roi",
+          "label": "The Vendor That Outlasted Its ROI",
+          "expansion": "The business case you signed off on expired around Year 2. You're now in Year 4, paying for integration maintenance on a system that was supposed to reduce operational cost — not create it."
+        }
+      ]
+    },
+    "strategic-opportunity-cost": {
+      "angle-1": [
+        {
+          "id": "strategic-capacity-locked-out",
+          "label": "Locked Out of the Room",
+          "expansion": "The strategic work that earns Finance a seat at the revenue table keeps getting displaced by Xactly firefighting. You're not absent from the conversation — the tool is pulling you out of it."
+        },
+        {
+          "id": "compounding-cost-invisibility",
+          "label": "The Cost You Can't Expense",
+          "expansion": "You can see the $49K in Year 1. Leadership can't — because maintenance work doesn't show up on a P&L. You're absorbing a six-figure drag that never gets a line item."
+        },
+        {
+          "id": "team-ceiling",
+          "label": "Your Team's Ceiling Is the Tool",
+          "expansion": "The people you hired to model, forecast, and advise are spending their cycles keeping a system alive. Their growth — and yours — is capped by what Xactly demands to stay functional."
+        }
+      ]
+    }
+  },
+  "finance-x-champion": {
+    "commission-calculation-accuracy-auditability": {
+      "angle-1": [
+        {
+          "id": "math-on-trial",
+          "label": "Your Math Is Always on Trial",
+          "expansion": "Every dispute is a rep standing in front of you saying 'prove it.' Without a traceable calculation, you're not resolving the question — you're just asserting the answer."
+        },
+        {
+          "id": "trust-deficit-by-proxy",
+          "label": "Trust Deficit by Proxy",
+          "expansion": "The rep doesn't distrust the number — they distrust you. You become the face of a black box you didn't build and can't fully explain."
+        },
+        {
+          "id": "firefighter-not-finance",
+          "label": "Firefighter, Not Finance",
+          "expansion": "You were hired to close the books and model the business. Instead, you're reconstructing deal math one dispute at a time — and that's what your calendar actually says."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "consultant-dependency-trap",
+          "label": "Rented Credibility",
+          "expansion": "When you can't verify a number without calling in outside help, you don't own the process — you're just the person who manages the vendor relationship. Finance shouldn't need a consultant to audit Finance."
+        },
+        {
+          "id": "opacity-owns-you",
+          "label": "The System Knows More Than You Do",
+          "expansion": "If the platform is the only one that can explain how a number was calculated, you've handed control of your comp integrity to a black box. Every audit question becomes a request you can't answer yourself."
+        },
+        {
+          "id": "auditability-as-liability",
+          "label": "No Trail, No Defense",
+          "expansion": "When a disputed payout surfaces — in a board review, an audit, or a rep escalation — you need to show your work. Right now, your answer is a consultant's invoice and a waiting period."
+        }
+      ]
+    },
+    "commission-expense-reporting-asc-606": {
+      "angle-1": [
+        {
+          "id": "pay-to-close-your-own-books",
+          "label": "Pay to Close Your Own Books",
+          "expansion": "You bought a commission platform — then got handed a bill to actually use it for accounting. Every period close is a reminder that the tool you championed doesn't do what finance needs it to do."
+        },
+        {
+          "id": "budget-credibility-on-trial",
+          "label": "Budget Credibility on Trial",
+          "expansion": "You went to leadership with a number. Now you're back asking for more to unlock what should have been included. That conversation doesn't make you look like someone who had the full picture."
+        },
+        {
+          "id": "compliance-held-hostage",
+          "label": "Compliance Held Hostage",
+          "expansion": "ASC 606 isn't optional — but your audit-readiness is gated behind an upsell. You're one renewal negotiation away from a gap in your commission expense documentation."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "hostage-to-integration",
+          "label": "Held Hostage by a Tool",
+          "expansion": "You own the close timeline, but accounting won't sign off until the integration works. The system you championed is now the reason the process is stalled."
+        },
+        {
+          "id": "compliance-credibility",
+          "label": "Your Name on a Non-Compliant Number",
+          "expansion": "ASC 606 isn't optional — and if amortisation isn't confirmed clean, your signature is on a disclosure that doesn't hold up. That's not a process problem. That's a career problem."
+        },
+        {
+          "id": "cross-functional-scapegoat",
+          "label": "Blocking the Close You Don't Own",
+          "expansion": "Accounting is waiting on you. You're waiting on the platform. Every period, you're the bottleneck in a room full of people who just want the books closed."
+        }
+      ]
+    },
+    "payroll-readiness-processing-delays": {
+      "angle-1": [
+        {
+          "id": "payroll-owns-your-calendar",
+          "label": "Payroll Owns Your Calendar",
+          "expansion": "Every quarter-end, you're not closing the books — you're chasing a two-month-old number that payroll is still waiting on. Finance runs the company's timing except when it comes to comp."
+        },
+        {
+          "id": "cashflow-exposure-you-cant-explain",
+          "label": "Unexplainable Cashflow Exposure",
+          "expansion": "When May arrives and Q1 commissions hit the ledger simultaneously with Q2 accruals, you're defending a cash position to the CFO that the comp system created — not you."
+        },
+        {
+          "id": "reps-know-before-you-do",
+          "label": "Reps Know Before You Do",
+          "expansion": "A rep disputing a May payment for work done in January has more context about what went wrong than your system does. You're reconciling their memory against your spreadsheet."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "payroll-clock-owns-you",
+          "label": "The Deadline Owns You",
+          "expansion": "Payroll doesn't wait. Every cycle, you're racing to rebuild a report that should already exist — and the clock doesn't care how long the extraction took."
+        },
+        {
+          "id": "manual-error-ownership",
+          "label": "You Sign Off on Guesswork",
+          "expansion": "When payroll closes on manually prepared numbers, your name is on it. One miskeyed export away from a comp error you'll spend weeks explaining to reps and leadership."
+        },
+        {
+          "id": "systems-credibility-gap",
+          "label": "The System You Championed Doesn't Deliver",
+          "expansion": "You sold this platform internally. If finance still can't run payroll without a spreadsheet ritual every month, that's not a process gap — that's your credibility gap."
+        }
+      ]
+    },
+    "cross-system-reconciliation-burden": {
+      "angle-1": [
+        {
+          "id": "recurring-investigation-loop",
+          "label": "Same Problem, Every Month",
+          "expansion": "You've solved this discrepancy before — and you'll solve it again next month. That's not analysis. That's maintenance work wearing an analyst's title."
+        },
+        {
+          "id": "explainer-not-owner",
+          "label": "Explaining Instead of Leading",
+          "expansion": "A day each cycle spent justifying why two systems disagree means your credibility hinges on reconciling someone else's data architecture — not your own financial judgment."
+        },
+        {
+          "id": "number-without-owner",
+          "label": "No Single Source of Truth",
+          "expansion": "When the CRM number and the Xactly number both exist, leadership picks the one they prefer — and you're the one who has to defend whichever one turns out to be wrong."
+        }
+      ]
+    }
+  },
+  "sales-comp-x-leadership": {
+    "plan-change-latency-ps-dependency": {
+      "angle-2": [
+        {
+          "id": "admin-trap",
+          "label": "Hired to Lead, Stuck Maintaining",
+          "expansion": "You built a comp function to drive strategy. Instead, your best people spend their days feeding a platform. That's not leverage — that's a tax on your team's potential."
+        },
+        {
+          "id": "headcount-hostage",
+          "label": "Headcount Held Hostage",
+          "expansion": "You justified those hires to leadership as comp expertise. If they're doing platform ops, you're defending a budget that looks like IT spend — not comp leadership."
+        },
+        {
+          "id": "design-deficit",
+          "label": "Strategy Starved by Operations",
+          "expansion": "Every hour your team spends keeping Xactly running is an hour not spent modeling a better plan. The work that actually moves revenue never gets done."
+        }
+      ],
+      "angle-1": [
+        {
+          "id": "strategy-held-hostage",
+          "label": "Strategy Held Hostage",
+          "expansion": "You set the sales motion. You don't get to set when comp reflects it. Every pivot you make waits in a vendor queue — and the business moves without you."
+        },
+        {
+          "id": "leader-becomes-requester",
+          "label": "Leader Becomes Requester",
+          "expansion": "You're a comp leader filing tickets to execute your own plan. That's not leadership — that's dependency with a title."
+        },
+        {
+          "id": "misalignment-you-cant-explain",
+          "label": "Misalignment You Can't Explain",
+          "expansion": "When reps are still being paid on last quarter's motion, you're the one in the room defending a lag you didn't create and can't close."
+        }
+      ]
+    },
+    "rep-trust-shadow-accounting": {
+      "angle-1": [
+        {
+          "id": "trust-already-broken",
+          "label": "Trust Is Already Gone",
+          "expansion": "When reps stop believing the number in the system and start keeping their own books, the credibility damage is done — and you didn't get a warning."
+        },
+        {
+          "id": "shadow-org-you-cant-see",
+          "label": "Org You Can't See",
+          "expansion": "There's a parallel comp operation running inside your sales team right now. You don't control it, you can't audit it, and every discrepancy it surfaces routes straight to you."
+        },
+        {
+          "id": "leadership-blind-spot",
+          "label": "Blind-Sided at the Top",
+          "expansion": "When a rep escalates a comp dispute to your CRO with their own spreadsheet as evidence, you're not defending a process — you're defending yourself."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "your-best-reps-are-auditing-you",
+          "label": "Your Best Reps Are Auditing You",
+          "expansion": "The reps who care most about accuracy are the ones building shadow spreadsheets to verify your numbers. When your top performers are fact-checking comp instead of selling, that's not a trust gap — it's a verdict."
+        },
+        {
+          "id": "disputes-route-through-your-credibility",
+          "label": "Disputes Route Through Your Credibility",
+          "expansion": "Every escalation is a rep publicly questioning whether you have the process under control. You can resolve the ticket — you can't un-ring the bell that your system couldn't explain itself."
+        },
+        {
+          "id": "opacity-looks-like-intent",
+          "label": "Opacity Looks Like Intent",
+          "expansion": "When reps can't see how a number was calculated, they don't assume it's a tooling problem. They assume someone decided not to show them. You're not defending a calculation — you're defending your integrity."
+        }
+      ]
+    },
+    "contract-lock-in-renewal-timing": {
+      "angle-1": [
+        {
+          "id": "trapped-by-timing",
+          "label": "Trapped by Your Own Calendar",
+          "expansion": "You knew the tool wasn't working. You just ran out of runway to do anything about it. Another year locked in isn't a contract problem — it's a credibility problem you're carrying."
+        },
+        {
+          "id": "forced-to-defend-status-quo",
+          "label": "Defending a Platform You've Outgrown",
+          "expansion": "Every quarter you stay, you're implicitly endorsing a system you've already decided to leave. Leadership sees the same broken outputs — and you're the one still running it."
+        },
+        {
+          "id": "window-closes-quietly",
+          "label": "The Exit Window Closes Without Warning",
+          "expansion": "By the time budget season opens the door, the renewal has already passed. You don't get a second chance at the same fiscal year — you get to explain why you missed it."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "invisible-to-the-vendor",
+          "label": "Invisible to the Vendor",
+          "expansion": "When your renewal arrives and no one calls, you're not a strategic account — you're a line item. That's not a vendor relationship. That's a subscription you forgot to cancel."
+        },
+        {
+          "id": "negotiating-blind",
+          "label": "Negotiating From Silence",
+          "expansion": "Without a roadmap commitment or exec conversation on record, you're approving six figures on a platform's past — not its future. You own that bet if it goes wrong."
+        },
+        {
+          "id": "leadership-exposure-at-renewal",
+          "label": "The Decision You Can't Defend",
+          "expansion": "If you renew without documentation of what was promised, and the problems persist, there's no paper trail — just your signature on another year of the same."
+        }
+      ]
+    },
+    "compensation-visibility-rep-motivation": {
+      "angle-1": [
+        {
+          "id": "incentive-design-dies-in-the-gap",
+          "label": "Incentive Design Dies in the Gap",
+          "expansion": "You built the plan to drive behavior. But if reps can't see earnings move when a deal closes, the incentive isn't working — your design is."
+        },
+        {
+          "id": "motivation-you-cant-measure",
+          "label": "Motivation You Can't Measure",
+          "expansion": "You're accountable for rep performance, but the one lever you control — pay visibility — is a black box. You can't tell if the plan is motivating or just compensating."
+        },
+        {
+          "id": "credibility-of-the-plan",
+          "label": "Credibility of the Plan",
+          "expansion": "When reps stop trusting their numbers, they stop trusting the plan. That doubt doesn't land on the system — it lands on you."
+        }
+      ]
+    },
+    "leadership-change-as-displacement-trigger": {
+      "angle-1": [
+        {
+          "id": "inheriting-someone-elses-mess",
+          "label": "Inheriting Someone Else's Mess",
+          "expansion": "You didn't build this system — but every bad number, every rep complaint, every audit gap has your name on it now. You own the consequences of decisions you never made."
+        },
+        {
+          "id": "starting-line-is-behind-everyone-else",
+          "label": "You're Behind Before You Begin",
+          "expansion": "Every other leader walks in with a clean slate. You walked in to a system that's already behind — and your first impression is being shaped by someone else's neglect."
+        },
+        {
+          "id": "credibility-hostage-to-legacy-debt",
+          "label": "Credibility Held Hostage",
+          "expansion": "You can't move the business forward when your bandwidth is consumed proving the current state wrong. Your strategic value is invisible as long as you're in cleanup mode."
+        }
+      ]
+    }
+  },
+  "sales-comp-x-champion": {
+    "platform-usability-self-service-admin": {
+      "angle-2": [
+        {
+          "id": "black-box-dependency",
+          "label": "Black Box Dependency",
+          "expansion": "You're supposed to own the comp plan — but you can't read it. Every change, every audit, every question routes through a consultant you have to pay to understand your own system."
+        },
+        {
+          "id": "audit-exposure",
+          "label": "Audit Exposure Without Defense",
+          "expansion": "When a rep disputes their payout or finance asks how the plan calculates, you're presenting code you didn't write and can't explain. You become the face of logic you've never actually seen."
+        },
+        {
+          "id": "expertise-erased",
+          "label": "Expertise Made Invisible",
+          "expansion": "You built your career knowing comp inside out. The platform turned that expertise into a support ticket — the consultant is the expert now, not you."
+        }
+      ],
+      "angle-1": [
+        {
+          "id": "not-the-admin-youre-supposed-to-be",
+          "label": "Admin In Name Only",
+          "expansion": "You have 'administrator' in your title but can't administer anything without filing a ticket. Every config change is a reminder that you don't actually own your own system."
+        },
+        {
+          "id": "it-as-gatekeeper",
+          "label": "Held Hostage by IT",
+          "expansion": "When the business moves and comp needs to follow, you're waiting on a queue. Your credibility as a comp leader depends on a team whose priorities were never your plan."
+        },
+        {
+          "id": "velocity-loss-at-every-change",
+          "label": "Every Change Has a Tax",
+          "expansion": "A quota update, a new accelerator, a mid-year realignment — each one costs you days you don't have. The platform is supposed to reduce your workload, not multiply it."
+        }
+      ],
+      "angle-3": [
+        {
+          "id": "design-by-fear",
+          "label": "Designing Around the Tool",
+          "expansion": "When you avoid changes because of what they'll cost you in PS tickets and wait time, the tool is making your comp decisions. You're not."
+        },
+        {
+          "id": "intentionality-erosion",
+          "label": "Strategy Becomes Compromise",
+          "expansion": "You can't tell your CFO the plan reflects business logic when half the structure exists because it was easier to leave alone. You're defending inertia, not intent."
+        },
+        {
+          "id": "ownership-hollowed-out",
+          "label": "Admin in Title Only",
+          "expansion": "You're accountable for how the plan performs, but you need a vendor's approval and a two-week queue to change it. That's not ownership — that's liability without control."
+        }
+      ]
+    },
+    "commission-processing-speed": {
+      "angle-1": [
+        {
+          "id": "credibility-on-the-clock",
+          "label": "Credibility on the Clock",
+          "expansion": "Every week reps wait for accurate statements, they're not questioning the delay — they're questioning you. You become the face of a system that can't keep up."
+        },
+        {
+          "id": "payroll-held-hostage",
+          "label": "Payroll Held Hostage",
+          "expansion": "When the validation cycle owns your calendar, you're not running comp — you're chasing it. The quarter doesn't close when the business closes. It closes when your spreadsheet lets it."
+        },
+        {
+          "id": "trust-bleeds-per-cycle",
+          "label": "Trust Bleeds Per Cycle",
+          "expansion": "Reps who wait weeks for accurate pay stop trusting the number when it finally arrives. You've lost the moment where comp was supposed to motivate — and there's no recovering it mid-quarter."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "trust-you-cant-rebuild",
+          "label": "Trust You Can't Rebuild",
+          "expansion": "When reps wait until May to see Q1 money, they stop believing the system works — and they start believing you don't care. That skepticism doesn't reset when the check finally arrives."
+        },
+        {
+          "id": "messenger-for-someone-elses-failure",
+          "label": "Messenger for Someone Else's Failure",
+          "expansion": "The system caused the delay. You're the one in the all-hands explaining it. Every town hall where you defend a two-month lag is credibility you spent on a problem you didn't create."
+        },
+        {
+          "id": "comp-as-retention-weapon-gone",
+          "label": "Comp as Retention Tool, Gone",
+          "expansion": "Commissions are supposed to be the reason reps stay through a hard quarter. When the payout arrives two months late, it doesn't reinforce the win — it just confirms the dysfunction."
+        }
+      ]
+    },
+    "bulk-operations-plan-administration": {
+      "angle-1": [
+        {
+          "id": "execution-ceiling",
+          "label": "Execution Ceiling",
+          "expansion": "You can architect the perfect plan change in an afternoon. But you can't execute it without burning three days on 55 identical edits — the system caps what you're capable of."
+        },
+        {
+          "id": "momentum-killer",
+          "label": "You Delay the Business",
+          "expansion": "Sales leadership calls for a mid-quarter adjustment. You're the reason it takes a week. Not because you're slow — because your tools make scale impossible."
+        },
+        {
+          "id": "admin-not-strategist",
+          "label": "Reduced to Data Entry",
+          "expansion": "You built expertise to design comp strategy — not to manually touch 55 records every time the business pivots. The tool turns a comp professional into a data entry clerk."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "architect-reduced-to-typist",
+          "label": "Architect Reduced to Typist",
+          "expansion": "You were hired to design comp strategy. Instead, you're manually re-entering logic you already built last quarter. The system treats your expertise as if it doesn't exist."
+        },
+        {
+          "id": "scale-blocked-by-the-tool",
+          "label": "Scale Blocked by the Tool",
+          "expansion": "Every new segment your sales org adds is a project you have to justify resourcing. Growth shouldn't require you to rebuild from zero — but your system makes it a personal tax."
+        },
+        {
+          "id": "error-surface-multiplies-with-you",
+          "label": "Error Surface Multiplies With You",
+          "expansion": "Every manual recode is another place a logic drift can hide. When a discrepancy surfaces, you can't prove which version of the plan is authoritative — because none of them share a source."
+        }
+      ]
+    },
+    "testing-sandbox-management": {
+      "angle-1": [
+        {
+          "id": "shadow-system-tax",
+          "label": "Shadow System Tax",
+          "expansion": "You're maintaining two versions of reality — and the sandbox is already drifting from prod. Every test you run is against a environment you no longer fully trust."
+        },
+        {
+          "id": "launch-day-exposure",
+          "label": "Launch Day Exposure",
+          "expansion": "When deployment day comes, you're not confident — you're hoping. The gap between what you tested and what goes live is where your credibility lives."
+        },
+        {
+          "id": "complexity-you-own",
+          "label": "Complexity You Inherited",
+          "expansion": "The sandbox wasn't your idea, but the coordination overhead is yours to carry. You became the person who manages the tool that manages the tool."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "strategic-work-traded-for-setup",
+          "label": "Operator, Not Architect",
+          "expansion": "You were hired to design incentive strategy. Instead, you're spending full days configuring a single spiff — the system turned a strategic role into a data entry job."
+        },
+        {
+          "id": "speed-to-incentive-gap",
+          "label": "You Can't Move at Sales Speed",
+          "expansion": "When the field needs a promo live by Monday, a full-day setup cycle means you're the reason it's late — not the plan, not the budget. You."
+        },
+        {
+          "id": "sandbox-as-credibility-tax",
+          "label": "Every Test Is a Confession",
+          "expansion": "A day of testing before you go live tells everyone the system can't be trusted on first pass — and neither, by extension, can you."
+        }
+      ]
+    },
+    "professional-services-cost-dependency": {
+      "angle-2": [
+        {
+          "id": "knowledge-hostage",
+          "label": "Knowledge Held Hostage",
+          "expansion": "The consultant knows your comp system better than you do. That's not a vendor relationship — that's a dependency you can't afford to admit out loud."
+        },
+        {
+          "id": "admin-in-name-only",
+          "label": "Admin In Name Only",
+          "expansion": "Your title says you own comp operations. But every change request that routes through a consultant proves you don't. You're approving work you can't do yourself."
+        },
+        {
+          "id": "single-point-of-failure",
+          "label": "Single Point of Failure",
+          "expansion": "When the consultant is unavailable and a plan needs to change, the answer is 'we have to wait.' You're the one delivering that answer to leadership."
+        }
+      ],
+      "angle-1": [
+        {
+          "id": "budget-hostage",
+          "label": "Budget Held Hostage",
+          "expansion": "Every change that should take you an afternoon now requires a purchase order. You're not running a comp program — you're managing a vendor relationship that never ends."
+        },
+        {
+          "id": "competence-proxy",
+          "label": "Competence Questioned by Proxy",
+          "expansion": "When your team can't make a plan change without calling in outside help, the unspoken question in every leadership meeting is: why do we need them if the system needs consultants anyway?"
+        },
+        {
+          "id": "change-velocity-tax",
+          "label": "Change Velocity Tax",
+          "expansion": "The business moves. Your plans need to move with it. But every mid-cycle adjustment carries a billing event — so you start making fewer changes, and the comp plan slowly stops reflecting reality."
+        }
+      ]
+    }
+  }
+}

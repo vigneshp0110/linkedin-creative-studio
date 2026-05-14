@@ -1,0 +1,483 @@
+{
+  "ops-x-leadership": {
+    "scalability-risk-as-org-grows": {
+      "angle-3": [
+        {
+          "id": "infrastructure-betrayal",
+          "label": "Infrastructure Betrayal",
+          "expansion": "You scaled the team, closed the deals, hit the number — and the system holding it all together is still a spreadsheet. That's not a tool problem. That's a credibility problem waiting to surface."
+        },
+        {
+          "id": "one-quarter-behind",
+          "label": "One Quarter Behind",
+          "expansion": "Every high-growth org eventually hits the quarter where the spreadsheet breaks under the weight of what you built. You're either fixing it now — or explaining it later."
+        }
+      ],
+      "angle-1": [
+        {
+          "id": "growth-exposes-you",
+          "label": "Growth Exposes You",
+          "expansion": "You built a system that worked — until the company succeeded. Now the thing you own is the reason scale feels impossible."
+        },
+        {
+          "id": "infrastructure-ceiling",
+          "label": "You're the Ceiling",
+          "expansion": "Leadership sees a scaling org. They don't see that your comp infrastructure has already hit its limit. When it breaks publicly, that gap becomes yours to explain."
+        },
+        {
+          "id": "reactive-not-ready",
+          "label": "Behind Before You Start",
+          "expansion": "You're not scaling the system — you're chasing the headcount. Every new hire added is another row that makes the next failure more likely."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "complexity-outgrew-you",
+          "label": "The Tool Outgrew You First",
+          "expansion": "You didn't outgrow Excel — Excel outgrew your ability to trust it. Every new rep, new tier, new exception is another place the model can silently break without telling you."
+        },
+        {
+          "id": "scale-is-the-threat",
+          "label": "Growth Becomes the Risk",
+          "expansion": "Every hire leadership celebrates is a problem you inherit. You're the only one in the room who knows that scaling the team means scaling the fragility."
+        },
+        {
+          "id": "replacement-urgency-owns-you",
+          "label": "The Urgency Isn't Yours to Control",
+          "expansion": "You know the system needs to change — but the timeline is set by the next error, not by you. You're waiting for the failure that forces the decision."
+        }
+      ]
+    },
+    "manual-process-as-strategic-bottleneck": {
+      "angle-1": [
+        {
+          "id": "single-point-of-failure",
+          "label": "Single Point of Failure",
+          "expansion": "Your entire commission operation lives in one person's head and one file on their desktop. The day they're out sick, you find out exactly how fragile your infrastructure is."
+        },
+        {
+          "id": "ops-ceiling-as-growth-ceiling",
+          "label": "Ops Ceiling Is Growth Ceiling",
+          "expansion": "You're not running a scalable comp function — you're running a person at capacity. Every new rep, every new plan, every mid-year change hits the same single lane."
+        },
+        {
+          "id": "invisible-until-it-breaks",
+          "label": "Invisible Until It Breaks",
+          "expansion": "Nobody sees the manual labor holding it together — until the month it doesn't. Then leadership isn't asking why the process failed. They're asking why you didn't have a better one."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "deadline-firefighter",
+          "label": "Firefighter, Not Strategist",
+          "expansion": "Every close cycle, you're not leading — you're chasing. The role you were hired to build is buried under a payroll deadline you're always one error away from missing."
+        },
+        {
+          "id": "error-ownership",
+          "label": "You Sign Off on the Mistake",
+          "expansion": "When a number goes wrong, the manual trail ends with you. There's no system to point to — just your name on a submission that paid someone incorrectly."
+        }
+      ],
+      "angle-3": [
+        {
+          "id": "single-point-of-failure",
+          "label": "Human Failover Risk",
+          "expansion": "The process doesn't break when the spreadsheet breaks — it breaks when you're unavailable. You're not running the system; you are the system."
+        },
+        {
+          "id": "ops-leader-as-bottleneck",
+          "label": "Strategy Held Hostage",
+          "expansion": "Every month-end, your most senior ops resource isn't driving initiatives — they're debugging formulas. Leadership sees the delay. They don't see the reason."
+        }
+      ]
+    },
+    "single-point-of-failure-risk": {
+      "angle-1": [
+        {
+          "id": "single-point-key-person-risk",
+          "label": "Key Person Hostage",
+          "expansion": "The model works because one person understands it. That's not a process you own — that's a dependency you're one resignation away from losing entirely."
+        },
+        {
+          "id": "single-point-succession-void",
+          "label": "No Handoff, No Safety Net",
+          "expansion": "If they leave tomorrow, you can't explain how the numbers were built. You're not running comp ops — you're hoping nothing changes."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "institutional-knowledge-hostage",
+          "label": "Knowledge Held Hostage",
+          "expansion": "The most critical financial process in your org lives inside one person's head. The day they leave, you don't have a transition plan — you have a crisis."
+        },
+        {
+          "id": "continuity-credibility-collapse",
+          "label": "Continuity Is Your Job",
+          "expansion": "When comp breaks mid-cycle because no one can decode the formula, that's not a spreadsheet failure — that's you failing to build a system that outlasts any one person."
+        }
+      ]
+    }
+  },
+  "ops-x-champion": {
+    "manual-calculation-error-risk": {
+      "angle-1": [
+        {
+          "id": "you-are-the-error",
+          "label": "You Become the Error",
+          "expansion": "When a rep disputes their payout and the trail leads back to a manual formula, the process didn't fail — you did. Your name is on the file."
+        },
+        {
+          "id": "invisible-tax-on-credibility",
+          "label": "Invisible Tax on Credibility",
+          "expansion": "You built the process, so every reconciliation hour and rep complaint is a quiet vote of no confidence in your ability to run the function."
+        },
+        {
+          "id": "rep-trust-is-not-recoverable",
+          "label": "Trust You Can't Reclaim",
+          "expansion": "A rep who gets a wrong number once starts double-checking everything you send. You can fix the spreadsheet — you can't fix the doubt."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "recurring-doubt-tax",
+          "label": "Recurring Doubt Tax",
+          "expansion": "Every cycle, you're not closing — you're re-opening. The model you built is never fully trusted, and that distrust lands on you."
+        },
+        {
+          "id": "builder-becomes-debugger",
+          "label": "Builder Becomes Debugger",
+          "expansion": "You were hired to design systems that run. Instead you spend close week hunting down why a formula broke on a rep who split territory mid-quarter."
+        },
+        {
+          "id": "edge-case-ownership",
+          "label": "Edge Case Owns You",
+          "expansion": "The one scenario you didn't model becomes the one everyone remembers. Your entire system gets judged by the exception, not the rule."
+        }
+      ],
+      "angle-3": [
+        {
+          "id": "single-point-of-failure",
+          "label": "Single Point of Failure",
+          "expansion": "Every formula lives in your head and your file. If you're out sick on month-end, the entire close waits for you — or breaks without you."
+        },
+        {
+          "id": "invisible-until-wrong",
+          "label": "Invisible Until It's Wrong",
+          "expansion": "When the process runs, no one notices you. The moment one formula misfires, your name is the only one attached to it."
+        },
+        {
+          "id": "ownership-trap",
+          "label": "The Ownership Trap",
+          "expansion": "You built it to be useful. Now it owns you — every cycle, every change, every close routes through the one person who knows which cell not to touch."
+        }
+      ]
+    },
+    "data-pull-multi-source-complexity": {
+      "angle-1": [
+        {
+          "id": "pre-run-ritual-tax",
+          "label": "The Pre-Run Ritual Tax",
+          "expansion": "Before you can do your job, you have to rebuild the foundation it sits on — every single period. The commission run hasn't started, and you're already behind."
+        },
+        {
+          "id": "reconciliation-owns-you",
+          "label": "The System Owns Your Calendar",
+          "expansion": "You didn't sign up to be a data janitor. But three sources that don't talk to each other means every close cycle is yours to manually stitch together before anyone else can move."
+        },
+        {
+          "id": "single-point-of-failure",
+          "label": "Single Point of Failure",
+          "expansion": "If the reconciliation is wrong and no one catches it, the error compounds downstream — into payouts, into disputes, into a conversation with leadership where you're the one explaining how the numbers got misaligned."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "coordination-tax",
+          "label": "Coordination Tax",
+          "expansion": "Every calculation cycle starts with you chasing three teams for clean data. You're not running the process — you're managing the people who feed it."
+        },
+        {
+          "id": "fragility-owns-you",
+          "label": "Fragility Owns You",
+          "expansion": "One team delivers late, one field is misnamed, one source changes format — and the entire calculation breaks. You built the machine, but anyone can stop it."
+        },
+        {
+          "id": "invisible-dependency-risk",
+          "label": "Invisible Dependency Risk",
+          "expansion": "The moment a handoff fails silently, you're the one presenting numbers you can't fully stand behind. The error isn't yours — but your name is on the output."
+        }
+      ]
+    },
+    "time-tax-per-cycle": {
+      "angle-2": [
+        {
+          "id": "ritual-without-return",
+          "label": "Ritual Without Return",
+          "expansion": "You're not building anything — you're resetting. Every cycle starts from zero, and no one outside your team sees the hours it took to get back to square one."
+        },
+        {
+          "id": "expertise-laundered-into-drudgery",
+          "label": "Expertise Laundered Into Drudgery",
+          "expansion": "You were hired to design systems that scale. Instead, you're the system — the manual step no one automated because it was easier to rely on you."
+        }
+      ],
+      "angle-1": [
+        {
+          "id": "time-tax-identity-erosion",
+          "label": "Doing Work Below Your Level",
+          "expansion": "You were hired to architect the comp strategy, not reconcile formulas. Every cycle you spend in Excel is proof the system hasn't caught up to the role you're supposed to be in."
+        },
+        {
+          "id": "time-tax-strategic-displacement",
+          "label": "Firefighting Crowds Out Building",
+          "expansion": "The hours you lose to spreadsheet maintenance are the exact hours you'd use to fix the comp design problems everyone keeps complaining about. The urgent keeps eating the important."
+        },
+        {
+          "id": "time-tax-champion-credibility",
+          "label": "Hard to Champion What Hasn't Shipped",
+          "expansion": "You've made the case for better tooling. But every cycle you're still in Excel, leadership sees confirmation that the old way is good enough — and your credibility as the person pushing for change quietly erodes."
+        }
+      ]
+    }
+  },
+  "finance-x-leadership": {
+    "payroll-delay-close-burden": {
+      "angle-1": [
+        {
+          "id": "close-owns-the-delay",
+          "label": "You Own the Delay",
+          "expansion": "When payroll misses timing, the question isn't which spreadsheet failed — it's why Finance let it get this far. The process is invisible until it breaks, and then your name is attached to it."
+        },
+        {
+          "id": "manual-handoff-identity",
+          "label": "Duct Tape Disguised as Process",
+          "expansion": "You're a Finance leader running a close cycle that still depends on manual exports and uploads. That's not a workflow — that's a liability you've inherited and haven't been able to replace."
+        },
+        {
+          "id": "authority-without-infrastructure",
+          "label": "Authority Without Infrastructure",
+          "expansion": "Leadership expects you to close clean and close fast. But every cycle, you're rebuilding the same fragile handoff — one mismatched column away from a payroll error you'll spend the next week explaining."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "payroll-credibility-collapse",
+          "label": "Credibility Collapse at Close",
+          "expansion": "Every delayed paycheck is a visible failure with your name on it. You don't miss payroll once — you become the team that misses payroll."
+        },
+        {
+          "id": "deadline-hostage",
+          "label": "Held Hostage by the Process",
+          "expansion": "You built a finance function meant to run with precision. Instead, every close cycle ends in a scramble you can't engineer your way out of."
+        },
+        {
+          "id": "rep-trust-erosion",
+          "label": "Rep Trust You Can't Recover",
+          "expansion": "When a rep doesn't get paid on time, they stop trusting the number when they do. That doubt doesn't leave when the payment arrives."
+        }
+      ]
+    },
+    "audit-trail-compliance-risk": {
+      "angle-1": [
+        {
+          "id": "no-paper-trail-ownership",
+          "label": "Ownership Without Evidence",
+          "expansion": "When auditors ask how that number was reached, 'it's in a spreadsheet somewhere' is not an answer. You're accountable for a process you can't actually prove."
+        },
+        {
+          "id": "cycle-end-credibility",
+          "label": "Credibility Resets Every Cycle",
+          "expansion": "Every commission close is a fresh exposure. One challenged calculation and your team's rigor — not the spreadsheet — is what goes on trial."
+        },
+        {
+          "id": "invisible-change-risk",
+          "label": "Changes Without Witnesses",
+          "expansion": "A formula gets adjusted mid-cycle and there's no record of who changed it, when, or why. The liability doesn't live in Excel — it lives with you."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "reconstruction-failure",
+          "label": "The Number Has No Story",
+          "expansion": "When Finance or an auditor asks how you got there, you can't show your work — and a comp leader who can't reconstruct their own numbers isn't in control of them."
+        },
+        {
+          "id": "scapegoat-by-default",
+          "label": "Scapegoat by Default",
+          "expansion": "No audit trail means no alibi. When a payout is questioned, the burden of proof lands on you — and silence reads as error."
+        }
+      ]
+    }
+  },
+  "finance-x-champion": {
+    "calculation-accuracy-traceability": {
+      "angle-1": [
+        {
+          "id": "no-proof-when-challenged",
+          "label": "Scapegoat With No Defense",
+          "expansion": "When a rep disputes their number, you can't show your work — because the work lives in a spreadsheet only you understand. You own the error with no evidence to the contrary."
+        },
+        {
+          "id": "verification-depends-on-you",
+          "label": "Single Point of Failure",
+          "expansion": "If you're the only one who can re-run the logic, accuracy isn't a system property — it's a you property. Your absence becomes the company's audit risk."
+        },
+        {
+          "id": "close-never-fully-closes",
+          "label": "Every Period Has an Asterisk",
+          "expansion": "You can sign off on the numbers, but you can't prove they're right — only that no one challenged them yet. That's not a close. That's a delay."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "audit-trail-void",
+          "label": "No Trail, No Defense",
+          "expansion": "When a rep challenges a number, you can't show your work — because the spreadsheet that built it has been overwritten three versions ago. You're not defending a calculation. You're defending your credibility."
+        },
+        {
+          "id": "dispute-inbox-ownership",
+          "label": "You Become the Help Desk",
+          "expansion": "Every unresolved dispute routes back to you. Finance didn't sign up to be tier-one support for rep commission questions — but without traceability, there's no one else to absorb it."
+        },
+        {
+          "id": "accuracy-reputation-erosion",
+          "label": "Precision Is Your Identity",
+          "expansion": "Finance owns the numbers. When reps can dispute payouts and win — not because they're right, but because you can't prove they're wrong — the one thing your function is supposed to guarantee is exactly what's in question."
+        }
+      ]
+    },
+    "manual-journal-accrual-work": {
+      "angle-2": [
+        {
+          "id": "single-point-of-failure",
+          "label": "You Are the System",
+          "expansion": "When every plan, accrual, and payout lives in your spreadsheets, you're not running the process — you are the process. One sick day away from everything stopping."
+        },
+        {
+          "id": "expertise-mistaken-for-maintenance",
+          "label": "Expertise Mistaken for Maintenance",
+          "expansion": "You were hired to shape comp strategy. Instead, you're the person reconciling tabs at month-end. Your value gets measured by whether the numbers closed — not whether the plan was right."
+        }
+      ],
+      "angle-1": [
+        {
+          "id": "release-date-held-hostage",
+          "label": "Authority You Don't Actually Have",
+          "expansion": "You're the one who decides when commissions release — but only after someone else's spreadsheet tells you it's safe. That's not control. That's approval-seeking dressed up as process."
+        },
+        {
+          "id": "one-bad-merge-away",
+          "label": "One Bad Merge Away",
+          "expansion": "Every cycle, a manual file built from multiple sources lands on your desk. You didn't build it, you can't audit it, but your name is on the release. When the number is wrong, the chain of custody ends with you."
+        },
+        {
+          "id": "cycle-dependency-trap",
+          "label": "The Bottleneck You Inherited",
+          "expansion": "Finance can only move as fast as accounting's last email. You didn't design this dependency — but every delayed close, every rep escalation, every CFO question routes back to you as if you did."
+        }
+      ]
+    }
+  },
+  "sales-comp-x-leadership": {
+    "rep-trust-shadow-accounting": {
+      "angle-1": [
+        {
+          "id": "trust-deficit-you-built",
+          "label": "Trust Deficit You Built",
+          "expansion": "You designed the comp plan to motivate your reps. But if they're running shadow spreadsheets to verify your numbers, the plan isn't motivating anyone — it's being audited."
+        },
+        {
+          "id": "rep-distraction-on-your-ledger",
+          "label": "Distraction on Your Ledger",
+          "expansion": "Every rep doing their own back-of-envelope math is a rep not selling. That's pipeline cost — and it traces back to a visibility gap you're responsible for closing."
+        },
+        {
+          "id": "disputed-every-close",
+          "label": "Disputed Every Close",
+          "expansion": "When reps can't trust the number until they've checked it themselves, every payout becomes a negotiation. You're not running comp — you're running a monthly dispute cycle."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "trust-already-gone",
+          "label": "Trust Already Left the Room",
+          "expansion": "When reps stop believing your numbers and start running their own, the authority of your process is gone. You're not managing comp anymore — you're competing with it."
+        },
+        {
+          "id": "shadow-audit-you-cant-win",
+          "label": "The Audit You Can't Win",
+          "expansion": "Every discrepancy a rep finds in their shadow sheet becomes a dispute you have to defend. You're not just fixing errors — you're proving you weren't hiding something."
+        },
+        {
+          "id": "culture-signal-you-own",
+          "label": "You Own the Culture Signal",
+          "expansion": "Shadow accounting doesn't stay quiet — it spreads. Leadership sees reps tracking their own comp and the story becomes: the comp leader can't be trusted to get it right."
+        }
+      ]
+    }
+  },
+  "sales-comp-x-champion": {
+    "spreadsheet-breaks-at-scale": {
+      "angle-2": [
+        {
+          "id": "single-point-of-failure",
+          "label": "Single Point of Failure",
+          "expansion": "When the only person who understands the formula is you, the entire comp process runs on your availability. One vacation, one sick day, one departure — and it all stops."
+        },
+        {
+          "id": "expertise-becomes-liability",
+          "label": "Expertise Becomes a Trap",
+          "expansion": "You built something sophisticated enough to work — and now you're too valuable to be replaced and too buried to move up. Your Excel skills made you the bottleneck, not the expert."
+        },
+        {
+          "id": "unauditable-authority",
+          "label": "Unauditable Authority",
+          "expansion": "When a rep disputes their number and no one else can read the logic, you're not just defending the output — you're defending yourself. There's no neutral source of truth to stand behind."
+        }
+      ],
+      "angle-1": [
+        {
+          "id": "complexity-owns-you",
+          "label": "The Model Owns You",
+          "expansion": "You built the spreadsheet. Now it holds you hostage. Every new rep, every plan tweak makes you the only person alive who understands how it works — and terrified of what happens if you're out sick."
+        },
+        {
+          "id": "scale-exposes-you",
+          "label": "Growth Becomes Your Liability",
+          "expansion": "Every new hire is supposed to be a win. Instead, it's another tab, another edge case, another place the model can silently break — and you're the one who has to find it before payroll does."
+        },
+        {
+          "id": "logic-debt-credibility",
+          "label": "Logic Debt, Public Failure",
+          "expansion": "The complexity you've duct-taped together works — until it doesn't. And when it breaks in front of Finance or a rep disputing their number, there's no clean answer. Just you, explaining a formula you're no longer sure about."
+        }
+      ]
+    },
+    "no-rep-facing-visibility": {
+      "angle-1": [
+        {
+          "id": "trust-deficit-by-design",
+          "label": "Trust Deficit by Design",
+          "expansion": "When reps can't see how their number was calculated, they don't assume it's right — they assume you got it wrong. You spend your credibility defending math that should speak for itself."
+        },
+        {
+          "id": "inbox-as-infrastructure",
+          "label": "Inbox as Infrastructure",
+          "expansion": "Every question a rep should be able to answer themselves lands in your queue instead. You didn't build a commission process — you built yourself into the middle of every dispute."
+        }
+      ],
+      "angle-2": [
+        {
+          "id": "human-calculator",
+          "label": "Human Calculator",
+          "expansion": "You built the comp plan to motivate reps — not to spend your day re-running spreadsheets so they can see their own number. You've become the system."
+        },
+        {
+          "id": "credibility-lag",
+          "label": "Credibility Lag",
+          "expansion": "Every time a rep asks 'what did I make?' and you can't answer in real time, your authority over the plan quietly erodes — one unanswered Slack message at a time."
+        }
+      ]
+    }
+  }
+}

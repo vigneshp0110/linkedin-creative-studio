@@ -208,7 +208,7 @@ export default function CampaignThemes({
   const [personaGroups, setPersonaGroups] = useState<Campaign[]>([])
   const [isLoadingKB, setIsLoadingKB] = useState(false)
 
-  // Implication step
+  // Implication step — loaded after angle is picked
   const [implications, setImplications] = useState<Implication[]>([])
   const [selectedImplicationId, setSelectedImplicationId] = useState<string | null>(null)
   const [isLoadingImplications, setIsLoadingImplications] = useState(false)
@@ -242,8 +242,6 @@ export default function CampaignThemes({
   const selectedAngle = angles.find(a => a.id === angleId) ?? null
   const selectedConcept = concepts.find(c => c.id === selectedConceptId) ?? null
   const selectedImplication = implications.find(i => i.id === selectedImplicationId) ?? null
-
-  // Whether this campaign has implication data
   const hasImplications = implications.length > 0
 
   const onCampaignThemeChange = useCallback(async (id: string) => {
@@ -271,7 +269,7 @@ export default function CampaignThemes({
     }
   }, [])
 
-  const onPersonaGroupChange = useCallback(async (id: string) => {
+  const onPersonaGroupChange = (id: string) => {
     setPersonaGroupId(id)
     setThemeId('')
     setAngleId('')
@@ -281,48 +279,49 @@ export default function CampaignThemes({
     setSelectedConceptId(null)
     setResult(null)
     setIsCreativePanelOpen(false)
-    if (!id || !campaignThemeId) return
-    setIsLoadingImplications(true)
-    try {
-      const res = await fetch(`/api/implications?campaignTheme=${campaignThemeId}&personaGroup=${id}`)
-      const data = await res.json()
-      setImplications(data.implications ?? [])
-    } catch {
-      // silent — no implications = theme/angle unlocked immediately
-    } finally {
-      setIsLoadingImplications(false)
-    }
-  }, [campaignThemeId])
+  }
 
   const onThemeChange = (id: string) => {
     setThemeId(id)
     setAngleId('')
+    setImplications([])
+    setSelectedImplicationId(null)
     setConcepts([])
     setSelectedConceptId(null)
     setResult(null)
     setIsCreativePanelOpen(false)
   }
 
-  const onAngleChange = (id: string) => {
+  const onAngleChange = useCallback(async (id: string) => {
     setAngleId(id)
+    setImplications([])
+    setSelectedImplicationId(null)
     setConcepts([])
     setSelectedConceptId(null)
     setResult(null)
     setIsCreativePanelOpen(false)
-  }
+    if (!id || !campaignThemeId || !personaGroupId || !themeId) return
+    setIsLoadingImplications(true)
+    try {
+      const res = await fetch(
+        `/api/implications?campaignTheme=${campaignThemeId}&personaGroup=${personaGroupId}&theme=${themeId}&angle=${id}`
+      )
+      const data = await res.json()
+      setImplications(data.implications ?? [])
+    } catch {
+      // silent — no implications is fine, concepts still generate
+    } finally {
+      setIsLoadingImplications(false)
+    }
+  }, [campaignThemeId, personaGroupId, themeId])
 
   const onImplicationSelect = (id: string) => {
     setSelectedImplicationId(id)
-    setThemeId('')
-    setAngleId('')
     setConcepts([])
     setSelectedConceptId(null)
     setResult(null)
     setIsCreativePanelOpen(false)
   }
-
-  // Theme/angle are unlocked after implication is picked (or immediately if no implications exist)
-  const themeAngleUnlocked = !hasImplications || !!selectedImplicationId
 
   const generateConcepts = async () => {
     if (!selectedCampaignTheme || !selectedPersonaGroup || !selectedTheme || !selectedAngle) return
@@ -486,18 +485,14 @@ export default function CampaignThemes({
               />
             </div>
 
-            {/* Theme — only unlocked after implication picked (or if no implications) */}
+            {/* Theme */}
             <div className="w-64">
               <Select
                 label="Theme"
                 value={themeId}
                 onChange={onThemeChange}
-                placeholder={
-                  !personaGroupId ? 'Select persona group first…' :
-                  hasImplications && !selectedImplicationId ? 'Pick an implication first…' :
-                  'Select theme…'
-                }
-                disabled={!personaGroupId || !themeAngleUnlocked}
+                placeholder="Select theme…"
+                disabled={!personaGroupId}
                 options={themes.map(t => ({
                   value: t.id,
                   label: `${t.name} (${t.totalFrequency})`,
@@ -523,40 +518,7 @@ export default function CampaignThemes({
             </button>
           </div>
 
-          {/* Row 2: Implication cards — shown when persona group is selected and implications exist */}
-          {personaGroupId && (isLoadingImplications || implications.length > 0) && (
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-white/35">
-                  Ad Implication
-                </span>
-                <span className="text-[10px] text-white/20">
-                  — pick the emotional truth this creative should hit
-                </span>
-              </div>
-
-              {isLoadingImplications ? (
-                <div className="flex gap-3">
-                  {Array.from({ length: 3 }).map((_, i) => (
-                    <div key={i} className="h-24 w-56 animate-pulse rounded-xl bg-white/4" />
-                  ))}
-                </div>
-              ) : (
-                <div className="flex gap-3 overflow-x-auto pb-1">
-                  {implications.map(impl => (
-                    <ImplicationCard
-                      key={impl.id}
-                      implication={impl}
-                      selected={selectedImplicationId === impl.id}
-                      onSelect={() => onImplicationSelect(impl.id)}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* Row 3: Custom context */}
+          {/* Row 2: Custom context */}
           <div className="flex flex-col gap-1">
             <label className="text-[10px] font-semibold uppercase tracking-widest text-white/35">
               Your Copy / Context
@@ -631,6 +593,38 @@ export default function CampaignThemes({
               >
                 {isAnglesExpanded ? '∧' : '∨'}
               </button>
+            </div>
+          )}
+
+          {/* Row 5: Implication cards — appear after angle is selected */}
+          {angleId && (isLoadingImplications || implications.length > 0) && (
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-white/35">
+                  Implication
+                </span>
+                <span className="text-[10px] text-white/20">
+                  — pick the emotional truth this angle hits for this persona
+                </span>
+              </div>
+              {isLoadingImplications ? (
+                <div className="flex gap-3">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <div key={i} className="h-24 w-56 animate-pulse rounded-xl bg-white/4" />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex gap-3 overflow-x-auto pb-1">
+                  {implications.map(impl => (
+                    <ImplicationCard
+                      key={impl.id}
+                      implication={impl}
+                      selected={selectedImplicationId === impl.id}
+                      onSelect={() => onImplicationSelect(impl.id)}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -790,11 +784,9 @@ export default function CampaignThemes({
                 <div className="flex flex-1 flex-col items-center justify-center gap-2 py-16 text-center">
                   <div className="text-3xl opacity-10">◻</div>
                   <p className="text-xs text-white/20">
-                    {hasImplications && !selectedImplicationId
-                      ? 'Pick an implication above, then select a theme and angle'
-                      : 'Select a campaign theme, persona group, theme, and angle —'}
+                      Select a campaign theme, persona group, theme, and angle —
                     <br />
-                    {hasImplications && !selectedImplicationId ? '' : 'then click Generate Concepts'}
+                    then pick an implication and click Generate Concepts
                   </p>
                 </div>
               )}
