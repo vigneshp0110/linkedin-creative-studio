@@ -293,6 +293,22 @@ export default function CampaignThemes({
   const [isCopyEditing, setIsCopyEditing] = useState(false)
   const [isReRendering, setIsReRendering] = useState(false)
 
+  // Refinement chat
+  const [generationContext, setGenerationContext] = useState<{
+    verticalLabel: string
+    campaignName: string
+    themeName: string
+    angle: Angle
+    concept?: CreativeConcept
+    implication?: Implication
+  } | null>(null)
+  const [changeHistory, setChangeHistory] = useState<string[]>([])
+  const [chatMessages, setChatMessages] = useState<
+    { id: string; role: 'user' | 'result'; text: string; isLoading?: boolean }[]
+  >([])
+  const [chatInput, setChatInput] = useState('')
+  const [isRefining, setIsRefining] = useState(false)
+
   const [isCreativePanelOpen, setIsCreativePanelOpen] = useState(false)
   const [isAnglesExpanded, setIsAnglesExpanded] = useState(false)
 
@@ -446,6 +462,18 @@ export default function CampaignThemes({
     setIsCopyEditing(false)
     setGenerateError(null)
     setIsCreativePanelOpen(true)
+    // Reset refinement state for fresh generation
+    setGenerationContext({
+      verticalLabel: selectedCampaignTheme.label,
+      campaignName: selectedPersonaGroup.name,
+      themeName: selectedTheme.name,
+      angle: selectedAngle,
+      concept,
+      implication: selectedImplication ?? undefined,
+    })
+    setChangeHistory([])
+    setChatMessages([])
+    setChatInput('')
 
     try {
       const res = await fetch('/api/generate', {
@@ -508,6 +536,48 @@ export default function CampaignThemes({
       setGenerateError(e instanceof Error ? e.message : 'Re-render failed.')
     } finally {
       setIsReRendering(false)
+    }
+  }
+
+  const sendRefinement = async () => {
+    if (!chatInput.trim() || !result || !generationContext || isRefining) return
+    const newChange = chatInput.trim()
+    const newHistory = [...changeHistory, newChange]
+    const userMsgId = `u-${Date.now()}`
+    const resultMsgId = `r-${Date.now()}`
+    setChatMessages(msgs => [
+      ...msgs,
+      { id: userMsgId, role: 'user', text: newChange },
+      { id: resultMsgId, role: 'result', text: '', isLoading: true },
+    ])
+    setChatInput('')
+    setChangeHistory(newHistory)
+    setIsRefining(true)
+    try {
+      const res = await fetch('/api/refine', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...generationContext,
+          layout: 'statement',
+          copy: editedCopy ?? result.copy,
+          changeHistory: newHistory,
+        }),
+      })
+      if (!res.ok) throw new Error(`Failed: ${res.status}`)
+      const data = await res.json()
+      setResult(prev => prev ? { ...prev, squareImage: data.squareImage, landscapeImage: data.landscapeImage } : prev)
+      setChatMessages(msgs => msgs.map(m =>
+        m.id === resultMsgId ? { ...m, isLoading: false, text: 'updated' } : m
+      ))
+    } catch {
+      setChatMessages(msgs => msgs.map(m =>
+        m.id === resultMsgId ? { ...m, isLoading: false, text: 'failed' } : m
+      ))
+      // Roll back the failed change so history stays accurate
+      setChangeHistory(prev => prev.slice(0, -1))
+    } finally {
+      setIsRefining(false)
     }
   }
 
@@ -1004,10 +1074,80 @@ export default function CampaignThemes({
               </div>
             )}
 
-            <div className="flex flex-col gap-4 overflow-y-auto">
-              <ImageCard label="Square (1:1)" format="square" src={result?.squareImage ?? null} isLoading={isGenerating} />
-              <ImageCard label="Landscape (1.5:1)" format="landscape" src={result?.landscapeImage ?? null} isLoading={isGenerating} />
+            {/* Scrollable: images + chat history */}
+            <div className="flex flex-1 flex-col gap-4 overflow-y-auto min-h-0 pr-0.5">
+              <ImageCard label="Square (1:1)" format="square" src={result?.squareImage ?? null} isLoading={isGenerating || isRefining} />
+              <ImageCard label="Landscape (1.5:1)" format="landscape" src={result?.landscapeImage ?? null} isLoading={isGenerating || isRefining} />
+
+              {/* Chat history — appears once we have a result */}
+              {chatMessages.length > 0 && (
+                <div className="flex flex-col gap-2 pb-1">
+                  {chatMessages.map(msg => (
+                    <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                      {msg.role === 'user' ? (
+                        <div className="max-w-[85%] rounded-xl rounded-tr-sm bg-white/8 px-3 py-2 text-xs text-white/80">
+                          {msg.text}
+                        </div>
+                      ) : (
+                        <div className={`flex items-center gap-1.5 text-[11px] ${
+                          msg.isLoading
+                            ? 'text-white/30'
+                            : msg.text === 'failed'
+                              ? 'text-red-400/70'
+                              : 'text-[#B8F060]/70'
+                        }`}>
+                          {msg.isLoading ? (
+                            <>
+                              <span className="h-2.5 w-2.5 animate-spin rounded-full border border-white/20 border-t-white/60" />
+                              Regenerating both images…
+                            </>
+                          ) : msg.text === 'failed' ? (
+                            '✕ Refinement failed — try again'
+                          ) : (
+                            '✓ Images updated above'
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+
+            {/* Pinned chat input — appears once a result exists */}
+            {(result || isRefining) && !isGenerating && (
+              <div className="shrink-0 border-t border-white/8 pt-3 flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-semibold uppercase tracking-widest text-white/30">Refine</span>
+                  {changeHistory.length > 0 && (
+                    <span className="text-[10px] text-white/20">
+                      {changeHistory.length} change{changeHistory.length > 1 ? 's' : ''} applied
+                    </span>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    value={chatInput}
+                    onChange={e => setChatInput(e.target.value)}
+                    onKeyDown={e => {
+                      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendRefinement() }
+                    }}
+                    placeholder='e.g. "Make the stat number larger" or "Try a lighter background"'
+                    disabled={isRefining}
+                    className="flex-1 rounded-lg border border-white/10 bg-[#070E1A] px-3 py-2 text-xs text-white placeholder-white/20 outline-none transition focus:border-[#F5A623]/50 focus:ring-1 focus:ring-[#F5A623]/20 disabled:opacity-40"
+                  />
+                  <button
+                    onClick={sendRefinement}
+                    disabled={!chatInput.trim() || isRefining}
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#F5A623] text-sm font-bold text-[#0A1628] transition hover:bg-[#f0a020] disabled:opacity-30"
+                  >
+                    {isRefining ? (
+                      <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-[#0A1628]/20 border-t-[#0A1628]" />
+                    ) : '→'}
+                  </button>
+                </div>
+              </div>
+            )}
 
             {!result && !isGenerating && !generateError && (
               <div className="flex flex-1 flex-col items-center justify-center gap-2 py-16 text-center">

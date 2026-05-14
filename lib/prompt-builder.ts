@@ -309,6 +309,20 @@ ${req.angle.quote ? `BUYER VERBATIM: "${req.angle.quote}"` : ''}${intentBlock}${
 The buyer verbatim (if provided) reflects how this person actually talks about this pain — concepts that borrow that language will resonate harder. The selected implication (if provided) is the validated emotional truth this persona feels — let it shape the hook, tone, and narrative of every concept.${req.customContext?.trim() ? ' The marketer context above takes priority — integrate it directly into the concepts.' : ''}`
 }
 
+export function buildRefinedImagePrompt(
+  req: GenerateRequest,
+  copy: AdCopy,
+  format: 'square' | 'landscape',
+  changeHistory: string[]
+): string {
+  const base = buildImagePrompt(req, copy, format)
+  if (changeHistory.length === 0) return base
+  return `${base}
+
+REQUESTED CHANGES — apply these modifications to the design described above. Preserve all other visual elements, copy, brand colors, and layout exactly as specified. Only change what is listed here:
+${changeHistory.map((c, i) => `${i + 1}. ${c}`).join('\n')}`
+}
+
 // ─── Educational Asset Generation ────────────────────────────────────────────
 
 export function buildEducationalDirectionsSystemPrompt(): string {
