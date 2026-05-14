@@ -133,6 +133,7 @@ const FEW_SHOT_ANGLE = `Ops admin spends hours each week manually verifying comm
 const FEW_SHOT_CONCEPTS = `
 CONCEPT 1 — "The Time Sink" (Quantified Pain)
 Format Tag: Quantified Pain
+Personality Tag: Sharp Expert
 Hook: "10+ hours/week… just checking commissions?"
 Visual Direction: Left side: oversized bold "10+ HOURS / WEEK" in gold. Right side: ops person buried in spreadsheets at a desk. Overlay: ticking clock icon with a red glow.
 Emotional Register: Frustration → Self-diagnosis. The specific number makes readers instantly calculate their own time lost.
@@ -142,6 +143,7 @@ Scroll Stopper: The specific number forces immediate self-diagnosis — "wait, i
 
 CONCEPT 2 — "This Shouldn't Exist"
 Format Tag: Fake Artifact
+Personality Tag: Witty Colleague
 Hook: "Why does this role even exist?"
 Visual Direction: Screenshot-style fake job posting: title "Commission Accuracy Checker", responsibilities listed as "Review 1,000+ rows manually every month." Slightly absurdist, clinical tone.
 Emotional Register: Embarrassment → Provocation. Challenges the reader to question whether this is a legitimate use of ops headcount.
@@ -151,6 +153,7 @@ Scroll Stopper: The fake job posting format is unexpected — pattern interrupt 
 
 CONCEPT 3 — "Before vs. After" Split
 Format Tag: Before / After
+Personality Tag: Pragmatic Challenger
 Hook: "Before: spreadsheets. After: autopilot."
 Visual Direction: Clean split screen. Left half: messy Excel with highlighted errors, red cells, timestamps. Right half: clean Everstage dashboard with green checkmarks, automated status indicators.
 Emotional Register: Relief. The transformation is immediately visible without reading a word.
@@ -160,6 +163,7 @@ Scroll Stopper: Transformation visuals — the contrast is processed in under a 
 
 CONCEPT 4 — "The Hidden Cost"
 Format Tag: Reframe
+Personality Tag: Straight Talker
 Hook: "The real cost isn't the errors."
 Visual Direction: Minimalist dark background. Three bullet lines stacking down: "Time wasted." "Delayed payouts." "Ops burnout." Each line appears with an icon. Final line in gold: "It's the hours spent preventing them."
 Emotional Register: Realization. Pattern interrupt — flips what the reader expected to be the point.
@@ -169,6 +173,7 @@ Scroll Stopper: "The real cost isn't the errors" is a genuine pattern interrupt 
 
 CONCEPT 5 — "The Scaling Problem"
 Format Tag: Data Visualization
+Personality Tag: Pragmatic Challenger
 Hook: "Headcount grows. So does the problem."
 Visual Direction: Two simple line graphs side by side. Left: "Team size" going up cleanly. Right: "Manual verification hours" going up faster, steeper — diverging upward. Minimal, data-viz style.
 Emotional Register: Dread / Urgency. Leaders see this as a structural problem, not a temporary one.
@@ -178,6 +183,7 @@ Scroll Stopper: The diverging graphs make the problem feel inevitable — not ju
 
 CONCEPT 6 — "The Relatable Ops Moment"
 Format Tag: Relatable Moment
+Personality Tag: Empathetic Partner
 Hook: "End of month = commission chaos"
 Visual Direction: Calendar with the 31st circled in red, "EOM" scrawled on it. Cascading Slack and email notification cards exploding to the right — commission errors, exceptions, "can you check this?" threads. Chaotic, busy layout.
 Emotional Register: Extreme relatability → shared exhaustion. Anyone who lives this moment will stop scrolling.
@@ -187,6 +193,7 @@ Scroll Stopper: Every ops person has this exact calendar moment burned into memo
 
 CONCEPT 7 — "The Blunt Truth"
 Format Tag: Contrarian Statement
+Personality Tag: Straight Talker
 Hook: "Spreadsheets aren't a system."
 Visual Direction: Giant spreadsheet screenshot fills the frame — hundreds of rows, dozens of columns, a few cells with red error triangles. Bold white overlay text on top: "Spreadsheets aren't a system."
 Emotional Register: Mild shame → Clarity. The reader knows this is true but hasn't said it out loud yet.
@@ -196,6 +203,7 @@ Scroll Stopper: The declarative "aren't a system" is a claim people either stron
 
 CONCEPT 8 — "Ops Burnout" Emotional Play
 Format Tag: Emotional Play
+Personality Tag: Empathetic Partner
 Hook: "No one signed up for this part of the job."
 Visual Direction: Muted, slightly desaturated photo of an ops professional — tired expression, stack of papers, late-hour desk light. Quiet, human, not dramatic. Text is secondary.
 Emotional Register: Empathy → Validation. Acknowledges the human cost before going anywhere near the product.
@@ -205,6 +213,7 @@ Scroll Stopper: The emotional honesty is rare in B2B ads — it stops people bec
 
 CONCEPT 9 — "The Math Problem"
 Format Tag: Abstract Metaphor
+Personality Tag: Sharp Expert
 Hook: "1,000 rows × human error = risk"
 Visual Direction: Equation-style typographic layout on dark background. "1,000 ROWS" + "HUMAN ERROR" = "RISK" — each element bold, equation sign in gold. Red error symbols scattered as texture.
 Emotional Register: Logic → Low-grade anxiety. Appeals to the analytical ops brain — makes the risk feel calculated and undeniable.
@@ -214,6 +223,7 @@ Scroll Stopper: The equation framing is instantly processable — it makes an ab
 
 CONCEPT 10 — "Future vs. Present"
 Format Tag: Time-Bound Urgency
+Personality Tag: Witty Colleague
 Hook: "Still doing this in 2026?"
 Visual Direction: Split frame. Left: grainy, slightly vintage-filter spreadsheet. Right: clean, modern Everstage UI. Left labeled "Today" in a worn typeface. Right labeled "Where your team should be."
 Emotional Register: Urgency + Mild embarrassment. Time-based framing makes the current state feel overdue for a change.
@@ -241,6 +251,7 @@ OUTPUT RULES:
 - Each concept must use a meaningfully different visual format or narrative angle — no two should feel interchangeable
 - Across the 10 concepts, cover a wide spread of format tags — do not repeat the same tag more than once
 - Valid format tags (use these exactly, or invent a new one if the concept is genuinely novel): Quantified Pain · Before / After · Contrarian Statement · Relatable Moment · Data Visualization · Emotional Play · Abstract Metaphor · Reframe · Fake Artifact · Time-Bound Urgency · Meme Template · Knowledge Gap · Named Entity · Original Composition · Question Hook · Copy-Paste Action
+- Across the 10 concepts, cover all 5 personality traits — valid values: Sharp Expert · Straight Talker · Empathetic Partner · Witty Colleague · Pragmatic Challenger. Each trait should appear at least once; aim for 2 each across 10 concepts
 - The hook is a plain-language creative direction, not final copy
 - Visual Direction must be specific enough to brief a designer or image model — not vague
 - Keep every field tight — one or two sentences max per field
@@ -250,6 +261,7 @@ Return a raw JSON array of exactly 10 objects — no markdown fences, no explana
   {
     "conceptNumber": number (1-10),
     "formatTag": string,
+    "personalityTag": string,
     "hook": string,
     "visualDirection": string,
     "emotionalRegister": string,

@@ -93,7 +93,7 @@ function ConceptCard({
   const copyToClipboard = (e: React.MouseEvent) => {
     e.stopPropagation()
     const text = [
-      `CREATIVE CONCEPT #${concept.conceptNumber}${concept.formatTag ? ` — ${concept.formatTag}` : ''}`,
+      `CREATIVE CONCEPT #${concept.conceptNumber}${concept.formatTag ? ` — ${concept.formatTag}` : ''}${concept.personalityTag ? ` [${concept.personalityTag}]` : ''}`,
       ``,
       `CORE HOOK`,
       `"${concept.hook}"`,
@@ -130,7 +130,7 @@ function ConceptCard({
       }`}
     >
       <div className="mb-2.5 flex items-start justify-between gap-2">
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5 flex-wrap">
           <span
             className={`shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-bold ${
               selected ? 'bg-[#F5A623] text-[#0A1628]' : 'bg-white/8 text-white/40'
@@ -143,6 +143,13 @@ function ConceptCard({
               selected ? 'bg-white/10 text-white/70' : 'bg-white/5 text-white/30'
             }`}>
               {concept.formatTag}
+            </span>
+          )}
+          {concept.personalityTag && (
+            <span className={`rounded-md px-1.5 py-0.5 text-[10px] font-medium ${
+              selected ? 'bg-[#4DC8B4]/15 text-[#4DC8B4]' : 'bg-white/4 text-white/25'
+            }`}>
+              {concept.personalityTag}
             </span>
           )}
         </div>
@@ -418,6 +425,7 @@ export default function CampaignThemes({
         id: 'custom',
         conceptNumber: 0,
         formatTag: 'Original Composition',
+        personalityTag: 'Pragmatic Challenger',
         hook: ownConceptText,
         visualDirection: ownConceptText,
         emotionalRegister: '',

@@ -61,6 +61,7 @@ export interface CreativeConcept {
   id: string
   conceptNumber: number
   formatTag: string
+  personalityTag: string
   hook: string
   visualDirection: string
   emotionalRegister: string
