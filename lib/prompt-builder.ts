@@ -260,7 +260,22 @@ Return a raw JSON array of exactly 10 objects — no markdown fences, no explana
 ]`
 }
 
-export function buildConceptsUserPrompt(req: { verticalLabel: string; campaignName: string; themeName: string; angle: { description: string; frequency: number; quote?: string }; implication?: { label: string; expansion: string }; customContext?: string }): string {
+const INTENT_BRIEFS: Record<string, string> = {
+  awareness: `CAMPAIGN INTENT: Awareness
+The reader may not yet know they have this problem — or hasn't named it. Do not pitch, do not ask for a click, do not reference Everstage directly. The sole job is to make them stop, feel recognised, and think "that's exactly me." Prioritise concepts that name the pain precisely, create a moment of self-diagnosis, or reframe something they've accepted as normal. Emotional resonance beats logic here.`,
+
+  consideration: `CAMPAIGN INTENT: Consideration
+The reader knows the problem exists but hasn't committed to solving it yet — or is evaluating options. Concepts should introduce doubt about their current approach, surface the hidden cost of inaction, or show what a better state looks like. Comparisons, reframes, and before/after structures work well here. Light credibility signals are appropriate — data, named pain, implied proof.`,
+
+  conversion: `CAMPAIGN INTENT: Conversion
+The reader is close to acting. Concepts should reduce friction, create urgency, and make the next step feel low-risk and obvious. Specific proof, concrete outcomes, and direct CTAs outperform emotional plays here. Every concept should have a clear ask and a reason to act now rather than later.`,
+}
+
+export function buildConceptsUserPrompt(req: { verticalLabel: string; campaignName: string; themeName: string; angle: { description: string; frequency: number; quote?: string }; implication?: { label: string; expansion: string }; intent?: string; customContext?: string }): string {
+  const intentBlock = req.intent && INTENT_BRIEFS[req.intent]
+    ? `\n${INTENT_BRIEFS[req.intent]}`
+    : ''
+
   const implicationBlock = req.implication
     ? `\nSELECTED IMPLICATION — this is the emotional core the marketer has validated. Every concept must be anchored to this identity-level truth:
 "${req.implication.label}": ${req.implication.expansion}`
@@ -277,7 +292,7 @@ VERTICAL: ${req.verticalLabel}
 CAMPAIGN / AUDIENCE: ${req.campaignName}
 PAIN THEME: ${req.themeName}
 ANGLE (Freq: ${req.angle.frequency}): ${req.angle.description}
-${req.angle.quote ? `BUYER VERBATIM: "${req.angle.quote}"` : ''}${implicationBlock}${customContextBlock}
+${req.angle.quote ? `BUYER VERBATIM: "${req.angle.quote}"` : ''}${intentBlock}${implicationBlock}${customContextBlock}
 
 The buyer verbatim (if provided) reflects how this person actually talks about this pain — concepts that borrow that language will resonate harder. The selected implication (if provided) is the validated emotional truth this persona feels — let it shape the hook, tone, and narrative of every concept.${req.customContext?.trim() ? ' The marketer context above takes priority — integrate it directly into the concepts.' : ''}`
 }

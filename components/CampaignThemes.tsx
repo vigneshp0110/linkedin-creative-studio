@@ -88,6 +88,38 @@ function ConceptCard({
   selected: boolean
   onSelect: () => void
 }) {
+  const [copied, setCopied] = useState(false)
+
+  const copyToClipboard = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    const text = [
+      `CREATIVE CONCEPT #${concept.conceptNumber}${concept.formatTag ? ` — ${concept.formatTag}` : ''}`,
+      ``,
+      `CORE HOOK`,
+      `"${concept.hook}"`,
+      ``,
+      `VISUAL DIRECTION`,
+      concept.visualDirection,
+      ``,
+      `EMOTIONAL REGISTER`,
+      concept.emotionalRegister,
+      ``,
+      `NARRATIVE STRUCTURE`,
+      concept.narrativeStructure,
+      ``,
+      `CTA DIRECTION`,
+      concept.ctaDirection,
+      ``,
+      `SCROLL STOPPER`,
+      concept.scrollStopper,
+    ].join('\n')
+
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
+
   return (
     <button
       onClick={onSelect}
@@ -114,11 +146,24 @@ function ConceptCard({
             </span>
           )}
         </div>
-        {selected && (
-          <span className="shrink-0 rounded-full bg-[#F5A623]/15 px-2 py-0.5 text-[10px] font-semibold text-[#F5A623]">
-            Selected
-          </span>
-        )}
+        <div className="flex shrink-0 items-center gap-1.5">
+          {selected && (
+            <span className="rounded-full bg-[#F5A623]/15 px-2 py-0.5 text-[10px] font-semibold text-[#F5A623]">
+              Selected
+            </span>
+          )}
+          <button
+            onClick={copyToClipboard}
+            title="Copy concept brief"
+            className={`rounded-md border px-2 py-0.5 text-[10px] font-medium transition ${
+              copied
+                ? 'border-[#F5A623]/40 text-[#F5A623]'
+                : 'border-white/10 text-white/30 hover:border-white/25 hover:text-white/60'
+            }`}
+          >
+            {copied ? '✓ Copied' : '⎘ Copy'}
+          </button>
+        </div>
       </div>
 
       <p className={`mb-3 text-sm font-semibold leading-snug ${selected ? 'text-white' : 'text-white/80'}`}>
@@ -212,6 +257,7 @@ export default function CampaignThemes({
   const [personaGroupId, setPersonaGroupId] = useState('')
   const [themeId, setThemeId] = useState('')
   const [angleId, setAngleId] = useState('')
+  const [intent, setIntent] = useState<'awareness' | 'consideration' | 'conversion'>('awareness')
   const [customContext, setCustomContext] = useState('')
 
   const [personaGroups, setPersonaGroups] = useState<Campaign[]>([])
@@ -351,6 +397,7 @@ export default function CampaignThemes({
           themeName: selectedTheme.name,
           angle: selectedAngle,
           implication: selectedImplication ?? undefined,
+          intent,
           customContext: customContext.trim() || undefined,
         }),
       })
@@ -507,6 +554,20 @@ export default function CampaignThemes({
                   value: t.id,
                   label: `${t.name} (${t.totalFrequency})`,
                 }))}
+              />
+            </div>
+
+            {/* Intent */}
+            <div className="w-44">
+              <Select
+                label="Campaign Intent"
+                value={intent}
+                onChange={v => setIntent(v as typeof intent)}
+                options={[
+                  { value: 'awareness',     label: '👁 Awareness' },
+                  { value: 'consideration', label: '🤔 Consideration' },
+                  { value: 'conversion',    label: '⚡ Conversion' },
+                ]}
               />
             </div>
 
