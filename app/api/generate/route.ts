@@ -45,6 +45,23 @@ export async function POST(req: NextRequest) {
 
     const body: GenerateRequest = await req.json()
 
+    // Re-load logo if brand theme changed (new brand uses logo-new.png)
+    if (body.brandTheme === 'new') {
+      logoFile = null
+      try {
+        const newLogoPath = path.join(process.cwd(), 'public/logos/logo-new.png')
+        const newLogoBuf = fs.readFileSync(newLogoPath)
+        const squareNewLogoBuf = await sharp(newLogoBuf)
+          .resize(1024, 1024, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+          .png()
+          .toBuffer()
+        logoFile = await toFile(squareNewLogoBuf, 'logo.png', { type: 'image/png' })
+        console.log('[generate] new brand logo loaded')
+      } catch (e) {
+        console.error('[generate] new brand logo not found, falling back to classic logo or generate:', e)
+      }
+    }
+
     // --- Copy generation ---
     let copy: AdCopy
     if (body.providedCopy) {

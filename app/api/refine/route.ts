@@ -38,6 +38,24 @@ export async function POST(req: NextRequest) {
     }
 
     const body: RefineBody = await req.json()
+
+    // Swap to new brand logo if needed
+    if (body.brandTheme === 'new') {
+      logoFile = null
+      try {
+        const newLogoPath = path.join(process.cwd(), 'public/logos/logo-new.png')
+        const newLogoBuf = fs.readFileSync(newLogoPath)
+        const squareNewLogoBuf = await sharp(newLogoBuf)
+          .resize(1024, 1024, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+          .png()
+          .toBuffer()
+        logoFile = await toFile(squareNewLogoBuf, 'logo.png', { type: 'image/png' })
+        console.log('[refine] new brand logo loaded')
+      } catch (e) {
+        console.error('[refine] new brand logo not found, falling back:', e)
+      }
+    }
+
     const { copy, changeHistory, ...generateReq } = body
 
     async function generateImage(

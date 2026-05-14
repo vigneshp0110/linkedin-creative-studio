@@ -6,13 +6,14 @@ import CreativeStudio from './CreativeStudio'
 import EducationalAssets from './EducationalAssets'
 import SocialProof from './SocialProof'
 import CampaignThemes from './CampaignThemes'
+import { BrandTheme } from '@/lib/types'
 
 type ContentTab = 'use-cases' | 'social-proof' | 'educational'
 
 const TABS: { id: ContentTab; label: string }[] = [
-  { id: 'use-cases',   label: 'Use Cases' },
+  { id: 'use-cases',    label: 'Use Cases' },
   { id: 'social-proof', label: 'Social Proof' },
-  { id: 'educational', label: 'Educational Assets' },
+  { id: 'educational',  label: 'Educational Assets' },
 ]
 
 export default function AppShell({
@@ -24,6 +25,7 @@ export default function AppShell({
 }) {
   const [mode, setMode] = useState<AppMode>('vertical-programs')
   const [tab, setTab] = useState<ContentTab>('use-cases')
+  const [brandTheme, setBrandTheme] = useState<BrandTheme>('classic')
 
   const handleModeChange = (newMode: AppMode) => {
     setMode(newMode)
@@ -49,33 +51,65 @@ export default function AppShell({
         <LeftNav activeMode={mode} onModeChange={handleModeChange} />
 
         <div className="flex flex-1 flex-col overflow-hidden">
-          {/* Top tab strip */}
-          <div className="flex shrink-0 items-center gap-0 border-b border-white/5 bg-[#0A1628] px-4">
-            {TABS.map(t => (
-              <button
-                key={t.id}
-                onClick={() => setTab(t.id)}
-                className={`relative px-4 py-3.5 text-xs font-medium transition ${
-                  tab === t.id
-                    ? 'text-white'
-                    : 'text-white/35 hover:text-white/65'
-                }`}
-              >
-                {t.label}
-                {tab === t.id && (
-                  <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-t-full bg-[#F5A623]" />
-                )}
-              </button>
-            ))}
+          {/* Top tab strip + brand toggle */}
+          <div className="flex shrink-0 items-center justify-between border-b border-white/5 bg-[#0A1628] px-4">
+            {/* Content tabs */}
+            <div className="flex items-center">
+              {TABS.map(t => (
+                <button
+                  key={t.id}
+                  onClick={() => setTab(t.id)}
+                  className={`relative px-4 py-3.5 text-xs font-medium transition ${
+                    tab === t.id
+                      ? 'text-white'
+                      : 'text-white/35 hover:text-white/65'
+                  }`}
+                >
+                  {t.label}
+                  {tab === t.id && (
+                    <span className="absolute bottom-0 left-3 right-3 h-[2px] rounded-t-full bg-[#F5A623]" />
+                  )}
+                </button>
+              ))}
+            </div>
+
+            {/* Brand theme toggle */}
+            <div className="flex items-center gap-2.5">
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-white/30">
+                Brand
+              </span>
+              <div className="flex rounded-lg border border-white/10 p-0.5">
+                <button
+                  onClick={() => setBrandTheme('classic')}
+                  className={`rounded-md px-3 py-1 text-[11px] font-medium transition ${
+                    brandTheme === 'classic'
+                      ? 'bg-white/10 text-white'
+                      : 'text-white/35 hover:text-white/60'
+                  }`}
+                >
+                  Classic
+                </button>
+                <button
+                  onClick={() => setBrandTheme('new')}
+                  className={`rounded-md px-3 py-1 text-[11px] font-medium transition ${
+                    brandTheme === 'new'
+                      ? 'bg-[#CF3070]/20 text-[#CF3070]'
+                      : 'text-white/35 hover:text-white/60'
+                  }`}
+                >
+                  ✦ New
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Content */}
           <div className="flex flex-1 flex-col overflow-hidden">
             {tab === 'use-cases' && mode === 'vertical-programs' && (
-              <CreativeStudio verticals={verticals} />
+              <CreativeStudio verticals={verticals} brandTheme={brandTheme} />
             )}
             {tab === 'use-cases' && mode === 'q2-campaigns' && (
-              <CampaignThemes campaignThemes={campaignThemes} />
+              <CampaignThemes campaignThemes={campaignThemes} brandTheme={brandTheme} />
             )}
             {tab === 'social-proof' && <SocialProof />}
             {tab === 'educational' && <EducationalAssets />}

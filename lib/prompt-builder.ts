@@ -1,4 +1,4 @@
-import { AdCopy, GenerateRequest, LayoutTemplate, CreativeConcept } from './types'
+import { AdCopy, BrandTheme, GenerateRequest, LayoutTemplate, CreativeConcept } from './types'
 
 const BRAND_BRIEF = `
 BRAND: Everstage — AI-powered sales commission management and incentive compensation platform for B2B SaaS and enterprise companies. Replaces spreadsheets with automated, auditable commission calculations.
@@ -14,6 +14,26 @@ BRAND COLORS:
 - Teal: #4DC8B4 (decorative accents)
 
 LOGO: "everstage" wordmark with a circular icon — white version for dark backgrounds, navy for light.
+`.trim()
+
+const NEW_BRAND_BRIEF = `
+BRAND: Everstage — AI-powered sales commission management and incentive compensation platform for B2B SaaS and enterprise companies.
+
+BRAND VOICE: Confident, pain-first, direct. Speaks the buyer's language — no jargon, no fluff.
+
+NEW BRAND AESTHETIC: Bold geometric color-block grid. The canvas is divided into rectangular zones, each filled with a flat brand color — no gradients, no white space. Vibrant, modern, editorial.
+
+NEW BRAND COLORS:
+- Eggplant/maroon: #3D1935 (primary dark)
+- Hot pink/magenta: #CF3070
+- Periwinkle blue: #5465D4
+- Teal/emerald: #1BA894
+- Warm orange: #E8893B
+- Warm tan/brown: #B8764A
+- Peach/cream: #F5CEB0
+- Dark maroon text: #2D1B30
+
+LOGO: Colorful stacked-bar "E" icon (multi-colored horizontal bars in pink, teal, blue, orange) + "Everstage" wordmark in dark maroon. Use full-color version on light/pastel blocks. White wordmark version on dark/eggplant blocks.
 `.trim()
 
 export function buildCopySystemPrompt(): string {
@@ -61,6 +81,29 @@ ${conceptLines}${customContextLine}
 If a buyer verbatim is provided, borrow their exact phrasing where it fits naturally.`
 }
 
+const NEW_LAYOUT_VISUALS: Record<LayoutTemplate, { name: string; squareVisual: string; landscapeVisual: string }> = {
+  statement: {
+    name: 'Statement',
+    squareVisual: `LAYOUT (Square 1:1): Bold geometric color-block grid. No white space — every zone filled with a flat brand color. Left 60% column: eggplant (#3D1935) background — top-left: Everstage colorful logo (multicolor icon + white "Everstage" wordmark). Below logo: large bold white headline text with one key phrase in hot pink (#CF3070). White subheadline below. 2-3 bullet lines in peach/cream (#F5CEB0) text. Near bottom: CTA button in warm orange (#E8893B) with dark maroon text. Right 40%: split into 2-3 stacked color blocks — top block teal (#1BA894), middle block periwinkle (#5465D4), bottom block warm tan (#B8764A). Each block solid flat color, no text. Geometric dividing lines are crisp and clean. Modern, vibrant, editorial B2B aesthetic.`,
+    landscapeVisual: `LAYOUT (Landscape 1.5:1): Bold geometric color-block grid. Left 55%: eggplant (#3D1935) — top-left: Everstage colorful logo (multicolor icon + white wordmark). Below: large bold white headline with key phrase in hot pink (#CF3070). White subheadline. 2-3 bullet lines in peach (#F5CEB0). CTA button in orange (#E8893B) with dark maroon text. Right 45%: 3 stacked flat color blocks — teal (#1BA894) top, periwinkle (#5465D4) middle, warm tan (#B8764A) bottom. Clean geometric grid, no gradients, no white space.`,
+  },
+  'pain-story': {
+    name: 'Pain Story',
+    squareVisual: `LAYOUT (Square 1:1): Geometric color-block layout. Top 65%: large eggplant (#3D1935) zone — top-left Everstage colorful logo (white wordmark). Bold white headline below with key pain words in hot pink (#CF3070). Center-right: semi-transparent notification UI cards (Slack/email style) with commission error alerts cascading down, tinted in brand colors. Bottom 35%: split horizontally — left half warm tan (#B8764A) with 2 bullet lines in dark maroon text; right half hot pink (#CF3070) with CTA button in white. Crisp geometric divisions, flat colors, modern.`,
+    landscapeVisual: `LAYOUT (Landscape 1.5:1): Left 45%: eggplant (#3D1935) — top-left Everstage colorful logo (white wordmark). Bold white headline, pain words in hot pink (#CF3070). 2-3 bullet lines in peach. Center: notification UI cards cascading commission errors. Right 55%: top half teal (#1BA894), bottom half orange (#E8893B). CTA button in white on the orange block. Flat colors, geometric grid.`,
+  },
+  'data-card': {
+    name: 'Data Card',
+    squareVisual: `LAYOUT (Square 1:1): Color-block grid on peach/cream (#F5CEB0) base. Top-left: Everstage colorful logo (dark maroon wordmark on light background). Large bold dark maroon (#2D1B30) headline, key stat word in periwinkle (#5465D4). Center: oversized stat number in hot pink (#CF3070) — bold, dominant. Right column: stacked flat color block (teal #1BA894) with white bullet points. Bottom: eggplant (#3D1935) strip with report/whitepaper mockup featuring Everstage branding. Clean, editorial, data-forward.`,
+    landscapeVisual: `LAYOUT (Landscape 1.5:1): Peach (#F5CEB0) base. Top-left: Everstage colorful logo (dark maroon). Bold dark maroon headline, stat in periwinkle. Large hot pink stat number center-left. Right: teal (#1BA894) block with white bullets. Bottom strip: eggplant (#3D1935) with report mockup. Flat geometric color zones.`,
+  },
+  testimonial: {
+    name: 'Testimonial',
+    squareVisual: `LAYOUT (Square 1:1): Color-block geometric grid. Full top strip: periwinkle (#5465D4) — Everstage colorful logo centered (white wordmark). Main zone: large peach/cream (#F5CEB0) block (80% of canvas) with bold dark maroon (#2D1B30) serif quote text. Key phrase highlighted with hot pink (#CF3070) underline. Horizontal divider. Below: left — circular headshot photo with eggplant (#3D1935) border; right — bold dark maroon name, maroon subtitle, company logo. Bottom strip: eggplant (#3D1935) with CTA in orange (#E8893B). Clean, editorial.`,
+    landscapeVisual: `LAYOUT (Landscape 1.5:1): Top strip: periwinkle (#5465D4) — Everstage colorful logo centered (white wordmark). Wide peach (#F5CEB0) zone with bold dark maroon quote. Key phrase in hot pink underline. Headshot left, name/title/company logo right. Bottom strip: eggplant (#3D1935) with CTA in orange. Flat, geometric.`,
+  },
+}
+
 const LAYOUT_VISUALS: Record<LayoutTemplate, { name: string; squareVisual: string; landscapeVisual: string }> = {
   statement: {
     name: 'Statement',
@@ -85,16 +128,38 @@ const LAYOUT_VISUALS: Record<LayoutTemplate, { name: string; squareVisual: strin
 }
 
 export function buildImagePrompt(req: GenerateRequest, copy: AdCopy, format: 'square' | 'landscape'): string {
+  const isNew = req.brandTheme === 'new'
   const formatLabel = format === 'square' ? 'Square (1:1), 1024×1024px' : 'Landscape (1.5:1), 1536×1024px'
   const formatNote = format === 'square'
     ? 'Adapt the layout described below to a square (1:1) composition.'
     : 'Adapt the layout described below to a landscape (1.5:1 wider) composition.'
 
   const bodyText = copy.body.map(b => `• ${b}`).join('\n')
-
   const conceptHook = req.concept?.hook ? `CONCEPT HOOK: "${req.concept.hook}"` : ''
+  const layouts = isNew ? NEW_LAYOUT_VISUALS : LAYOUT_VISUALS
   const visualDirection = req.concept?.visualDirection
-    ?? LAYOUT_VISUALS[req.layout][format === 'square' ? 'squareVisual' : 'landscapeVisual']
+    ?? layouts[req.layout][format === 'square' ? 'squareVisual' : 'landscapeVisual']
+
+  const brandRequirements = isNew
+    ? `BRAND REQUIREMENTS (NEW BRAND):
+- Bold geometric color-block grid — no white space, every zone filled with a flat brand color
+- LOGO: The input image contains the official Everstage logo. Reproduce it exactly — do not draw a substitute. Use the full-color version (multicolor icon + dark maroon wordmark) on light/pastel blocks; white wordmark version on dark/eggplant blocks. Place top-left unless the visual direction specifies otherwise.
+- Do NOT render any product description, category label, or marketing tagline as text — only render the exact copy listed above
+- New brand colors: eggplant #3D1935 · hot pink #CF3070 · periwinkle #5465D4 · teal #1BA894 · orange #E8893B · tan #B8764A · peach #F5CEB0
+- CTA button in warm orange (#E8893B) with dark maroon (#2D1B30) text
+- Text crisp and legible — dark maroon on light blocks, white on dark blocks
+- Modern, vibrant, editorial enterprise aesthetic — bold flat colors, no gradients
+- No competitor brand names or logos`
+    : `BRAND REQUIREMENTS:
+- Deep navy (#0A1628) or dark background unless the visual direction specifies otherwise
+- LOGO: The input image contains the official Everstage logo (circular icon + "everstage" wordmark). You MUST reproduce this exact logo on the creative — do not draw a substitute. On dark backgrounds render it in white; on light backgrounds render it in navy. Place it top-left unless the visual direction specifies otherwise. Keep proportions intact.
+- Do NOT render any product description, category label, or marketing tagline as text on the image — only render the exact copy listed in the EXACT COPY section above
+- Brand colors: navy #0A1628, royal blue #1B3FCC, gold #F5A623, lime green #B8F060, teal #4DC8B4
+- CTA button in gold (#F5A623) with dark text
+- Text must be crisp, legible, and high-contrast against its background
+- Premium enterprise B2B aesthetic — not startup-casual, not generic
+- No competitor brand names or logos
+- Photorealistic where photography is specified; flat/3D illustration where specified`
 
   return `Create a professional LinkedIn single image advertisement for Everstage — an AI-powered sales commission management platform for B2B enterprise companies.
 
@@ -115,16 +180,7 @@ CTA Button: "${copy.cta}"
 VISUAL DIRECTION (follow this closely):
 ${visualDirection}
 
-BRAND REQUIREMENTS:
-- Deep navy (#0A1628) or dark background unless the visual direction specifies otherwise
-- LOGO: The input image contains the official Everstage logo (circular icon + "everstage" wordmark). You MUST reproduce this exact logo on the creative — do not draw a substitute. On dark backgrounds render it in white; on light backgrounds render it in navy. Place it top-left unless the visual direction specifies otherwise. Keep proportions intact.
-- Do NOT render any product description, category label, or marketing tagline as text on the image — only render the exact copy listed in the EXACT COPY section above
-- Brand colors: navy #0A1628, royal blue #1B3FCC, gold #F5A623, lime green #B8F060, teal #4DC8B4
-- CTA button in gold (#F5A623) with dark text
-- Text must be crisp, legible, and high-contrast against its background
-- Premium enterprise B2B aesthetic — not startup-casual, not generic
-- No competitor brand names or logos
-- Photorealistic where photography is specified; flat/3D illustration where specified`
+${brandRequirements}`
 }
 
 // ─── Creative Concept Generation ────────────────────────────────────────────
