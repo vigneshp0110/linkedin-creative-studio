@@ -60,6 +60,7 @@ export interface GenerateResponse {
 export interface CreativeConcept {
   id: string
   conceptNumber: number
+  formatTag: string
   hook: string
   visualDirection: string
   emotionalRegister: string

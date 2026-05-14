@@ -98,13 +98,22 @@ function ConceptCard({
       }`}
     >
       <div className="mb-2.5 flex items-start justify-between gap-2">
-        <span
-          className={`shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-bold ${
-            selected ? 'bg-[#F5A623] text-[#0A1628]' : 'bg-white/8 text-white/40'
-          }`}
-        >
-          {concept.conceptNumber}
-        </span>
+        <div className="flex items-center gap-1.5">
+          <span
+            className={`shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-bold ${
+              selected ? 'bg-[#F5A623] text-[#0A1628]' : 'bg-white/8 text-white/40'
+            }`}
+          >
+            {concept.conceptNumber}
+          </span>
+          {concept.formatTag && (
+            <span className={`rounded-md px-1.5 py-0.5 text-[10px] font-medium ${
+              selected ? 'bg-white/10 text-white/70' : 'bg-white/5 text-white/30'
+            }`}>
+              {concept.formatTag}
+            </span>
+          )}
+        </div>
         {selected && (
           <span className="shrink-0 rounded-full bg-[#F5A623]/15 px-2 py-0.5 text-[10px] font-semibold text-[#F5A623]">
             Selected
@@ -361,6 +370,7 @@ export default function CampaignThemes({
       return {
         id: 'custom',
         conceptNumber: 0,
+        formatTag: 'Original Composition',
         hook: ownConceptText,
         visualDirection: ownConceptText,
         emotionalRegister: '',
