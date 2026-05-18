@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { EducationalVariation } from '@/lib/types'
+import { BrandTheme, EducationalVariation } from '@/lib/types'
 
 // ─── Shared sub-components ────────────────────────────────────────────────────
 
@@ -275,7 +275,7 @@ function TestimonialForm({ onGenerate, isGenerating, hasSquares }: { onGenerate:
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-export default function SocialProof() {
+export default function SocialProof({ brandTheme }: { brandTheme: BrandTheme }) {
   const [subTab, setSubTab] = useState<'badges' | 'testimonial'>('badges')
 
   const [variations, setVariations] = useState<(EducationalVariation | null)[]>([null, null, null])
@@ -301,6 +301,7 @@ export default function SocialProof() {
     setHasSquares(false)
     setError(null)
     fd.set('format', 'square')
+    fd.set('brandTheme', brandTheme)
     lastFormDataRef.current = fd
 
     try {
@@ -331,6 +332,7 @@ export default function SocialProof() {
 
     const fd = lastFormDataRef.current
     fd.set('format', 'landscape')
+    fd.set('brandTheme', brandTheme)
     fd.set('visualDirections', JSON.stringify(
       variations.filter(Boolean).map(v => ({ id: v!.id, name: v!.name, description: v!.visualDirection }))
     ))

@@ -1,6 +1,12 @@
 export const dynamic = 'force-dynamic'
+export const maxDuration = 120
 
 import { NextRequest, NextResponse } from 'next/server'
+import * as fs from 'fs'
+import * as path from 'path'
+import sharp from 'sharp'
+import type { ImagesResponse } from 'openai/resources/images'
+import { BrandTheme } from '@/lib/types'
 import {
   buildEducationalDirectionsSystemPrompt,
   buildEducationalDirectionsUserPrompt,
@@ -8,7 +14,7 @@ import {
 } from '@/lib/prompt-builder'
 
 export async function POST(req: NextRequest) {
-  const [{ default: OpenAI }, { default: Anthropic }] = await Promise.all([
+  const [{ default: OpenAI, toFile }, { default: Anthropic }] = await Promise.all([
     import('openai'),
     import('@anthropic-ai/sdk'),
   ])
@@ -17,19 +23,55 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json()
   const { guideTitle, bodyCopy, cta, format = 'square', visualDirections } = body
+  const brandTheme: BrandTheme = body.brandTheme ?? 'classic'
+  const isNewBrand = brandTheme === 'new'
+  const logoFileName = isNewBrand ? 'logo-new.png' : 'logo-full.png'
+
+  let logoUploadable: Awaited<ReturnType<typeof toFile>> | null = null
+  try {
+    const logoPath = path.join(process.cwd(), 'public/logos', logoFileName)
+    const logoBuf = fs.readFileSync(logoPath)
+    const squareBuf = await sharp(logoBuf)
+      .resize(1024, 1024, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .png()
+      .toBuffer()
+    logoUploadable = await toFile(squareBuf, 'logo.png', { type: 'image/png' })
+    console.log('[educational] logo ready:', logoFileName)
+  } catch (e) {
+    console.error('[educational] logo prep failed, will use images.generate:', e)
+  }
+
+  async function generateImage(prompt: string, size: '1024x1024' | '1536x1024'): Promise<string | null> {
+    try {
+      if (logoUploadable) {
+        const res = await (openai.images.edit({
+          model: 'gpt-image-2',
+          image: logoUploadable,
+          prompt,
+          n: 1,
+          size,
+        } as Parameters<typeof openai.images.edit>[0]) as Promise<ImagesResponse>)
+        return res.data?.[0]?.b64_json ? `data:image/png;base64,${res.data[0].b64_json}` : null
+      }
+    } catch (e) {
+      console.error('[educational] images.edit failed, falling back:', e)
+    }
+    const res = await openai.images.generate({
+      model: 'gpt-image-2',
+      prompt,
+      n: 1,
+      size,
+    } as Parameters<typeof openai.images.generate>[0]) as ImagesResponse
+    return res.data?.[0]?.b64_json ? `data:image/png;base64,${res.data[0].b64_json}` : null
+  }
 
   if (format === 'landscape' && visualDirections?.length) {
     const images = await Promise.all(
       visualDirections.map((dir: { id: string; name: string; description: string }) =>
-        openai.images.generate({
-          model: 'gpt-image-2',
-          prompt: buildEducationalImagePrompt({ guideTitle, bodyCopy, cta }, dir, 'landscape'),
-          n: 1,
-          size: '1536x1024',
-        }).then(res => ({
-          id: dir.id,
-          image: res.data?.[0]?.b64_json ? `data:image/png;base64,${res.data[0].b64_json}` : null,
-        }))
+        generateImage(
+          buildEducationalImagePrompt({ guideTitle, bodyCopy, cta }, dir, 'landscape', brandTheme),
+          '1536x1024'
+        ).then(image => ({ id: dir.id, image }))
       )
     )
     return NextResponse.json({ images })
@@ -38,7 +80,7 @@ export async function POST(req: NextRequest) {
   const message = await anthropic.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 1024,
-    system: buildEducationalDirectionsSystemPrompt(),
+    system: buildEducationalDirectionsSystemPrompt(brandTheme),
     messages: [{ role: 'user', content: buildEducationalDirectionsUserPrompt({ guideTitle, bodyCopy, cta }) }],
   })
 
@@ -49,16 +91,14 @@ export async function POST(req: NextRequest) {
 
   const images = await Promise.all(
     dirs.map(dir =>
-      openai.images.generate({
-        model: 'gpt-image-2',
-        prompt: buildEducationalImagePrompt({ guideTitle, bodyCopy, cta }, dir, 'square'),
-        n: 1,
-        size: '1024x1024',
-      }).then(res => ({
+      generateImage(
+        buildEducationalImagePrompt({ guideTitle, bodyCopy, cta }, dir, 'square', brandTheme),
+        '1024x1024'
+      ).then(image => ({
         id: dir.id,
         name: dir.name,
         visualDirection: dir.description,
-        image: res.data?.[0]?.b64_json ? `data:image/png;base64,${res.data[0].b64_json}` : null,
+        image,
       }))
     )
   )

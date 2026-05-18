@@ -392,10 +392,10 @@ ${changeHistory.map((c, i) => `${i + 1}. ${c}`).join('\n')}`
 
 // ─── Educational Asset Generation ────────────────────────────────────────────
 
-export function buildEducationalDirectionsSystemPrompt(): string {
+export function buildEducationalDirectionsSystemPrompt(brandTheme?: BrandTheme): string {
   return `You are a senior B2B creative strategist for Everstage, an AI-powered sales commission management platform.
 
-${BRAND_BRIEF}
+${brandTheme === 'new' ? NEW_BRAND_BRIEF : BRAND_BRIEF}
 
 Your job: given a thought leadership report or guide being promoted, generate exactly 3 distinctly different visual directions for a LinkedIn single image ad.
 
@@ -404,6 +404,7 @@ Each direction must differ meaningfully in:
 - Layout composition (where headline, report mockup, and supporting elements sit)
 - Mood/aesthetic (e.g. dark premium vs editorial light vs bold energetic vs minimalist typographic)
 - Visual element treatment (3D report mockup vs flat cover vs typographic dominant vs photography)
+- Logo appears in top-right corner
 
 Return raw JSON only — no markdown fences, no explanation:
 [
@@ -427,12 +428,24 @@ Make the three directions genuinely different — a reader should be able to tel
 export function buildEducationalImagePrompt(
   req: { guideTitle: string; bodyCopy: string; cta: string },
   direction: { name: string; description: string },
-  format: 'square' | 'landscape'
+  format: 'square' | 'landscape',
+  brandTheme?: BrandTheme
 ): string {
   const formatLabel = format === 'square' ? 'Square (1:1), 1024×1024px' : 'Landscape (1.5:1), 1536×1024px'
   const formatNote = format === 'square'
     ? 'Adapt the layout to a square (1:1) composition.'
     : 'Adapt the layout to a landscape (1.5:1 wider) composition.'
+
+  const isNew = brandTheme === 'new'
+  const logoLine = isNew
+    ? `- The input image contains the official Everstage logo (colorful stacked-bar E icon + "Everstage" wordmark in dark maroon). Reproduce it exactly in the top-right corner — full-color version on light/pastel backgrounds, white wordmark version on dark/eggplant backgrounds`
+    : `- The input image contains the official Everstage "everstage" wordmark logo (circular icon + wordmark). Reproduce it exactly in the top-right corner — white on dark backgrounds, navy on light backgrounds`
+  const brandColors = isNew
+    ? `- Brand colors: eggplant #3D1935 · hot pink #CF3070 · periwinkle #5465D4 · teal #1BA894 · orange #E8893B · tan #B8764A · peach #F5CEB0`
+    : `- Brand colors: navy #0A1628, royal blue #1B3FCC, gold #F5A623, lime green #B8F060, teal #4DC8B4`
+  const ctaLine = isNew
+    ? `- CTA button labeled exactly "${req.cta}" must be prominent — warm orange (#E8893B) with dark maroon text`
+    : `- CTA button labeled exactly "${req.cta}" must be prominent — gold (#F5A623) with dark text`
 
   return `Create a professional LinkedIn single image advertisement for Everstage promoting a thought leadership report/guide.
 
@@ -448,21 +461,23 @@ ${direction.description}
 
 CRITICAL REQUIREMENTS:
 - The report/guide title "${req.guideTitle}" must appear prominently on the image as rendered text
-- A professional report/guide cover mockup with "everstage" branding on the cover should be featured
-- "everstage" wordmark logo must appear separately as well — white on dark backgrounds, navy on light
+- A professional report/guide cover mockup featuring Everstage branding should be visible
+${logoLine}
 - CTA button labeled exactly "${req.cta}" must be prominent
-- Brand colors available: navy #0A1628, royal blue #1B3FCC, gold #F5A623, lime green #B8F060, teal #4DC8B4
+${ctaLine}
+${brandColors}
 - Premium enterprise B2B aesthetic — not startup-casual
 - All text rendered crisply and legibly
-- No competitor logos or brand names`
+- No competitor logos or brand names
+- Do NOT render any additional text beyond what is specified above`
 }
 
 // ─── Social Proof: Review Badges ─────────────────────────────────────────────
 
-export function buildBadgeDirectionsSystemPrompt(): string {
+export function buildBadgeDirectionsSystemPrompt(brandTheme?: BrandTheme): string {
   return `You are a senior B2B creative strategist for Everstage, an AI-powered sales commission management platform.
 
-${BRAND_BRIEF}
+${brandTheme === 'new' ? NEW_BRAND_BRIEF : BRAND_BRIEF}
 
 Your job: given a set of customer review badges (e.g. G2, Capterra) being featured in a LinkedIn ad, generate exactly 3 distinctly different visual directions.
 
@@ -471,6 +486,7 @@ Each direction must differ in:
 - Badge placement and prominence (hero of the image vs balanced with copy vs clustered with supporting elements)
 - Copy and layout composition (where headline, badges, and CTA sit relative to each other)
 - Overall aesthetic mood (prestigious/dark, clean/light, bold/energetic)
+- Logo: Everstage logo must appear in top-right corner — specify its placement in every direction
 
 The image generation model will receive the actual badge image(s) as visual input alongside your direction — so describe the overall ad layout and treatment, not the badge content itself.
 
@@ -496,12 +512,24 @@ Make the three directions look genuinely different from each other at a glance.`
 export function buildBadgeImagePrompt(
   req: { tagline: string; cta: string; badgeCount: number },
   direction: { name: string; description: string },
-  format: 'square' | 'landscape'
+  format: 'square' | 'landscape',
+  brandTheme?: BrandTheme
 ): string {
   const formatLabel = format === 'square' ? 'Square (1:1), 1024×1024px' : 'Landscape (1.5:1), 1536×1024px'
   const formatNote = format === 'square'
     ? 'Adapt the layout to a square (1:1) composition.'
     : 'Adapt the layout to a landscape (1.5:1 wider) composition.'
+
+  const isNew = brandTheme === 'new'
+  const logoLine = isNew
+    ? `- The input image contains the official Everstage logo (colorful stacked-bar E icon + "Everstage" wordmark in dark maroon). Reproduce it exactly in the top-right corner — full-color version on light/pastel backgrounds, white wordmark version on dark/eggplant backgrounds`
+    : `- The input image contains the official Everstage "everstage" wordmark logo (circular icon + wordmark). Reproduce it exactly in the top-right corner — white on dark backgrounds, navy on light backgrounds`
+  const brandColors = isNew
+    ? `- Brand colors: eggplant #3D1935 · hot pink #CF3070 · periwinkle #5465D4 · teal #1BA894 · orange #E8893B · tan #B8764A · peach #F5CEB0`
+    : `- Brand colors: navy #0A1628, royal blue #1B3FCC, gold #F5A623, lime green #B8F060, teal #4DC8B4`
+  const ctaLine = isNew
+    ? `- CTA button labeled exactly "${req.cta}" must be prominent — warm orange (#E8893B) with dark maroon text`
+    : `- CTA button labeled exactly "${req.cta}" must be prominent — gold (#F5A623) with dark text`
 
   return `Create a professional LinkedIn single image advertisement for Everstage, an AI-powered sales commission management platform, showcasing customer review achievements.
 
@@ -517,20 +545,22 @@ VISUAL DIRECTION — ${direction.name}:
 ${direction.description}
 
 CRITICAL REQUIREMENTS:
-- Badge${req.badgeCount > 1 ? 's' : ''} from the uploaded image${req.badgeCount > 1 ? 's' : ''} must be prominently displayed and fully legible
-- "everstage" wordmark logo must appear — white on dark backgrounds, navy on light
-- CTA button labeled exactly "${req.cta}" must be prominent
-- Brand colors: navy #0A1628, royal blue #1B3FCC, gold #F5A623, lime green #B8F060, teal #4DC8B4
-- Premium enterprise B2B aesthetic
-- No competitor logos or brand names`
+- Badge${req.badgeCount > 1 ? 's' : ''} from the uploaded image${req.badgeCount > 1 ? 's' : ''} must be prominently displayed and fully legible — do not obscure or crop them
+${logoLine}
+- Tagline "${req.tagline}" must appear clearly rendered as text
+${ctaLine}
+${brandColors}
+- Premium enterprise B2B aesthetic — clean, high-contrast, professional
+- No competitor logos or brand names
+- Do NOT render any additional text, product descriptions, or slogans beyond the tagline and CTA`
 }
 
 // ─── Social Proof: Testimonials ───────────────────────────────────────────────
 
-export function buildTestimonialDirectionsSystemPrompt(): string {
+export function buildTestimonialDirectionsSystemPrompt(brandTheme?: BrandTheme): string {
   return `You are a senior B2B creative strategist for Everstage, an AI-powered sales commission management platform.
 
-${BRAND_BRIEF}
+${brandTheme === 'new' ? NEW_BRAND_BRIEF : BRAND_BRIEF}
 
 Your job: given a customer testimonial, generate exactly 3 distinctly different visual directions for a LinkedIn single image ad.
 
@@ -541,6 +571,7 @@ Each direction must differ in:
 - Color palette (use Everstage brand colors but in different combinations)
 - Quote treatment and typography (large serif centered, left-aligned bold, highlighted key phrase, etc.)
 - Overall layout and mood
+- Logo appears in top-right corner — specify its placement and treatment in every direction
 
 Return raw JSON only — no markdown fences, no explanation:
 [
@@ -565,12 +596,24 @@ Make the three directions look meaningfully different — different photo treatm
 export function buildTestimonialImagePrompt(
   req: { quote: string; name: string; title: string; company: string; cta: string; hasLogo: boolean },
   direction: { name: string; description: string },
-  format: 'square' | 'landscape'
+  format: 'square' | 'landscape',
+  brandTheme?: BrandTheme
 ): string {
   const formatLabel = format === 'square' ? 'Square (1:1), 1024×1024px' : 'Landscape (1.5:1), 1536×1024px'
   const formatNote = format === 'square'
     ? 'Adapt the layout to a square (1:1) composition.'
     : 'Adapt the layout to a landscape (1.5:1 wider) composition.'
+
+  const isNew = brandTheme === 'new'
+  const logoLine = isNew
+    ? `- The input image contains the official Everstage logo (colorful stacked-bar E icon + "Everstage" wordmark in dark maroon). Reproduce it exactly in the top-right corner — full-color version on light/pastel backgrounds, white wordmark version on dark/eggplant backgrounds`
+    : `- The input image contains the official Everstage "everstage" wordmark logo (circular icon + wordmark). Reproduce it exactly in the top-right corner — white on dark backgrounds, navy on light backgrounds`
+  const brandColors = isNew
+    ? `- Brand colors: eggplant #3D1935 · hot pink #CF3070 · periwinkle #5465D4 · teal #1BA894 · orange #E8893B · tan #B8764A · peach #F5CEB0`
+    : `- Brand colors: navy #0A1628, royal blue #1B3FCC, gold #F5A623, lime green #B8F060, teal #4DC8B4`
+  const ctaLine = isNew
+    ? `- CTA button labeled exactly "${req.cta}" must be prominent — warm orange (#E8893B) with dark maroon text`
+    : `- CTA button labeled exactly "${req.cta}" must be prominent — gold (#F5A623) with dark text`
 
   return `Create a professional LinkedIn customer testimonial advertisement for Everstage, an AI-powered sales commission management platform.
 
@@ -591,10 +634,11 @@ ${direction.description}
 CRITICAL REQUIREMENTS:
 - Use the uploaded headshot — render this person's actual face accurately in the layout
 ${req.hasLogo ? '- Incorporate the uploaded company logo accurately — do not redraw or stylize it' : ''}
+${logoLine}
 - Render the quote, name, title, and company exactly as written above
-- "everstage" wordmark logo must appear separately — white on dark, navy on light
-- CTA button labeled exactly "${req.cta}"
-- Brand colors: navy #0A1628, royal blue #1B3FCC, gold #F5A623, lime green #B8F060, teal #4DC8B4
+${ctaLine}
+${brandColors}
 - Premium enterprise B2B aesthetic
-- No competitor logos`
+- No competitor logos
+- Do NOT render any additional text or slogans beyond what is specified above`
 }

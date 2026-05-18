@@ -2,7 +2,11 @@ export const dynamic = 'force-dynamic'
 export const maxDuration = 120
 
 import { NextRequest, NextResponse } from 'next/server'
+import * as fs from 'fs'
+import * as path from 'path'
+import sharp from 'sharp'
 import type { ImagesResponse } from 'openai/resources/images'
+import { BrandTheme } from '@/lib/types'
 import {
   buildBadgeDirectionsSystemPrompt,
   buildBadgeDirectionsUserPrompt,
@@ -54,28 +58,46 @@ export async function POST(req: NextRequest) {
   const format = (formData.get('format') as 'square' | 'landscape') ?? 'square'
   const isLandscape = format === 'landscape'
   const size = isLandscape ? '1536x1024' : '1024x1024'
+  const brandTheme = (formData.get('brandTheme') as BrandTheme | null) ?? 'classic'
+  const isNewBrand = brandTheme === 'new'
+  const logoFileName = isNewBrand ? 'logo-new.png' : 'logo-full.png'
+
+  let everstageLogoUploadable: Awaited<ReturnType<typeof fileToUploadable>> | null = null
+  try {
+    const logoPath = path.join(process.cwd(), 'public/logos', logoFileName)
+    const logoBuf = fs.readFileSync(logoPath)
+    const squareBuf = await sharp(logoBuf)
+      .resize(1024, 1024, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .png()
+      .toBuffer()
+    everstageLogoUploadable = await toFile(squareBuf, 'everstage-logo.png', { type: 'image/png' })
+    console.log('[social-proof] Everstage logo loaded:', logoFileName)
+  } catch (e) {
+    console.error('[social-proof] Everstage logo prep failed:', e)
+  }
 
   if (type === 'badges') {
     const tagline = formData.get('tagline') as string
     const cta = formData.get('cta') as string
     const badgeFiles = formData.getAll('badges') as File[]
     const badgeCount = badgeFiles.length
-    const uploadables = await Promise.all(badgeFiles.map((f, i) => fileToUploadable(f, `badge-${i}.png`)))
+    const badgeUploadables = await Promise.all(badgeFiles.map((f, i) => fileToUploadable(f, `badge-${i}.png`)))
+    const uploadables = everstageLogoUploadable ? [everstageLogoUploadable, ...badgeUploadables] : badgeUploadables
 
     if (isLandscape) {
       const rawDirs = JSON.parse(formData.get('visualDirections') as string) as { id: string; name: string; description: string }[]
-      const results = await generateImages(uploadables, rawDirs.map(d => buildBadgeImagePrompt({ tagline, cta, badgeCount }, d, 'landscape')), size)
+      const results = await generateImages(uploadables, rawDirs.map(d => buildBadgeImagePrompt({ tagline, cta, badgeCount }, d, 'landscape', brandTheme)), size)
       return NextResponse.json({ images: rawDirs.map((d, i) => ({ id: d.id, image: results[i].data?.[0]?.b64_json ? `data:image/png;base64,${results[i].data![0].b64_json}` : null })) })
     }
 
     const msg = await anthropic.messages.create({
       model: 'claude-sonnet-4-6', max_tokens: 1024,
-      system: buildBadgeDirectionsSystemPrompt(),
+      system: buildBadgeDirectionsSystemPrompt(brandTheme),
       messages: [{ role: 'user', content: buildBadgeDirectionsUserPrompt({ tagline, cta, badgeCount }) }],
     })
     const dirs = parseDirections(msg.content[0].type === 'text' ? msg.content[0].text : '[]')
       .slice(0, 3).map((d, i) => ({ id: `var-${Date.now()}-${i}`, ...d }))
-    const results = await generateImages(uploadables, dirs.map(d => buildBadgeImagePrompt({ tagline, cta, badgeCount }, d, 'square')), size)
+    const results = await generateImages(uploadables, dirs.map(d => buildBadgeImagePrompt({ tagline, cta, badgeCount }, d, 'square', brandTheme)), size)
     return NextResponse.json({ variations: dirs.map((d, i) => ({ id: d.id, name: d.name, visualDirection: d.description, image: results[i].data?.[0]?.b64_json ? `data:image/png;base64,${results[i].data![0].b64_json}` : null })) })
   }
 
@@ -89,24 +111,25 @@ export async function POST(req: NextRequest) {
     const logoFile = formData.get('companyLogo') as File | null
     const hasLogo = !!logoFile
     const uploadables = [
+      ...(everstageLogoUploadable ? [everstageLogoUploadable] : []),
       await fileToUploadable(headshotFile, 'headshot.png'),
-      ...(logoFile ? [await fileToUploadable(logoFile, 'logo.png')] : []),
+      ...(logoFile ? [await fileToUploadable(logoFile, 'company-logo.png')] : []),
     ]
 
     if (isLandscape) {
       const rawDirs = JSON.parse(formData.get('visualDirections') as string) as { id: string; name: string; description: string }[]
-      const results = await generateImages(uploadables, rawDirs.map(d => buildTestimonialImagePrompt({ quote, name, title, company, cta, hasLogo }, d, 'landscape')), size)
+      const results = await generateImages(uploadables, rawDirs.map(d => buildTestimonialImagePrompt({ quote, name, title, company, cta, hasLogo }, d, 'landscape', brandTheme)), size)
       return NextResponse.json({ images: rawDirs.map((d, i) => ({ id: d.id, image: results[i].data?.[0]?.b64_json ? `data:image/png;base64,${results[i].data![0].b64_json}` : null })) })
     }
 
     const msg = await anthropic.messages.create({
       model: 'claude-sonnet-4-6', max_tokens: 1024,
-      system: buildTestimonialDirectionsSystemPrompt(),
+      system: buildTestimonialDirectionsSystemPrompt(brandTheme),
       messages: [{ role: 'user', content: buildTestimonialDirectionsUserPrompt({ name, title, company, quote, cta, hasLogo }) }],
     })
     const dirs = parseDirections(msg.content[0].type === 'text' ? msg.content[0].text : '[]')
       .slice(0, 3).map((d, i) => ({ id: `var-${Date.now()}-${i}`, ...d }))
-    const results = await generateImages(uploadables, dirs.map(d => buildTestimonialImagePrompt({ quote, name, title, company, cta, hasLogo }, d, 'square')), size)
+    const results = await generateImages(uploadables, dirs.map(d => buildTestimonialImagePrompt({ quote, name, title, company, cta, hasLogo }, d, 'square', brandTheme)), size)
     return NextResponse.json({ variations: dirs.map((d, i) => ({ id: d.id, name: d.name, visualDirection: d.description, image: results[i].data?.[0]?.b64_json ? `data:image/png;base64,${results[i].data![0].b64_json}` : null })) })
   }
 

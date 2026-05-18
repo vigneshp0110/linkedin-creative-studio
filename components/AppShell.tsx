@@ -141,8 +141,8 @@ export default function AppShell({
             {tab === 'use-cases' && mode === 'q2-campaigns' && (
               <CampaignThemes campaignThemes={campaignThemes} brandTheme={brandTheme} illustrationMode={illustrationMode} />
             )}
-            {tab === 'social-proof' && <SocialProof />}
-            {tab === 'educational' && <EducationalAssets />}
+            {tab === 'social-proof' && <SocialProof brandTheme={brandTheme} />}
+            {tab === 'educational' && <EducationalAssets brandTheme={brandTheme} />}
           </div>
         </div>
       </div>
