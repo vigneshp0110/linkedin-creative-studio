@@ -196,6 +196,7 @@ export default function CreativeStudio({
 
   // Creative generation
   const [isGenerating, setIsGenerating] = useState(false)
+  const [isGeneratingLandscape, setIsGeneratingLandscape] = useState(false)
   const [result, setResult] = useState<Result | null>(null)
   const [generateError, setGenerateError] = useState<string | null>(null)
 
@@ -326,6 +327,39 @@ export default function CreativeStudio({
       setGenerateError(e instanceof Error ? e.message : 'Generation failed.')
     } finally {
       setIsGenerating(false)
+    }
+  }
+
+  const generateLandscape = async () => {
+    if (!selectedVertical || !selectedCampaign || !selectedTheme || !selectedAngle || !selectedConcept || !result) return
+    setIsGeneratingLandscape(true)
+    try {
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          verticalLabel: selectedVertical.label,
+          campaignName: selectedCampaign.name,
+          themeName: selectedTheme.name,
+          angle: selectedAngle,
+          concept: selectedConcept,
+          layout: 'statement',
+          providedCopy: result.copy,
+          brandTheme,
+          illustrationMode,
+          imageFormat: 'landscape',
+        }),
+      })
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        throw new Error((err as { error?: string }).error ?? `Failed: ${res.status}`)
+      }
+      const data = await res.json()
+      setResult(prev => prev ? { ...prev, landscapeImage: data.landscapeImage } : prev)
+    } catch (e: unknown) {
+      setGenerateError(e instanceof Error ? e.message : 'Landscape generation failed.')
+    } finally {
+      setIsGeneratingLandscape(false)
     }
   }
 
@@ -632,7 +666,20 @@ export default function CreativeStudio({
             {/* Images */}
             <div className="flex flex-col gap-4 overflow-y-auto">
               <ImageCard label="Square (1:1)" format="square" src={result?.squareImage ?? null} isLoading={isGenerating} />
-              <ImageCard label="Landscape (1.5:1)" format="landscape" src={result?.landscapeImage ?? null} isLoading={isGenerating} />
+
+              {result?.landscapeImage || isGeneratingLandscape ? (
+                <ImageCard label="Landscape (1.5:1)" format="landscape" src={result?.landscapeImage ?? null} isLoading={isGeneratingLandscape} />
+              ) : result?.squareImage ? (
+                <div className="flex flex-col gap-2">
+                  <span className="text-[11px] font-semibold uppercase tracking-widest text-white/40">Landscape (1.5:1)</span>
+                  <button
+                    onClick={generateLandscape}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/8 bg-[#0D1E38] py-6 text-xs font-medium text-white/40 transition hover:border-[#F5A623]/30 hover:text-[#F5A623]"
+                  >
+                    <span>↳ Generate Landscape</span>
+                  </button>
+                </div>
+              ) : null}
             </div>
 
             {!result && !isGenerating && !generateError && (

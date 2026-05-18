@@ -110,19 +110,23 @@ export async function POST(req: NextRequest) {
       return res
     }
 
-    const [squareRes, landscapeRes] = await Promise.all([
-      generateImage(buildImagePrompt(body, copy, 'square'), '1024x1024'),
-      generateImage(buildImagePrompt(body, copy, 'landscape'), '1536x1024'),
-    ])
-
+    // Default to square-only — landscape is generated on demand separately
+    const imageFormat = body.imageFormat ?? 'square'
     const toDataUrl = (b64: string | null | undefined) =>
       b64 ? `data:image/png;base64,${b64}` : null
 
-    return NextResponse.json({
-      copy,
-      squareImage: toDataUrl(squareRes.data?.[0]?.b64_json),
-      landscapeImage: toDataUrl(landscapeRes.data?.[0]?.b64_json),
-    })
+    let squareImage: string | null = null
+    let landscapeImage: string | null = null
+
+    if (imageFormat === 'square') {
+      const res = await generateImage(buildImagePrompt(body, copy, 'square'), '1024x1024')
+      squareImage = toDataUrl(res.data?.[0]?.b64_json)
+    } else {
+      const res = await generateImage(buildImagePrompt(body, copy, 'landscape'), '1536x1024')
+      landscapeImage = toDataUrl(res.data?.[0]?.b64_json)
+    }
+
+    return NextResponse.json({ copy, squareImage, landscapeImage })
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err)
     const stack = err instanceof Error ? err.stack : undefined

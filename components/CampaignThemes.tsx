@@ -289,6 +289,7 @@ export default function CampaignThemes({
   const [ownConceptText, setOwnConceptText] = useState('')
 
   const [isGenerating, setIsGenerating] = useState(false)
+  const [isGeneratingLandscape, setIsGeneratingLandscape] = useState(false)
   const [result, setResult] = useState<Result | null>(null)
   const [generateError, setGenerateError] = useState<string | null>(null)
 
@@ -507,6 +508,41 @@ export default function CampaignThemes({
       setGenerateError(e instanceof Error ? e.message : 'Generation failed.')
     } finally {
       setIsGenerating(false)
+    }
+  }
+
+  const generateLandscape = async () => {
+    const concept = buildConceptForGenerate()
+    if (!selectedCampaignTheme || !selectedPersonaGroup || !selectedTheme || !selectedAngle || !concept || !result) return
+    setIsGeneratingLandscape(true)
+    try {
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          verticalLabel: selectedCampaignTheme.label,
+          campaignName: selectedPersonaGroup.name,
+          themeName: selectedTheme.name,
+          angle: selectedAngle,
+          concept,
+          implication: selectedImplication ?? undefined,
+          layout: 'statement',
+          providedCopy: editedCopy ?? result.copy,
+          brandTheme,
+          illustrationMode,
+          imageFormat: 'landscape',
+        }),
+      })
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}))
+        throw new Error((err as { error?: string }).error ?? `Failed: ${res.status}`)
+      }
+      const data = await res.json()
+      setResult(prev => prev ? { ...prev, landscapeImage: data.landscapeImage } : prev)
+    } catch (e: unknown) {
+      setGenerateError(e instanceof Error ? e.message : 'Landscape generation failed.')
+    } finally {
+      setIsGeneratingLandscape(false)
     }
   }
 
@@ -963,7 +999,7 @@ export default function CampaignThemes({
               <div>
                 <h2 className="text-sm font-semibold text-white">Creative</h2>
                 <p className="mt-0.5 text-[11px] text-white/35">
-                  {result ? 'Square + Landscape' : 'Generating…'}
+                  {result ? (result.landscapeImage ? 'Square + Landscape' : 'Square') : 'Generating…'}
                 </p>
               </div>
               <div className="flex items-center gap-2">
@@ -1087,7 +1123,21 @@ export default function CampaignThemes({
             {/* Scrollable: images + chat history */}
             <div className="flex flex-1 flex-col gap-4 overflow-y-auto min-h-0 pr-0.5">
               <ImageCard label="Square (1:1)" format="square" src={result?.squareImage ?? null} isLoading={isGenerating || isRefining} />
-              <ImageCard label="Landscape (1.5:1)" format="landscape" src={result?.landscapeImage ?? null} isLoading={isGenerating || isRefining} />
+
+              {/* Landscape — on-demand after square is ready */}
+              {result?.landscapeImage || isGeneratingLandscape ? (
+                <ImageCard label="Landscape (1.5:1)" format="landscape" src={result?.landscapeImage ?? null} isLoading={isGeneratingLandscape} />
+              ) : result?.squareImage ? (
+                <div className="flex flex-col gap-2">
+                  <span className="text-[11px] font-semibold uppercase tracking-widest text-white/40">Landscape (1.5:1)</span>
+                  <button
+                    onClick={generateLandscape}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/8 bg-[#0D1E38] py-6 text-xs font-medium text-white/40 transition hover:border-[#F5A623]/30 hover:text-[#F5A623]"
+                  >
+                    <span>↳ Generate Landscape</span>
+                  </button>
+                </div>
+              ) : null}
 
               {/* Chat history — appears once we have a result */}
               {chatMessages.length > 0 && (

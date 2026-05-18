@@ -28,6 +28,7 @@ export type LayoutTemplate = 'statement' | 'pain-story' | 'data-card' | 'testimo
 
 export type BrandTheme = 'classic' | 'new'
 export type IllustrationMode = 'with' | 'without'
+export type ImageFormat = 'square' | 'landscape'
 
 export interface GenerateRequest {
   verticalLabel: string
@@ -41,6 +42,7 @@ export interface GenerateRequest {
   providedCopy?: AdCopy
   brandTheme?: BrandTheme
   illustrationMode?: IllustrationMode
+  imageFormat?: ImageFormat
 }
 
 export interface Implication {
