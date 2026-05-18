@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { AdCopy, Angle, BrandTheme, Campaign, CreativeConcept, Implication, Theme } from '@/lib/types'
+import { AdCopy, Angle, BrandTheme, Campaign, CreativeConcept, IllustrationMode, Implication, Theme } from '@/lib/types'
 
 interface Result {
   copy: AdCopy
@@ -258,9 +258,11 @@ function ImageCard({
 export default function CampaignThemes({
   campaignThemes,
   brandTheme = 'classic',
+  illustrationMode = 'with',
 }: {
   campaignThemes: { id: string; label: string; available: boolean }[]
   brandTheme?: BrandTheme
+  illustrationMode?: IllustrationMode
 }) {
   const [campaignThemeId, setCampaignThemeId] = useState('')
   const [personaGroupId, setPersonaGroupId] = useState('')
@@ -491,6 +493,7 @@ export default function CampaignThemes({
           layout: 'statement',
           customContext: customContext.trim() || undefined,
           brandTheme,
+          illustrationMode,
         }),
       })
       if (!res.ok) {
@@ -527,6 +530,7 @@ export default function CampaignThemes({
           layout: 'statement',
           providedCopy: editedCopy,
           brandTheme,
+          illustrationMode,
         }),
       })
       if (!res.ok) {
@@ -567,6 +571,7 @@ export default function CampaignThemes({
           copy: editedCopy ?? result.copy,
           changeHistory: newHistory,
           brandTheme,
+          illustrationMode,
         }),
       })
       if (!res.ok) throw new Error(`Failed: ${res.status}`)

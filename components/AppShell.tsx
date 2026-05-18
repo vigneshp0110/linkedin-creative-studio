@@ -6,7 +6,7 @@ import CreativeStudio from './CreativeStudio'
 import EducationalAssets from './EducationalAssets'
 import SocialProof from './SocialProof'
 import CampaignThemes from './CampaignThemes'
-import { BrandTheme } from '@/lib/types'
+import { BrandTheme, IllustrationMode } from '@/lib/types'
 
 type ContentTab = 'use-cases' | 'social-proof' | 'educational'
 
@@ -26,6 +26,7 @@ export default function AppShell({
   const [mode, setMode] = useState<AppMode>('vertical-programs')
   const [tab, setTab] = useState<ContentTab>('use-cases')
   const [brandTheme, setBrandTheme] = useState<BrandTheme>('classic')
+  const [illustrationMode, setIllustrationMode] = useState<IllustrationMode>('with')
 
   const handleModeChange = (newMode: AppMode) => {
     setMode(newMode)
@@ -73,6 +74,35 @@ export default function AppShell({
               ))}
             </div>
 
+            {/* Illustration toggle */}
+            <div className="flex items-center gap-2.5">
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-white/30">
+                Style
+              </span>
+              <div className="flex rounded-lg border border-white/10 p-0.5">
+                <button
+                  onClick={() => setIllustrationMode('with')}
+                  className={`rounded-md px-3 py-1 text-[11px] font-medium transition ${
+                    illustrationMode === 'with'
+                      ? 'bg-white/10 text-white'
+                      : 'text-white/35 hover:text-white/60'
+                  }`}
+                >
+                  Illustration
+                </button>
+                <button
+                  onClick={() => setIllustrationMode('without')}
+                  className={`rounded-md px-3 py-1 text-[11px] font-medium transition ${
+                    illustrationMode === 'without'
+                      ? 'bg-white/10 text-white'
+                      : 'text-white/35 hover:text-white/60'
+                  }`}
+                >
+                  Text Only
+                </button>
+              </div>
+            </div>
+
             {/* Brand theme toggle */}
             <div className="flex items-center gap-2.5">
               <span className="text-[10px] font-semibold uppercase tracking-widest text-white/30">
@@ -106,10 +136,10 @@ export default function AppShell({
           {/* Content */}
           <div className="flex flex-1 flex-col overflow-hidden">
             {tab === 'use-cases' && mode === 'vertical-programs' && (
-              <CreativeStudio verticals={verticals} brandTheme={brandTheme} />
+              <CreativeStudio verticals={verticals} brandTheme={brandTheme} illustrationMode={illustrationMode} />
             )}
             {tab === 'use-cases' && mode === 'q2-campaigns' && (
-              <CampaignThemes campaignThemes={campaignThemes} brandTheme={brandTheme} />
+              <CampaignThemes campaignThemes={campaignThemes} brandTheme={brandTheme} illustrationMode={illustrationMode} />
             )}
             {tab === 'social-proof' && <SocialProof />}
             {tab === 'educational' && <EducationalAssets />}

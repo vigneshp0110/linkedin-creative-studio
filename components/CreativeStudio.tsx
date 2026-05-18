@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { AdCopy, Angle, BrandTheme, Campaign, CreativeConcept, Theme } from '@/lib/types'
+import { AdCopy, Angle, BrandTheme, Campaign, CreativeConcept, IllustrationMode, Theme } from '@/lib/types'
 
 interface Result {
   copy: AdCopy
@@ -172,9 +172,11 @@ function ImageCard({
 export default function CreativeStudio({
   verticals,
   brandTheme = 'classic',
+  illustrationMode = 'with',
 }: {
   verticals: { id: string; label: string }[]
   brandTheme?: BrandTheme
+  illustrationMode?: IllustrationMode
 }) {
   // Campaign selections
   const [verticalId, setVerticalId] = useState('')
@@ -311,6 +313,7 @@ export default function CreativeStudio({
           concept: selectedConcept,
           layout: 'statement',
           brandTheme,
+          illustrationMode,
         }),
       })
       if (!res.ok) {

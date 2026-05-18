@@ -27,6 +27,7 @@ export interface KBVertical {
 export type LayoutTemplate = 'statement' | 'pain-story' | 'data-card' | 'testimonial'
 
 export type BrandTheme = 'classic' | 'new'
+export type IllustrationMode = 'with' | 'without'
 
 export interface GenerateRequest {
   verticalLabel: string
@@ -39,6 +40,7 @@ export interface GenerateRequest {
   customContext?: string
   providedCopy?: AdCopy
   brandTheme?: BrandTheme
+  illustrationMode?: IllustrationMode
 }
 
 export interface Implication {
