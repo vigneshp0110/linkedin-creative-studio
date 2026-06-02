@@ -6,6 +6,7 @@ import CreativeStudio from './CreativeStudio'
 import EducationalAssets from './EducationalAssets'
 import SocialProof from './SocialProof'
 import CampaignThemes from './CampaignThemes'
+import ImageEditor from './ImageEditor'
 import { BrandTheme, IllustrationMode } from '@/lib/types'
 
 type ContentTab = 'use-cases' | 'social-proof' | 'educational'
@@ -52,8 +53,11 @@ export default function AppShell({
         <LeftNav activeMode={mode} onModeChange={handleModeChange} />
 
         <div className="flex flex-1 flex-col overflow-hidden">
-          {/* Top tab strip + brand toggle */}
-          <div className="flex shrink-0 items-center justify-between border-b border-white/5 bg-[#0A1628] px-4">
+          {/* Image Editor: full-bleed, no tab strip */}
+          {mode === 'image-editor' && <ImageEditor />}
+
+          {/* Tab strip + toggles — only for non-editor modes */}
+          {mode !== 'image-editor' && <div className="flex shrink-0 items-center justify-between border-b border-white/5 bg-[#0A1628] px-4">
             {/* Content tabs */}
             <div className="flex items-center">
               {TABS.map(t => (
@@ -131,19 +135,21 @@ export default function AppShell({
                 </button>
               </div>
             </div>
-          </div>
+          </div>}
 
-          {/* Content */}
-          <div className="flex flex-1 flex-col overflow-hidden">
-            {tab === 'use-cases' && mode === 'vertical-programs' && (
-              <CreativeStudio verticals={verticals} brandTheme={brandTheme} illustrationMode={illustrationMode} />
-            )}
-            {tab === 'use-cases' && mode === 'q2-campaigns' && (
-              <CampaignThemes campaignThemes={campaignThemes} brandTheme={brandTheme} illustrationMode={illustrationMode} />
-            )}
-            {tab === 'social-proof' && <SocialProof brandTheme={brandTheme} />}
-            {tab === 'educational' && <EducationalAssets brandTheme={brandTheme} />}
-          </div>
+          {/* Content — only for non-editor modes */}
+          {mode !== 'image-editor' && (
+            <div className="flex flex-1 flex-col overflow-hidden">
+              {tab === 'use-cases' && mode === 'vertical-programs' && (
+                <CreativeStudio verticals={verticals} brandTheme={brandTheme} illustrationMode={illustrationMode} />
+              )}
+              {tab === 'use-cases' && mode === 'q2-campaigns' && (
+                <CampaignThemes campaignThemes={campaignThemes} brandTheme={brandTheme} illustrationMode={illustrationMode} />
+              )}
+              {tab === 'social-proof' && <SocialProof brandTheme={brandTheme} />}
+              {tab === 'educational' && <EducationalAssets brandTheme={brandTheme} />}
+            </div>
+          )}
         </div>
       </div>
     </div>
