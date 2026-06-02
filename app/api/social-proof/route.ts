@@ -84,10 +84,16 @@ export async function POST(req: NextRequest) {
     const badgeUploadables = await Promise.all(badgeFiles.map((f, i) => fileToUploadable(f, `badge-${i}.png`)))
     const uploadables = everstageLogoUploadable ? [everstageLogoUploadable, ...badgeUploadables] : badgeUploadables
 
-    if (isLandscape) {
-      const rawDirs = JSON.parse(formData.get('visualDirections') as string) as { id: string; name: string; description: string }[]
-      const results = await generateImages(uploadables, rawDirs.map(d => buildBadgeImagePrompt({ tagline, cta, badgeCount }, d, 'landscape', brandTheme)), size)
-      return NextResponse.json({ images: rawDirs.map((d, i) => ({ id: d.id, image: results[i].data?.[0]?.b64_json ? `data:image/png;base64,${results[i].data![0].b64_json}` : null })) })
+    const providedDirsJson = formData.get('visualDirections') as string | null
+    if (isLandscape || providedDirsJson) {
+      const rawDirs = JSON.parse((providedDirsJson ?? formData.get('visualDirections')) as string) as { id: string; name: string; description: string }[]
+      const fmt = isLandscape ? 'landscape' : 'square'
+      const sz = isLandscape ? '1536x1024' : '1024x1024'
+      const results = await generateImages(uploadables, rawDirs.map(d => buildBadgeImagePrompt({ tagline, cta, badgeCount }, d, fmt, brandTheme)), sz)
+      if (isLandscape) {
+        return NextResponse.json({ images: rawDirs.map((d, i) => ({ id: d.id, image: results[i].data?.[0]?.b64_json ? `data:image/png;base64,${results[i].data![0].b64_json}` : null })) })
+      }
+      return NextResponse.json({ variations: rawDirs.map((d, i) => ({ id: d.id, name: d.name, visualDirection: d.description, image: results[i].data?.[0]?.b64_json ? `data:image/png;base64,${results[i].data![0].b64_json}` : null })) })
     }
 
     const msg = await anthropic.messages.create({
@@ -116,10 +122,16 @@ export async function POST(req: NextRequest) {
       ...(logoFile ? [await fileToUploadable(logoFile, 'company-logo.png')] : []),
     ]
 
-    if (isLandscape) {
-      const rawDirs = JSON.parse(formData.get('visualDirections') as string) as { id: string; name: string; description: string }[]
-      const results = await generateImages(uploadables, rawDirs.map(d => buildTestimonialImagePrompt({ quote, name, title, company, cta, hasLogo }, d, 'landscape', brandTheme)), size)
-      return NextResponse.json({ images: rawDirs.map((d, i) => ({ id: d.id, image: results[i].data?.[0]?.b64_json ? `data:image/png;base64,${results[i].data![0].b64_json}` : null })) })
+    const providedDirsJson = formData.get('visualDirections') as string | null
+    if (isLandscape || providedDirsJson) {
+      const rawDirs = JSON.parse((providedDirsJson ?? formData.get('visualDirections')) as string) as { id: string; name: string; description: string }[]
+      const fmt = isLandscape ? 'landscape' : 'square'
+      const sz = isLandscape ? '1536x1024' : '1024x1024'
+      const results = await generateImages(uploadables, rawDirs.map(d => buildTestimonialImagePrompt({ quote, name, title, company, cta, hasLogo }, d, fmt, brandTheme)), sz)
+      if (isLandscape) {
+        return NextResponse.json({ images: rawDirs.map((d, i) => ({ id: d.id, image: results[i].data?.[0]?.b64_json ? `data:image/png;base64,${results[i].data![0].b64_json}` : null })) })
+      }
+      return NextResponse.json({ variations: rawDirs.map((d, i) => ({ id: d.id, name: d.name, visualDirection: d.description, image: results[i].data?.[0]?.b64_json ? `data:image/png;base64,${results[i].data![0].b64_json}` : null })) })
     }
 
     const msg = await anthropic.messages.create({
