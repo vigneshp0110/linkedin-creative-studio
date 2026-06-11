@@ -57,17 +57,20 @@ Important: Do not alter anything not explicitly mentioned in the change request.
       prompt,
       n: 1,
       size,
+      response_format: 'b64_json',
     } as Parameters<typeof openai.images.edit>[0]) as Promise<ImagesResponse>)
 
     const b64 = res.data?.[0]?.b64_json
     if (!b64) {
+      console.error('[edit-image] no b64_json in response:', JSON.stringify(res.data?.[0]))
       return NextResponse.json({ error: 'No image returned from model' }, { status: 500 })
     }
 
     return NextResponse.json({ image: `data:image/png;base64,${b64}` })
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err)
-    console.error('[edit-image] error:', message)
+    // Log the full error so it's visible in server logs / Vercel function logs
+    console.error('[edit-image] error:', err)
     return NextResponse.json({ error: message }, { status: 500 })
   }
 }

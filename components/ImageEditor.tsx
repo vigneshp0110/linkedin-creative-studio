@@ -96,10 +96,20 @@ export default function ImageEditor() {
       }
 
       const res = await fetch('/api/edit-image', { method: 'POST', body: fd })
-      const data = await res.json()
+
+      // Parse response defensively — server may return non-JSON on unexpected errors
+      let data: { image?: string; error?: string } = {}
+      const rawText = await res.text()
+      try {
+        data = JSON.parse(rawText)
+      } catch {
+        // Strip HTML tags if Next.js returned an error page, otherwise show raw text
+        const stripped = rawText.replace(/<[^>]+>/g, '').trim().slice(0, 200)
+        throw new Error(`Server error ${res.status}: ${stripped || 'unknown error'}`)
+      }
 
       if (!res.ok || !data.image) {
-        throw new Error(data.error || 'Failed to generate image')
+        throw new Error(data.error || `Request failed (${res.status})`)
       }
 
       const newBase64 = data.image as string
