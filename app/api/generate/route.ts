@@ -11,15 +11,12 @@ import {
   buildImagePrompt,
 } from '@/lib/prompt-builder'
 import type { ImagesResponse } from 'openai/resources/images'
-import { AdCopy, GenerateRequest, BrandTheme } from '@/lib/types'
+import { AdCopy, GenerateRequest } from '@/lib/types'
 
 async function loadLogo(
-  brandTheme: BrandTheme | undefined,
   toFile: (source: unknown, name: string, options: { type: string }) => Promise<unknown>
 ): Promise<unknown | null> {
-  const isNew = brandTheme === 'new'
-  const logoFileName = isNew ? 'logo-new.png' : 'logo-full.png'
-  const logoPath = path.join(process.cwd(), 'public/logos', logoFileName)
+  const logoPath = path.join(process.cwd(), 'public/logos/logo-new.png')
 
   try {
     const logoBuf = fs.readFileSync(logoPath)
@@ -28,7 +25,7 @@ async function loadLogo(
       .png()
       .toBuffer()
     const file = await toFile(squareBuf, 'logo.png', { type: 'image/png' })
-    console.log('[generate] logo ready:', logoFileName)
+    console.log('[generate] logo ready')
     return file
   } catch (err) {
     console.error('[generate] logo prep failed, will use images.generate fallback:', err)
@@ -63,7 +60,7 @@ export async function POST(req: NextRequest) {
             return match ? JSON.parse(match[0]) : {}
           })
 
-    const logoPromise = loadLogo(body.brandTheme, toFile as Parameters<typeof loadLogo>[1])
+    const logoPromise = loadLogo(toFile as Parameters<typeof loadLogo>[0])
 
     const [copy, logoFile] = await Promise.all([copyPromise, logoPromise])
 

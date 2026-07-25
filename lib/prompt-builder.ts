@@ -1,39 +1,46 @@
-import { AdCopy, BrandTheme, IllustrationMode, GenerateRequest, LayoutTemplate, CreativeConcept } from './types'
+import { AdCopy, IllustrationMode, GenerateRequest, LayoutTemplate, CreativeConcept } from './types'
 
 const BRAND_BRIEF = `
 BRAND: Everstage — AI-powered sales commission management and incentive compensation platform for B2B SaaS and enterprise companies. Replaces spreadsheets with automated, auditable commission calculations.
 
 BRAND VOICE: Confident, pain-first, direct. Speaks the buyer's language — no jargon, no fluff. Empathetic to ops/finance pain, authoritative on outcomes.
 
-BRAND COLORS:
-- Deep navy: #0A1628 (primary background)
-- Royal blue: #1B3FCC (secondary / highlight)
-- Gold/amber: #F5A623 (emphasis text, CTA buttons)
-- Lime green: #B8F060 (stat callouts)
-- White: #FFFFFF (primary text on dark)
-- Teal: #4DC8B4 (decorative accents)
+BRAND AESTHETIC: Bold, editorial, and geometric. The visual identity is built around the "E-bar" motif — horizontal rectangular bars stacked in two staggered columns, mirroring the logo icon. This motif appears at many scales: as the logo itself, as a two-column checkerboard of brand-color blocks across a canvas, or as thin floating accent bars scattered across a photo. Compositions use flat solid color panels, or occasionally one of the brand gradients. Authentic photography is used where it adds human warmth — overlaid with floating colored bars, placed in grid quadrants alongside color blocks, or set as full-bleed backgrounds.
 
-LOGO: "everstage" wordmark with a circular icon — white version for dark backgrounds, navy for light.
-`.trim()
+BRAND COLORS (flat):
+- Deep eggplant: #2D1022 (the darkest background — richer and deeper than typical maroon)
+- Mid maroon: #3D1935 (logo wordmark and text on light backgrounds)
+- Cream: #F5F0E8 (primary light background)
+- Teal: #1BA894
+- Periwinkle: #6B70D9
+- Orange: #E8893B
+- Tan/brown: #B8764A
+- Hot pink: #D63865
 
-const NEW_BRAND_BRIEF = `
-BRAND: Everstage — AI-powered sales commission management and incentive compensation platform for B2B SaaS and enterprise companies.
+BRAND GRADIENTS (used for backgrounds and accent blocks — each is a smooth radial or linear blend):
+- Warm tan gradient: #E8B88A → #C17A5A (golden to warm rose-tan)
+- Amber gradient: #F4A830 → #E8893B (bright yellow-orange to warm orange)
+- Teal gradient: #4DD4C0 → #1BA894 (sky-cyan to teal)
+- Periwinkle gradient: #8899F8 → #6B70D9 (lavender-blue to periwinkle)
+- Pink gradient: #F06090 → #D63865 (bubblegum to hot pink)
+- Dark gradient: #2D1022 → #7A2020 (eggplant to rust-maroon — used on LinkedIn banners)
 
-BRAND VOICE: Confident, pain-first, direct. Speaks the buyer's language — no jargon, no fluff.
+TYPOGRAPHY:
+- Headlines: FK Roman — elegant editorial serif, warm and confident; used large and dominant on any colored background
+- Body / CTA: Roobert — clean geometric sans-serif; used for subheads, labels, and CTAs
 
-NEW BRAND AESTHETIC: Bold geometric color-block grid. The canvas is divided into rectangular zones, each filled with a flat brand color — no gradients, no white space. Vibrant, modern, editorial.
+LOGO: The "E" icon = 5 horizontal bars in two staggered columns: tan (top, short), orange (full-width), teal (long), periwinkle (short), hot pink (long) — the bars alternate left/right offset like steps. Paired with "Everstage" wordmark in Roobert. On dark/eggplant: white wordmark + colored icon. On light/cream: dark maroon (#3D1935) wordmark + colored icon.
 
-NEW BRAND COLORS:
-- Eggplant/maroon: #3D1935 (primary dark)
-- Hot pink/magenta: #CF3070
-- Periwinkle blue: #5465D4
-- Teal/emerald: #1BA894
-- Warm orange: #E8893B
-- Warm tan/brown: #B8764A
-- Peach/cream: #F5CEB0
-- Dark maroon text: #2D1B30
+CORE VISUAL MOTIFS (use these as the building blocks — mix freely):
+1. E-GRID / STAGGERED BARS: Two columns of rectangular blocks alternating filled/empty in brand colors against a contrasting background (e.g. periwinkle + eggplant, orange + eggplant, hot pink + eggplant). Blocks stagger left-right like the logo — this is the signature brand pattern.
+2. FLOATING BAR OVERLAY: Thin horizontal bars in brand colors (teal, orange, periwinkle, hot pink, tan) scattered at different lengths and positions over a photo or dark background. The bars float freely — not aligned to a grid — creating texture and energy.
+3. PHOTO + COLOR SPLIT GRID: The canvas is divided into quadrants — some show authentic photography, others are flat brand-color blocks. Creates a rhythm of image and color.
+4. HEADSHOT ON SOLID COLOR: A centered headshot/portrait on a flat brand color background (teal, orange, periwinkle), with small cream or white bars scattered lightly around it.
+5. BOLD TYPE AS SCENERY: Oversized Roobert or FK Roman text fills most of the canvas, with a person or product photo layered on top or in front of the type.
+6. MULTI-COLOR TEXT LIST: On a dark eggplant background, each line of text is rendered in a different brand color using Roobert Bold — creates a vibrant, energetic look.
+7. GRADIENT BACKGROUND: A single brand gradient fills the entire canvas, with centered text and optional subtle grid overlay.
 
-LOGO: Colorful stacked-bar "E" icon (multi-colored horizontal bars in pink, teal, blue, orange) + "Everstage" wordmark in dark maroon. Use full-color version on light/pastel blocks. White wordmark version on dark/eggplant blocks.
+PHOTOGRAPHY: Authentic, real people — sales, finance, and ops professionals in real settings. Warm natural light. Not stiff or posed. A slight warm-to-cool color cast is acceptable (the brand tints photos with gradient overlays).
 `.trim()
 
 export function buildCopySystemPrompt(): string {
@@ -81,65 +88,37 @@ ${conceptLines}${customContextLine}
 If a buyer verbatim is provided, borrow their exact phrasing where it fits naturally.`
 }
 
-const NEW_LAYOUT_VISUALS: Record<LayoutTemplate, { name: string; squareVisual: string; landscapeVisual: string }> = {
-  statement: {
-    name: 'Statement',
-    squareVisual: `LAYOUT (Square 1:1): Bold geometric color-block grid. No white space — every zone filled with a flat brand color. Left 60% column: eggplant (#3D1935) background — top-right: Everstage colorful logo (multicolor icon + white "Everstage" wordmark). Below logo: large bold white headline text with one key phrase in hot pink (#CF3070). White subheadline below. Near bottom: CTA button in warm orange (#E8893B) with dark maroon text. Right 40%: split into 2-3 stacked color blocks — top block teal (#1BA894), middle block periwinkle (#5465D4), bottom block warm tan (#B8764A). Each block solid flat color, no text. Geometric dividing lines are crisp and clean. Modern, vibrant, editorial B2B aesthetic.`,
-    landscapeVisual: `LAYOUT (Landscape 1.5:1): Bold geometric color-block grid. Left 55%: eggplant (#3D1935) — top-right: Everstage colorful logo (multicolor icon + white wordmark). Below: large bold white headline with key phrase in hot pink (#CF3070). White subheadline. CTA button in orange (#E8893B) with dark maroon text. Right 45%: 3 stacked flat color blocks — teal (#1BA894) top, periwinkle (#5465D4) middle, warm tan (#B8764A) bottom. Clean geometric grid, no gradients, no white space.`,
-  },
-  'pain-story': {
-    name: 'Pain Story',
-    squareVisual: `LAYOUT (Square 1:1): Geometric color-block layout. Top 65%: large eggplant (#3D1935) zone — top-right Everstage colorful logo (white wordmark). Bold white headline below with key pain words in hot pink (#CF3070). White subheadline. Center-right: semi-transparent notification UI cards (Slack/email style) with commission error alerts cascading down, tinted in brand colors. Bottom 35%: split horizontally — left half warm tan (#B8764A); right half hot pink (#CF3070) with CTA button in white. Crisp geometric divisions, flat colors, modern.`,
-    landscapeVisual: `LAYOUT (Landscape 1.5:1): Left 45%: eggplant (#3D1935) — top-right Everstage colorful logo (white wordmark). Bold white headline, pain words in hot pink (#CF3070). White subheadline. Center: notification UI cards cascading commission errors. Right 55%: top half teal (#1BA894), bottom half orange (#E8893B). CTA button in white on the orange block. Flat colors, geometric grid.`,
-  },
-  'data-card': {
-    name: 'Data Card',
-    squareVisual: `LAYOUT (Square 1:1): Color-block grid on peach/cream (#F5CEB0) base. Top-right: Everstage colorful logo (dark maroon wordmark on light background). Large bold dark maroon (#2D1B30) headline, key stat word in periwinkle (#5465D4). Center: oversized stat number in hot pink (#CF3070) — bold, dominant. Right column: stacked flat teal (#1BA894) color block. Bottom: eggplant (#3D1935) strip with report/whitepaper mockup featuring Everstage branding. Clean, editorial, data-forward.`,
-    landscapeVisual: `LAYOUT (Landscape 1.5:1): Peach (#F5CEB0) base. Top-right: Everstage colorful logo (dark maroon). Bold dark maroon headline, stat in periwinkle. Large hot pink stat number center-left. Right: teal (#1BA894) block. Bottom strip: eggplant (#3D1935) with report mockup. Flat geometric color zones.`,
-  },
-  testimonial: {
-    name: 'Testimonial',
-    squareVisual: `LAYOUT (Square 1:1): Color-block geometric grid. Full top strip: periwinkle (#5465D4) — Everstage colorful logo centered (white wordmark). Main zone: large peach/cream (#F5CEB0) block (80% of canvas) with bold dark maroon (#2D1B30) serif quote text. Key phrase highlighted with hot pink (#CF3070) underline. Horizontal divider. Below: left — circular headshot photo with eggplant (#3D1935) border; right — bold dark maroon name, maroon subtitle, company logo. Bottom strip: eggplant (#3D1935) with CTA in orange (#E8893B). Clean, editorial.`,
-    landscapeVisual: `LAYOUT (Landscape 1.5:1): Top strip: periwinkle (#5465D4) — Everstage colorful logo centered (white wordmark). Wide peach (#F5CEB0) zone with bold dark maroon quote. Key phrase in hot pink underline. Headshot left, name/title/company logo right. Bottom strip: eggplant (#3D1935) with CTA in orange. Flat, geometric.`,
-  },
-}
+// ─── Layout Visual Directions (new brand only) ───────────────────────────────
 
 const LAYOUT_VISUALS: Record<LayoutTemplate, { name: string; squareVisual: string; landscapeVisual: string }> = {
   statement: {
     name: 'Statement',
-    squareVisual: `LAYOUT (Square 1:1): Deep navy (#0A1628) background fills the entire image. Top-right: Everstage "everstage" wordmark logo in white — small, clean. Below logo, left 60% of image: Large bold white headline text with key word/phrase rendered in gold (#F5A623). Medium-weight white subheadline below. Right 40%: A polished 3D isometric illustration of a clean commission dashboard — glowing blue metrics, revenue charts, green check marks — floating on a dark surface, conveying precision and automation. Decorative dark blue circular blob shapes in top-right and bottom-left corners. Small 4-pointed white sparkle star accents scattered. High contrast, premium B2B aesthetic.`,
-    landscapeVisual: `LAYOUT (Landscape 1.5:1 wider format): Deep navy (#0A1628) background. Top-right: Everstage "everstage" wordmark logo in white — small, clean. Below logo, left 55% of image: Large bold white headline text with key word/phrase in gold (#F5A623). Subheadline below in white. Right 45%: 3D isometric commission dashboard illustration with glowing metrics and clean data viz. Decorative circular blobs in corners, sparkle accents. Premium B2B SaaS aesthetic.`,
+    squareVisual: `LAYOUT (Square 1:1): Full-bleed authentic photo of a confident sales or finance professional fills the canvas — warm natural light, real setting. Over the photo, scatter 6–8 thin horizontal bars in brand colors (teal #1BA894, orange #E8893B, periwinkle #6B70D9, hot pink #D63865, tan #B8764A) at varying lengths and heights — floating freely, not aligned. Top-left: Everstage linear logo (white wordmark + colored E icon). Bottom: deep eggplant (#2D1022) strip ~25% height — FK Roman large white serif headline, key phrase bold. Below headline: Roobert white subheadline, smaller. Bottom-right: orange (#E8893B) rounded CTA button, dark maroon Roobert text.`,
+    landscapeVisual: `LAYOUT (Landscape 1.5:1): Full-bleed authentic photo of a confident professional, warm light. Scattered thin brand-color bars (teal, orange, periwinkle, hot pink, tan) float over the photo at different heights and widths. Top-left: Everstage linear logo (white). Bottom strip: deep eggplant (#2D1022) ~20% height — FK Roman large white serif headline, Roobert white subheadline. Bottom-right: orange (#E8893B) CTA button, dark maroon text.`,
   },
   'pain-story': {
     name: 'Pain Story',
-    squareVisual: `LAYOUT (Square 1:1): Two-tone vertical layout. Top 60%: Dark charcoal (#1A1A1A) background — top-right: Everstage "everstage" logo in white, small. Below logo: large bold white headline text with key words in gold/amber (#F5A623), dramatic and punchy. Center-right: Realistic photo of a stressed, focused ops manager or finance director at a cluttered desk — laptop open, papers stacked, looking overwhelmed. Top-right: Semi-transparent notification UI cards (simulating Slack/email alerts) with red badges showing commission errors and discrepancies cascading down. Middle-right: A sticky note reading "CHECK AGAIN." Bottom 25%: Light cream (#F5F5E8) strip. Very bottom: Full-width dark navy bar with a gold/amber rounded CTA button right-aligned.`,
-    landscapeVisual: `LAYOUT (Landscape 1.5:1): Two-tone horizontal layout. Main dark charcoal (#1A1A1A) background, upper 65%. Top-right: Everstage "everstage" logo in white, small. Below logo: bold large white headline with amber accent words — stacked dramatically. Center: Stressed ops/finance professional photo at desk, overwhelmed. Right: Notification cards (Slack, Email) cascading with commission errors. Bottom 20%: Cream strip. Very bottom: Full-width dark navy CTA bar, gold button right.`,
+    squareVisual: `LAYOUT (Square 1:1): 2×2 photo-and-color split grid. Top-left quadrant: flat teal (#1BA894) block. Top-right quadrant: authentic photo of an ops/finance professional — real desk setting, slightly stressed energy. Bottom-left quadrant: authentic photo or warm orange (#E8893B) block. Bottom-right quadrant: deep eggplant (#2D1022) — Everstage linear logo (white wordmark) top-right of this panel, FK Roman white headline, hot pink (#D63865) accent on key phrase, Roobert white subheadline, orange CTA button. Crisp quadrant edges, no gradients.`,
+    landscapeVisual: `LAYOUT (Landscape 1.5:1): Left 55%: authentic photo of stressed professional at desk. Right 45%: deep eggplant (#2D1022) panel — Everstage linear logo (white) top-right, FK Roman large white headline with hot pink key phrase, Roobert white subheadline, orange (#E8893B) CTA button bottom. Small teal accent bar at top of right panel.`,
   },
   'data-card': {
     name: 'Data Card',
-    squareVisual: `LAYOUT (Square 1:1): Light cream (#F5F0D0) gradient to white background. Top-right: Everstage "everstage" logo in dark navy. Large bold italic serif typeface headline in dark navy (#0A1628), key phrase highlighted in royal blue (#1B3FCC). Below headline: subheadline in dark gray. Center-right: A large lime green (#B8F060) oversized number or stat. Bottom half: Tilted whitepaper or report mockup with "everstage" branding on the cover, sitting on a surface. Bottom: Layered teal/aqua organic wave shapes. Clean, airy, thought-leadership aesthetic.`,
-    landscapeVisual: `LAYOUT (Landscape 1.5:1): Light cream (#F5F0D0) to white gradient. Top-right: Everstage logo in dark navy. Large bold italic serif headline in dark navy, key word in royal blue. Subheadline below. Left-center: Large lime green stat number. Right: Report/whitepaper mockup tilted, with Everstage branding. Bottom: Teal wave shapes. Clean and professional.`,
+    squareVisual: `LAYOUT (Square 1:1): E-grid / staggered bars pattern — two columns of large rectangular blocks alternating filled/empty against deep eggplant (#2D1022) background, like a vertical checkerboard with offset rows. Block colors: tan (#B8764A), orange (#E8893B), teal (#1BA894), periwinkle (#6B70D9), hot pink (#D63865) — one color per row. Blocks stagger left-right column, wider on one side. Left zone (over the clear eggplant space): FK Roman oversized white serif headline, oversized stat or key number in hot pink (#D63865), Roobert white subheadline. Top-left: Everstage linear logo (white wordmark + colored icon). Bottom-right: orange CTA button.`,
+    landscapeVisual: `LAYOUT (Landscape 1.5:1): Left 40%: E-grid staggered bars — color blocks (teal, orange, tan, periwinkle, hot pink) alternating with eggplant gaps in two offset columns. Right 60%: deep eggplant (#2D1022) — FK Roman very large white serif headline dominating, oversized hot pink stat number. Everstage linear logo top-right (white). Orange CTA button bottom-right.`,
   },
   testimonial: {
     name: 'Testimonial',
-    squareVisual: `LAYOUT (Square 1:1): Cobalt/royal blue (#1B3FCC) background fills the image. Top-center: Everstage "everstage" logo in white. Large centered white rounded-corner card (80% width, 72% height) with soft drop shadow on the blue background. Inside the card: Large serif quote text in dark navy — 2-3 key words highlighted in royal blue (#1B3FCC) with a slight underline. Horizontal thin divider line. Below divider: Left side has a square headshot photo (rounded corners) of a professional person. Right of photo: Person's name in bold dark navy, job title below in gray, company logo below. Card has a subtle teal/purple gradient glow on its bottom edge.`,
-    landscapeVisual: `LAYOUT (Landscape 1.5:1): Royal blue (#1B3FCC) background. Everstage logo top-center in white. Centered white rounded card (85% width, 70% height) with soft shadow. Inside: Large serif quote in dark navy, key phrase in blue. Horizontal divider. Below: headshot left, name + title + company logo right. Subtle gradient on card bottom edge.`,
+    squareVisual: `LAYOUT (Square 1:1): Top strip: full-width periwinkle (#6B70D9) ~15% height — Everstage linear logo left-aligned (white wordmark + colored icon). Center zone: cream (#F5F0E8) background ~55% height — FK Roman large dark maroon serif quote centered, key phrase underlined in hot pink (#D63865). Thin horizontal divider. Below divider in same cream zone: headshot photo left (circular crop, eggplant-colored ring border), right: FK Roman bold dark maroon name, Roobert dark maroon title and company. Bottom strip: deep eggplant (#2D1022) ~20% — orange (#E8893B) CTA button centered, dark maroon text.`,
+    landscapeVisual: `LAYOUT (Landscape 1.5:1): Left panel (40%): headshot photo fills the panel, teal (#1BA894) or periwinkle tint overlay, scattered cream bars as accent. Right panel (60%): cream (#F5F0E8) background — Everstage linear logo top-right (dark maroon). FK Roman large dark maroon quote, hot pink underline on key phrase. Roobert name, title, company below divider. Bottom strip: eggplant (#2D1022), orange CTA.`,
   },
 }
 
-const TEXT_ONLY_VISUAL: Record<'classic' | 'new', Record<'square' | 'landscape', string>> = {
-  classic: {
-    square: `LAYOUT (Square 1:1): Pure typographic composition on a deep navy (#0A1628) background — no illustrations, no photography, no icons, no decorative shapes. Top-right: Everstage "everstage" wordmark logo in white, small and clean. Vertically centered, occupying most of the canvas width: an oversized, dominant bold white headline — the single most prominent element on the image. One key word or phrase rendered in gold (#F5A623). Directly below the headline: a single concise white descriptor line in regular weight, noticeably smaller than the headline. Bottom-right corner: gold (#F5A623) CTA button with dark text. That is all — nothing else. The absence of clutter is the design.`,
-    landscape: `LAYOUT (Landscape 1.5:1): Pure typographic composition on deep navy (#0A1628) — no illustrations, no photography, no icons, no decorative shapes. Top-right: Everstage "everstage" wordmark logo in white, small. Left-center: massive bold white headline spanning ~70% of the canvas width — the dominant visual element. Key word or phrase in gold (#F5A623). Below: one concise white descriptor in regular weight. Bottom-right: gold (#F5A623) CTA button with dark text. Nothing else. Clean, confident, editorial.`,
-  },
-  new: {
-    square: `LAYOUT (Square 1:1): Pure typographic composition — no illustrations, no photography, no icons. Background: eggplant (#3D1935) with a single bold 10px horizontal stripe of hot pink (#CF3070) along the very top edge. Top-right: Everstage colorful logo (multicolor icon + white "Everstage" wordmark). Vertically centered: oversized bold white headline — the dominant element of the entire image, spanning most of the canvas width. Key word or phrase in hot pink (#CF3070). Below: a single concise white descriptor in regular weight, noticeably smaller. Bottom-right: warm orange (#E8893B) CTA button with dark maroon text. Nothing else — no geometric blocks, no shapes. Pure type on eggplant.`,
-    landscape: `LAYOUT (Landscape 1.5:1): Pure typographic composition — no illustrations, no photography, no icons. Eggplant (#3D1935) background with a bold 10px hot pink (#CF3070) stripe at the very top edge. Top-right: Everstage colorful logo (multicolor icon + white wordmark). Left-center: massive bold white headline spanning ~65% of the canvas width — the dominant visual. Key phrase in hot pink (#CF3070). Below: single concise white descriptor in regular weight. Bottom-right: orange (#E8893B) CTA button, dark maroon text. Nothing else.`,
-  },
+const TEXT_ONLY_VISUAL: Record<'square' | 'landscape', string> = {
+  square: `LAYOUT (Square 1:1): Pure typographic composition — no photography, no illustration. Deep eggplant (#2D1022) background. Scatter 5–7 thin horizontal floating bars near the top and bottom edges in brand colors (teal, orange, periwinkle, hot pink, tan) at varying lengths — like the logo bars floating free of the grid. Top-left: Everstage linear logo (white wordmark + colored icon). Vertically centered: FK Roman oversized white serif headline dominating two-thirds of the canvas. Key phrase rendered in hot pink (#D63865). Below headline: Roobert white subheadline, regular weight, noticeably smaller. Bottom-right: orange (#E8893B) rounded CTA button, dark maroon Roobert text. The typography IS the design — nothing else.`,
+  landscape: `LAYOUT (Landscape 1.5:1): Pure typographic composition — no photography. Deep eggplant (#2D1022) background. Thin floating brand-color bars (teal, orange, periwinkle) scattered near edges. Top-left: Everstage linear logo (white wordmark + colored icon). Center-left: FK Roman massive white serif headline spanning ~60% of canvas — key phrase in hot pink (#D63865). Below: Roobert white subheadline, regular weight. Bottom-right: orange (#E8893B) CTA button, dark maroon text. Clean, confident, type-led.`,
 }
 
 export function buildImagePrompt(req: GenerateRequest, copy: AdCopy, format: 'square' | 'landscape'): string {
-  const isNew = req.brandTheme === 'new'
   const textOnly = req.illustrationMode === 'without'
   const formatLabel = format === 'square' ? 'Square (1:1), 1024×1024px' : 'Landscape (1.5:1), 1536×1024px'
   const formatNote = format === 'square'
@@ -147,31 +126,9 @@ export function buildImagePrompt(req: GenerateRequest, copy: AdCopy, format: 'sq
     : 'Adapt the layout described below to a landscape (1.5:1 wider) composition.'
 
   const conceptHook = req.concept?.hook ? `CONCEPT HOOK: "${req.concept.hook}"` : ''
-  const layouts = isNew ? NEW_LAYOUT_VISUALS : LAYOUT_VISUALS
   const visualDirection = textOnly
-    ? TEXT_ONLY_VISUAL[isNew ? 'new' : 'classic'][format]
-    : (req.concept?.visualDirection ?? layouts[req.layout][format === 'square' ? 'squareVisual' : 'landscapeVisual'])
-
-  const brandRequirements = isNew
-    ? `BRAND REQUIREMENTS (NEW BRAND):
-- Bold geometric color-block grid — no white space, every zone filled with a flat brand color
-- LOGO: The input image contains the official Everstage logo. Reproduce it exactly — do not draw a substitute. Use the full-color version (multicolor icon + dark maroon wordmark) on light/pastel blocks; white wordmark version on dark/eggplant blocks. Place top-right unless the visual direction specifies otherwise.
-- Do NOT render any product description, category label, or marketing tagline as text — only render the exact copy listed above
-- New brand colors: eggplant #3D1935 · hot pink #CF3070 · periwinkle #5465D4 · teal #1BA894 · orange #E8893B · tan #B8764A · peach #F5CEB0
-- CTA button in warm orange (#E8893B) with dark maroon (#2D1B30) text
-- Text crisp and legible — dark maroon on light blocks, white on dark blocks
-- Modern, vibrant, editorial enterprise aesthetic — bold flat colors, no gradients
-- No competitor brand names or logos`
-    : `BRAND REQUIREMENTS:
-- Deep navy (#0A1628) or dark background unless the visual direction specifies otherwise
-- LOGO: The input image contains the official Everstage logo (circular icon + "everstage" wordmark). You MUST reproduce this exact logo on the creative — do not draw a substitute. On dark backgrounds render it in white; on light backgrounds render it in navy. Place it top-right unless the visual direction specifies otherwise. Keep proportions intact.
-- Do NOT render any product description, category label, or marketing tagline as text on the image — only render the exact copy listed in the EXACT COPY section above
-- Brand colors: navy #0A1628, royal blue #1B3FCC, gold #F5A623, lime green #B8F060, teal #4DC8B4
-- CTA button in gold (#F5A623) with dark text
-- Text must be crisp, legible, and high-contrast against its background
-- Premium enterprise B2B aesthetic — not startup-casual, not generic
-- No competitor brand names or logos
-- Photorealistic where photography is specified; flat/3D illustration where specified`
+    ? TEXT_ONLY_VISUAL[format]
+    : (req.concept?.visualDirection ?? LAYOUT_VISUALS[req.layout][format === 'square' ? 'squareVisual' : 'landscapeVisual'])
 
   return `Create a professional LinkedIn single image advertisement for Everstage — an AI-powered sales commission management platform for B2B enterprise companies.
 
@@ -190,7 +147,18 @@ CTA Button: "${copy.cta}"
 VISUAL DIRECTION (follow this closely):
 ${visualDirection}
 
-${brandRequirements}`
+BRAND REQUIREMENTS:
+- LOGO: The input image contains the official Everstage logo (colorful stacked-bar E icon + "Everstage" wordmark in Roobert). Reproduce it exactly — do not redraw or substitute. Full-color icon + dark maroon wordmark on light/cream zones; white wordmark + colored icon on dark/eggplant zones. Place top-left or top-right per the visual direction.
+- Brand colors: deep eggplant #2D1022 · cream #F5F0E8 · teal #1BA894 · periwinkle #6B70D9 · orange #E8893B · tan #B8764A · hot pink #D63865 · mid maroon #3D1935
+- Visual motifs: floating thin horizontal bars in brand colors, E-grid staggered two-column checkerboard, photo-and-color split quadrants — use whichever the visual direction calls for
+- Headlines in FK Roman serif — white on dark zones, dark maroon on cream zones
+- Body/CTA in Roobert sans-serif
+- CTA button: orange (#E8893B) background with dark maroon Roobert text
+- Text crisp and legible — high contrast against its background
+- Authentic photography where specified: real people, warm natural light, candid not posed
+- Modern, bold, editorial enterprise aesthetic
+- No competitor brand names or logos
+- Do NOT render any product description, category label, or tagline — only the exact copy listed above`
 }
 
 // ─── Creative Concept Generation ────────────────────────────────────────────
@@ -202,7 +170,7 @@ CONCEPT 1 — "The Time Sink" (Quantified Pain)
 Format Tag: Quantified Pain
 Personality Tag: Sharp Expert
 Hook: "10+ hours/week… just checking commissions?"
-Visual Direction: Left side: oversized bold "10+ HOURS / WEEK" in gold. Right side: ops person buried in spreadsheets at a desk. Overlay: ticking clock icon with a red glow.
+Visual Direction: Deep eggplant (#2D1022) background. Floating thin brand-color bars (teal, orange, periwinkle, hot pink) scattered across canvas at different lengths — the logo bars untethered. FK Roman oversized white headline centered: "10+ HOURS / WEEK" with "10+" in hot pink (#D63865). Below: Roobert white subheadline. Top-left: Everstage linear logo (white). Bottom-right: orange CTA button.
 Emotional Register: Frustration → Self-diagnosis. The specific number makes readers instantly calculate their own time lost.
 Narrative Structure: Specific number → Universal pain. Leads with the quantified cost, lands on the universal experience.
 CTA Direction: See how it works
@@ -212,7 +180,7 @@ CONCEPT 2 — "This Shouldn't Exist"
 Format Tag: Fake Artifact
 Personality Tag: Witty Colleague
 Hook: "Why does this role even exist?"
-Visual Direction: Screenshot-style fake job posting: title "Commission Accuracy Checker", responsibilities listed as "Review 1,000+ rows manually every month." Slightly absurdist, clinical tone.
+Visual Direction: Cream (#F5F0E8) background. Center: a clean screenshot-style fake job posting card with a thin tan border — title "Commission Accuracy Checker", responsibilities "Review 1,000+ rows manually every month." FK Roman dark maroon title, Roobert dark maroon body. Top-left: Everstage linear logo (dark maroon). Bottom strip: eggplant (#2D1022) with orange CTA button.
 Emotional Register: Embarrassment → Provocation. Challenges the reader to question whether this is a legitimate use of ops headcount.
 Narrative Structure: Provocative claim → Implied indictment. The job description speaks for itself.
 CTA Direction: See if you qualify
@@ -222,7 +190,7 @@ CONCEPT 3 — "Before vs. After" Split
 Format Tag: Before / After
 Personality Tag: Pragmatic Challenger
 Hook: "Before: spreadsheets. After: autopilot."
-Visual Direction: Clean split screen. Left half: messy Excel with highlighted errors, red cells, timestamps. Right half: clean Everstage dashboard with green checkmarks, automated status indicators.
+Visual Direction: Clean 2×2 grid split. Top-left: tan (#B8764A) block with Roobert label "Before" in dark maroon. Bottom-left: warm beige/cream with a messy spreadsheet visual — red error cells visible. Top-right: teal (#1BA894) block with Roobert label "After" in white. Bottom-right: deep eggplant with clean Everstage UI and orange CTA button. Everstage logo top-right (white on the eggplant side).
 Emotional Register: Relief. The transformation is immediately visible without reading a word.
 Narrative Structure: Before/After. Pure visual contrast does the persuasion.
 CTA Direction: See the difference
@@ -232,7 +200,7 @@ CONCEPT 4 — "The Hidden Cost"
 Format Tag: Reframe
 Personality Tag: Straight Talker
 Hook: "The real cost isn't the errors."
-Visual Direction: Minimalist dark background. Three bullet lines stacking down: "Time wasted." "Delayed payouts." "Ops burnout." Each line appears with an icon. Final line in gold: "It's the hours spent preventing them."
+Visual Direction: Multi-color text list on eggplant (#2D1022). FK Roman large — each stacked line in a different brand color: "Time wasted." (teal), "Delayed payouts." (orange), "Ops burnout." (periwinkle), then hot pink (#D63865): "It's the hours spent preventing them." Everstage linear logo top-left (white). Orange CTA button bottom-right. No other elements — type as architecture.
 Emotional Register: Realization. Pattern interrupt — flips what the reader expected to be the point.
 Narrative Structure: Reframe → Deeper truth. Acknowledges the obvious cost (errors) then surfaces the hidden one (time).
 CTA Direction: Calculate your real cost
@@ -242,7 +210,7 @@ CONCEPT 5 — "The Scaling Problem"
 Format Tag: Data Visualization
 Personality Tag: Pragmatic Challenger
 Hook: "Headcount grows. So does the problem."
-Visual Direction: Two simple line graphs side by side. Left: "Team size" going up cleanly. Right: "Manual verification hours" going up faster, steeper — diverging upward. Minimal, data-viz style.
+Visual Direction: Periwinkle gradient background (#8899F8 → #6B70D9). Two simple line graphs side by side — left: "Team size" going up steadily; right: "Manual hours" going up steeper. Graph lines in white, axis labels in cream. FK Roman white headline above. Bottom strip: deep eggplant with Everstage logo (white) and orange CTA.
 Emotional Register: Dread / Urgency. Leaders see this as a structural problem, not a temporary one.
 Narrative Structure: Visual metaphor of exponential growth → implied breaking point.
 CTA Direction: See how teams scale commission ops
@@ -252,7 +220,7 @@ CONCEPT 6 — "The Relatable Ops Moment"
 Format Tag: Relatable Moment
 Personality Tag: Empathetic Partner
 Hook: "End of month = commission chaos"
-Visual Direction: Calendar with the 31st circled in red, "EOM" scrawled on it. Cascading Slack and email notification cards exploding to the right — commission errors, exceptions, "can you check this?" threads. Chaotic, busy layout.
+Visual Direction: Full-bleed authentic photo of ops professional looking stressed at laptop — warm desk light, human and overwhelmed. Floating thin bars in teal, orange, and hot pink scattered over the photo. Top-left: Everstage linear logo (white). Bottom strip: deep eggplant (#2D1022) — FK Roman white headline "End of month = commission chaos", key word in hot pink. Orange CTA bottom-right.
 Emotional Register: Extreme relatability → shared exhaustion. Anyone who lives this moment will stop scrolling.
 Narrative Structure: Relatable moment trigger. No argument needed — the image is the proof.
 CTA Direction: There's a better way
@@ -262,7 +230,7 @@ CONCEPT 7 — "The Blunt Truth"
 Format Tag: Contrarian Statement
 Personality Tag: Straight Talker
 Hook: "Spreadsheets aren't a system."
-Visual Direction: Giant spreadsheet screenshot fills the frame — hundreds of rows, dozens of columns, a few cells with red error triangles. Bold white overlay text on top: "Spreadsheets aren't a system."
+Visual Direction: E-grid staggered bars filling right 40% of canvas — alternating eggplant and periwinkle (#6B70D9) blocks in two offset columns. Left 60%: deep eggplant (#2D1022) — FK Roman massive white headline "Spreadsheets aren't a system." "aren't" underlined in hot pink. Roobert white subline below. Everstage logo top-left (white). Orange CTA bottom-right.
 Emotional Register: Mild shame → Clarity. The reader knows this is true but hasn't said it out loud yet.
 Narrative Structure: Strong opinionated stance → implicit challenge to disagree.
 CTA Direction: See what a real system looks like
@@ -272,7 +240,7 @@ CONCEPT 8 — "Ops Burnout" Emotional Play
 Format Tag: Emotional Play
 Personality Tag: Empathetic Partner
 Hook: "No one signed up for this part of the job."
-Visual Direction: Muted, slightly desaturated photo of an ops professional — tired expression, stack of papers, late-hour desk light. Quiet, human, not dramatic. Text is secondary.
+Visual Direction: Headshot-on-color treatment — teal (#1BA894) background fills the canvas. Centered photo of an ops professional, slightly tired expression, warm and human. Small cream-colored thin bars scattered lightly around the photo. FK Roman large white headline at bottom. Everstage linear logo top-left (white). Orange CTA button bottom-right.
 Emotional Register: Empathy → Validation. Acknowledges the human cost before going anywhere near the product.
 Narrative Structure: Empathy → Resolution. Leads with "I see you" before offering the way out.
 CTA Direction: Reclaim your time
@@ -282,7 +250,7 @@ CONCEPT 9 — "The Math Problem"
 Format Tag: Abstract Metaphor
 Personality Tag: Sharp Expert
 Hook: "1,000 rows × human error = risk"
-Visual Direction: Equation-style typographic layout on dark background. "1,000 ROWS" + "HUMAN ERROR" = "RISK" — each element bold, equation sign in gold. Red error symbols scattered as texture.
+Visual Direction: Deep eggplant (#2D1022) background. FK Roman equation-style layout: "1,000 ROWS" (white, large) × "HUMAN ERROR" (white) = "RISK" (hot pink #D63865, largest of all) — stacked vertically, each element on its own line, dominating the canvas. Thin teal bar at very top. Everstage linear logo top-left (white). Orange CTA button bottom-right.
 Emotional Register: Logic → Low-grade anxiety. Appeals to the analytical ops brain — makes the risk feel calculated and undeniable.
 Narrative Structure: Simple equation → inescapable conclusion.
 CTA Direction: Eliminate the variable
@@ -292,7 +260,7 @@ CONCEPT 10 — "Future vs. Present"
 Format Tag: Time-Bound Urgency
 Personality Tag: Witty Colleague
 Hook: "Still doing this in 2026?"
-Visual Direction: Split frame. Left: grainy, slightly vintage-filter spreadsheet. Right: clean, modern Everstage UI. Left labeled "Today" in a worn typeface. Right labeled "Where your team should be."
+Visual Direction: Bold type on gradient treatment — amber gradient background (#F4A830 → #E8893B). Oversized dark maroon Roobert text fills the bottom two-thirds: "still" and the question mark massive, year in the middle. A walking/moving professional photo is layered in front of the type, like they're stepping into the future. Everstage linear logo top-left (dark maroon). Eggplant bottom-left strip with orange CTA.
 Emotional Register: Urgency + Mild embarrassment. Time-based framing makes the current state feel overdue for a change.
 Narrative Structure: Present state (outdated) → Future state (available now). The year in the hook makes the gap feel impossible to ignore.
 CTA Direction: Make the move
@@ -320,7 +288,7 @@ OUTPUT RULES:
 - Valid format tags (use these exactly, or invent a new one if the concept is genuinely novel): Quantified Pain · Before / After · Contrarian Statement · Relatable Moment · Data Visualization · Emotional Play · Abstract Metaphor · Reframe · Fake Artifact · Time-Bound Urgency · Meme Template · Knowledge Gap · Named Entity · Original Composition · Question Hook · Copy-Paste Action
 - Across the 10 concepts, cover all 5 personality traits — valid values: Sharp Expert · Straight Talker · Empathetic Partner · Witty Colleague · Pragmatic Challenger. Each trait should appear at least once; aim for 2 each across 10 concepts
 - The hook is a plain-language creative direction, not final copy
-- Visual Direction must be specific enough to brief a designer or image model — not vague
+- Visual Direction must describe the layout using Everstage brand motifs — choose the one that best serves the hook: floating bar overlay on photo, E-grid staggered checkerboard, photo+color split grid, headshot on solid color, bold type as scenery, multi-color text list on eggplant, or gradient background. Specify brand colors (with hex codes), typography (FK Roman vs Roobert), logo placement, and CTA treatment. Vary the motif across concepts.
 - Keep every field tight — one or two sentences max per field
 
 Return a raw JSON array of exactly 10 objects — no markdown fences, no explanation, just the array:
@@ -392,25 +360,24 @@ ${changeHistory.map((c, i) => `${i + 1}. ${c}`).join('\n')}`
 
 // ─── Educational Asset Generation ────────────────────────────────────────────
 
-export function buildEducationalDirectionsSystemPrompt(brandTheme?: BrandTheme): string {
+export function buildEducationalDirectionsSystemPrompt(): string {
   return `You are a senior B2B creative strategist for Everstage, an AI-powered sales commission management platform.
 
-${brandTheme === 'new' ? NEW_BRAND_BRIEF : BRAND_BRIEF}
+${BRAND_BRIEF}
 
 Your job: given a thought leadership report or guide being promoted, generate exactly 3 distinctly different visual directions for a LinkedIn single image ad.
 
 Each direction must differ meaningfully in:
-- Color palette (use Everstage brand colors but in different combinations and ratios)
-- Layout composition (where headline, report mockup, and supporting elements sit)
-- Mood/aesthetic (e.g. dark premium vs editorial light vs bold energetic vs minimalist typographic)
-- Visual element treatment (3D report mockup vs flat cover vs typographic dominant vs photography)
-- Logo appears in top-right corner
+- Which brand colors dominate each panel zone (eggplant, cream, teal, periwinkle, orange, tan, hot pink)
+- Layout composition — where the report mockup, headline, and logo sit across the grid panels
+- Mood: dark premium (eggplant-dominant) vs. editorial light (cream-dominant) vs. bold energetic (accent-color-dominant)
+- Logo appears in top-right corner in every direction
 
 Return raw JSON only — no markdown fences, no explanation:
 [
   {
     "name": "2-4 word name for this direction",
-    "description": "Detailed visual direction brief, 4-6 sentences. Must be specific enough to brief an image generation model: state the background color(s), layout composition, where the report mockup sits, typography treatment, decorative elements, and where the Everstage logo and CTA button appear."
+    "description": "Detailed visual direction brief, 4-6 sentences. State which brand color fills each panel zone, where the report mockup sits, typography treatment (FK Roman headline, Roobert CTA), and where the Everstage logo appears."
   }
 ]`
 }
@@ -429,23 +396,11 @@ export function buildEducationalImagePrompt(
   req: { guideTitle: string; bodyCopy: string; cta: string },
   direction: { name: string; description: string },
   format: 'square' | 'landscape',
-  brandTheme?: BrandTheme
 ): string {
   const formatLabel = format === 'square' ? 'Square (1:1), 1024×1024px' : 'Landscape (1.5:1), 1536×1024px'
   const formatNote = format === 'square'
     ? 'Adapt the layout to a square (1:1) composition.'
     : 'Adapt the layout to a landscape (1.5:1 wider) composition.'
-
-  const isNew = brandTheme === 'new'
-  const logoLine = isNew
-    ? `- The input image contains the official Everstage logo (colorful stacked-bar E icon + "Everstage" wordmark in dark maroon). Reproduce it exactly in the top-right corner — full-color version on light/pastel backgrounds, white wordmark version on dark/eggplant backgrounds`
-    : `- The input image contains the official Everstage "everstage" wordmark logo (circular icon + wordmark). Reproduce it exactly in the top-right corner — white on dark backgrounds, navy on light backgrounds`
-  const brandColors = isNew
-    ? `- Brand colors: eggplant #3D1935 · hot pink #CF3070 · periwinkle #5465D4 · teal #1BA894 · orange #E8893B · tan #B8764A · peach #F5CEB0`
-    : `- Brand colors: navy #0A1628, royal blue #1B3FCC, gold #F5A623, lime green #B8F060, teal #4DC8B4`
-  const ctaLine = isNew
-    ? `- CTA button labeled exactly "${req.cta}" must be prominent — warm orange (#E8893B) with dark maroon text`
-    : `- CTA button labeled exactly "${req.cta}" must be prominent — gold (#F5A623) with dark text`
 
   return `Create a professional LinkedIn single image advertisement for Everstage promoting a thought leadership report/guide.
 
@@ -462,11 +417,12 @@ ${direction.description}
 CRITICAL REQUIREMENTS:
 - The report/guide title "${req.guideTitle}" must appear prominently on the image as rendered text
 - A professional report/guide cover mockup featuring Everstage branding should be visible
-${logoLine}
-- CTA button labeled exactly "${req.cta}" must be prominent
-${ctaLine}
-${brandColors}
-- Premium enterprise B2B aesthetic — not startup-casual
+- The input image contains the official Everstage logo (colorful stacked-bar E icon + "Everstage" wordmark). Reproduce it exactly in the top-right corner — colored icon + dark maroon wordmark on light/cream panels; white wordmark on dark/eggplant panels
+- CTA button labeled exactly "${req.cta}" must be prominent — orange (#E8893B) with dark maroon text
+- Brand colors: eggplant #3D1935 · cream #F5F0E8 · teal #1BA894 · periwinkle #5465D4 · orange #E8893B · tan #B8764A · hot pink #CF3070
+- Headlines in FK Roman serif; body/CTA in Roobert sans-serif
+- Grid-panel layout — flat solid colors, no gradients
+- Premium enterprise B2B aesthetic
 - All text rendered crisply and legibly
 - No competitor logos or brand names
 - Do NOT render any additional text beyond what is specified above`
@@ -474,27 +430,26 @@ ${brandColors}
 
 // ─── Social Proof: Review Badges ─────────────────────────────────────────────
 
-export function buildBadgeDirectionsSystemPrompt(brandTheme?: BrandTheme): string {
+export function buildBadgeDirectionsSystemPrompt(): string {
   return `You are a senior B2B creative strategist for Everstage, an AI-powered sales commission management platform.
 
-${brandTheme === 'new' ? NEW_BRAND_BRIEF : BRAND_BRIEF}
+${BRAND_BRIEF}
 
 Your job: given a set of customer review badges (e.g. G2, Capterra) being featured in a LinkedIn ad, generate exactly 3 distinctly different visual directions.
 
 Each direction must differ in:
-- Color palette and background treatment (use Everstage brand colors differently each time)
-- Badge placement and prominence (hero of the image vs balanced with copy vs clustered with supporting elements)
-- Copy and layout composition (where headline, badges, and CTA sit relative to each other)
-- Overall aesthetic mood (prestigious/dark, clean/light, bold/energetic)
-- Logo: Everstage logo must appear in top-right corner — specify its placement in every direction
+- Which brand color panels dominate (vary across eggplant, cream, teal, periwinkle, orange, tan)
+- Badge placement — hero of the image vs. balanced with headline vs. clustered with supporting elements
+- Copy and layout composition — where headline, badges, and CTA sit across the grid panels
+- Logo: Everstage logo appears in top-right corner — specify its panel color and version (white vs. dark maroon wordmark)
 
-The image generation model will receive the actual badge image(s) as visual input alongside your direction — so describe the overall ad layout and treatment, not the badge content itself.
+The image generation model will receive the actual badge image(s) as visual input alongside your direction — describe the overall ad layout and panel treatment, not the badge content.
 
 Return raw JSON only — no markdown fences, no explanation:
 [
   {
     "name": "2-4 word name for this direction",
-    "description": "4-6 sentences. Describe: background color and treatment, where the badge(s) are placed and how large, the headline/tagline treatment, supporting copy layout, where the Everstage logo and CTA button appear, any decorative elements."
+    "description": "4-6 sentences. Describe: which brand colors fill each panel zone, where the badge(s) sit and at what scale, headline/tagline treatment (FK Roman vs Roobert), where the Everstage logo and CTA button appear, any accent elements."
   }
 ]`
 }
@@ -513,23 +468,11 @@ export function buildBadgeImagePrompt(
   req: { tagline: string; cta: string; badgeCount: number },
   direction: { name: string; description: string },
   format: 'square' | 'landscape',
-  brandTheme?: BrandTheme
 ): string {
   const formatLabel = format === 'square' ? 'Square (1:1), 1024×1024px' : 'Landscape (1.5:1), 1536×1024px'
   const formatNote = format === 'square'
     ? 'Adapt the layout to a square (1:1) composition.'
     : 'Adapt the layout to a landscape (1.5:1 wider) composition.'
-
-  const isNew = brandTheme === 'new'
-  const logoLine = isNew
-    ? `- The input image contains the official Everstage logo (colorful stacked-bar E icon + "Everstage" wordmark in dark maroon). Reproduce it exactly in the top-right corner — full-color version on light/pastel backgrounds, white wordmark version on dark/eggplant backgrounds`
-    : `- The input image contains the official Everstage "everstage" wordmark logo (circular icon + wordmark). Reproduce it exactly in the top-right corner — white on dark backgrounds, navy on light backgrounds`
-  const brandColors = isNew
-    ? `- Brand colors: eggplant #3D1935 · hot pink #CF3070 · periwinkle #5465D4 · teal #1BA894 · orange #E8893B · tan #B8764A · peach #F5CEB0`
-    : `- Brand colors: navy #0A1628, royal blue #1B3FCC, gold #F5A623, lime green #B8F060, teal #4DC8B4`
-  const ctaLine = isNew
-    ? `- CTA button labeled exactly "${req.cta}" must be prominent — warm orange (#E8893B) with dark maroon text`
-    : `- CTA button labeled exactly "${req.cta}" must be prominent — gold (#F5A623) with dark text`
 
   return `Create a professional LinkedIn single image advertisement for Everstage, an AI-powered sales commission management platform, showcasing customer review achievements.
 
@@ -546,38 +489,38 @@ ${direction.description}
 
 CRITICAL REQUIREMENTS:
 - Badge${req.badgeCount > 1 ? 's' : ''} from the uploaded image${req.badgeCount > 1 ? 's' : ''} must be prominently displayed and fully legible — do not obscure or crop them
-${logoLine}
-- Tagline "${req.tagline}" must appear clearly rendered as text
-${ctaLine}
-${brandColors}
-- Premium enterprise B2B aesthetic — clean, high-contrast, professional
+- The input image contains the official Everstage logo (colorful stacked-bar E icon + "Everstage" wordmark). Reproduce it exactly in the top-right corner — colored icon + dark maroon wordmark on light panels; white wordmark on dark/eggplant panels
+- Tagline "${req.tagline}" must appear clearly rendered as text in FK Roman serif
+- CTA button labeled exactly "${req.cta}" — orange (#E8893B) with dark maroon Roobert text
+- Brand colors: eggplant #3D1935 · cream #F5F0E8 · teal #1BA894 · periwinkle #5465D4 · orange #E8893B · tan #B8764A · hot pink #CF3070
+- Grid-panel layout — flat solid colors, no gradients
+- Premium enterprise B2B aesthetic
 - No competitor logos or brand names
 - Do NOT render any additional text, product descriptions, or slogans beyond the tagline and CTA`
 }
 
 // ─── Social Proof: Testimonials ───────────────────────────────────────────────
 
-export function buildTestimonialDirectionsSystemPrompt(brandTheme?: BrandTheme): string {
+export function buildTestimonialDirectionsSystemPrompt(): string {
   return `You are a senior B2B creative strategist for Everstage, an AI-powered sales commission management platform.
 
-${brandTheme === 'new' ? NEW_BRAND_BRIEF : BRAND_BRIEF}
+${BRAND_BRIEF}
 
 Your job: given a customer testimonial, generate exactly 3 distinctly different visual directions for a LinkedIn single image ad.
 
-The image generation model will receive the person's actual headshot photo (and optionally their company logo) as visual inputs — so your directions must specify how the photo is integrated into the layout. Do not describe the person's appearance; describe where and how the photo is used compositionally.
+The image generation model will receive the person's actual headshot photo (and optionally their company logo) as visual inputs — so your directions must specify how the photo is integrated into the grid panel layout. Do not describe the person's appearance; describe where and how the photo panel sits compositionally.
 
 Each direction must differ in:
-- How the headshot is framed and positioned (circular crop, full-height panel, blurred background, small card inset, etc.)
-- Color palette (use Everstage brand colors but in different combinations)
-- Quote treatment and typography (large serif centered, left-aligned bold, highlighted key phrase, etc.)
-- Overall layout and mood
-- Logo appears in top-right corner — specify its placement and treatment in every direction
+- How the headshot panel is positioned and sized (full-height left panel, top-center panel, circular inset in a color zone, etc.)
+- Which brand colors fill each zone (vary across eggplant, cream, teal, periwinkle, orange, tan)
+- Quote treatment — FK Roman large centered, left-aligned, key phrase with hot pink underline, etc.
+- Logo appears in top-right corner in every direction — specify the panel color and wordmark version
 
 Return raw JSON only — no markdown fences, no explanation:
 [
   {
     "name": "2-4 word name for this direction",
-    "description": "4-6 sentences. Describe: background, how/where the headshot photo appears, quote typography and placement, name/title/company treatment, company logo placement (if provided), Everstage logo placement, CTA treatment, decorative elements."
+    "description": "4-6 sentences. Describe: which brand colors fill each panel zone, how/where the headshot photo panel sits, quote typography placement (FK Roman), name/title/company treatment, company logo placement, Everstage logo placement, CTA treatment."
   }
 ]`
 }
@@ -590,30 +533,18 @@ QUOTE: "${req.quote}"
 CTA: "${req.cta}"
 COMPANY LOGO PROVIDED: ${req.hasLogo ? 'Yes — incorporate it in each direction' : 'No'}
 
-Make the three directions look meaningfully different — different photo treatments, different color palettes, different quote presentations.`
+Make the three directions look meaningfully different — different photo panel treatments, different color palettes, different quote presentations.`
 }
 
 export function buildTestimonialImagePrompt(
   req: { quote: string; name: string; title: string; company: string; cta: string; hasLogo: boolean },
   direction: { name: string; description: string },
   format: 'square' | 'landscape',
-  brandTheme?: BrandTheme
 ): string {
   const formatLabel = format === 'square' ? 'Square (1:1), 1024×1024px' : 'Landscape (1.5:1), 1536×1024px'
   const formatNote = format === 'square'
     ? 'Adapt the layout to a square (1:1) composition.'
     : 'Adapt the layout to a landscape (1.5:1 wider) composition.'
-
-  const isNew = brandTheme === 'new'
-  const logoLine = isNew
-    ? `- The input image contains the official Everstage logo (colorful stacked-bar E icon + "Everstage" wordmark in dark maroon). Reproduce it exactly in the top-right corner — full-color version on light/pastel backgrounds, white wordmark version on dark/eggplant backgrounds`
-    : `- The input image contains the official Everstage "everstage" wordmark logo (circular icon + wordmark). Reproduce it exactly in the top-right corner — white on dark backgrounds, navy on light backgrounds`
-  const brandColors = isNew
-    ? `- Brand colors: eggplant #3D1935 · hot pink #CF3070 · periwinkle #5465D4 · teal #1BA894 · orange #E8893B · tan #B8764A · peach #F5CEB0`
-    : `- Brand colors: navy #0A1628, royal blue #1B3FCC, gold #F5A623, lime green #B8F060, teal #4DC8B4`
-  const ctaLine = isNew
-    ? `- CTA button labeled exactly "${req.cta}" must be prominent — warm orange (#E8893B) with dark maroon text`
-    : `- CTA button labeled exactly "${req.cta}" must be prominent — gold (#F5A623) with dark text`
 
   return `Create a professional LinkedIn customer testimonial advertisement for Everstage, an AI-powered sales commission management platform.
 
@@ -634,10 +565,14 @@ ${direction.description}
 CRITICAL REQUIREMENTS:
 - Use the uploaded headshot — render this person's actual face accurately in the layout
 ${req.hasLogo ? '- Incorporate the uploaded company logo accurately — do not redraw or stylize it' : ''}
-${logoLine}
-- Render the quote, name, title, and company exactly as written above
-${ctaLine}
-${brandColors}
+- The input image contains the official Everstage logo (colorful stacked-bar E icon + "Everstage" wordmark). Reproduce it exactly in the top-right corner — colored icon + dark maroon wordmark on light panels; white wordmark on eggplant panels
+- Render the quote in FK Roman serif — dark maroon on cream/light panels, white on dark panels
+- Key phrase within the quote should have a hot pink (#CF3070) underline or highlight
+- Render name, title, and company exactly as written above in Roobert sans-serif
+${req.hasLogo ? '- Company logo should be small and clean beside the name/title' : ''}
+- CTA button: orange (#E8893B) with dark maroon Roobert text
+- Brand colors: eggplant #3D1935 · cream #F5F0E8 · teal #1BA894 · periwinkle #5465D4 · orange #E8893B · tan #B8764A · hot pink #CF3070
+- Grid-panel layout — flat solid colors, no gradients
 - Premium enterprise B2B aesthetic
 - No competitor logos
 - Do NOT render any additional text or slogans beyond what is specified above`

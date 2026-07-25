@@ -6,7 +6,6 @@ import * as fs from 'fs'
 import * as path from 'path'
 import sharp from 'sharp'
 import type { ImagesResponse } from 'openai/resources/images'
-import { BrandTheme } from '@/lib/types'
 import {
   buildEducationalDirectionsSystemPrompt,
   buildEducationalDirectionsUserPrompt,
@@ -23,20 +22,17 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json()
   const { guideTitle, bodyCopy, cta, format = 'square', visualDirections } = body
-  const brandTheme: BrandTheme = body.brandTheme ?? 'classic'
-  const isNewBrand = brandTheme === 'new'
-  const logoFileName = isNewBrand ? 'logo-new.png' : 'logo-full.png'
 
   let logoUploadable: Awaited<ReturnType<typeof toFile>> | null = null
   try {
-    const logoPath = path.join(process.cwd(), 'public/logos', logoFileName)
+    const logoPath = path.join(process.cwd(), 'public/logos/logo-new.png')
     const logoBuf = fs.readFileSync(logoPath)
     const squareBuf = await sharp(logoBuf)
       .resize(1024, 1024, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
       .png()
       .toBuffer()
     logoUploadable = await toFile(squareBuf, 'logo.png', { type: 'image/png' })
-    console.log('[educational] logo ready:', logoFileName)
+    console.log('[educational] logo ready')
   } catch (e) {
     console.error('[educational] logo prep failed, will use images.generate:', e)
   }
@@ -69,7 +65,7 @@ export async function POST(req: NextRequest) {
     const images = await Promise.all(
       visualDirections.map((dir: { id: string; name: string; description: string }) =>
         generateImage(
-          buildEducationalImagePrompt({ guideTitle, bodyCopy, cta }, dir, 'landscape', brandTheme),
+          buildEducationalImagePrompt({ guideTitle, bodyCopy, cta }, dir, 'landscape'),
           '1536x1024'
         ).then(image => ({ id: dir.id, image }))
       )
@@ -80,7 +76,7 @@ export async function POST(req: NextRequest) {
   const message = await anthropic.messages.create({
     model: 'claude-sonnet-4-6',
     max_tokens: 1024,
-    system: buildEducationalDirectionsSystemPrompt(brandTheme),
+    system: buildEducationalDirectionsSystemPrompt(),
     messages: [{ role: 'user', content: buildEducationalDirectionsUserPrompt({ guideTitle, bodyCopy, cta }) }],
   })
 
@@ -92,7 +88,7 @@ export async function POST(req: NextRequest) {
   const images = await Promise.all(
     dirs.map(dir =>
       generateImage(
-        buildEducationalImagePrompt({ guideTitle, bodyCopy, cta }, dir, 'square', brandTheme),
+        buildEducationalImagePrompt({ guideTitle, bodyCopy, cta }, dir, 'square'),
         '1024x1024'
       ).then(image => ({
         id: dir.id,

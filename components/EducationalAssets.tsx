@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { BrandTheme, EducationalVariation } from '@/lib/types'
+import { EducationalVariation } from '@/lib/types'
 
 function VariationCard({
   variation,
@@ -100,7 +100,7 @@ function VariationCard({
   )
 }
 
-export default function EducationalAssets({ brandTheme }: { brandTheme: BrandTheme }) {
+export default function EducationalAssets() {
   const [guideTitle, setGuideTitle] = useState('')
   const [bodyCopy, setBodyCopy] = useState('')
   const [cta, setCta] = useState('')
@@ -125,7 +125,7 @@ export default function EducationalAssets({ brandTheme }: { brandTheme: BrandThe
       const res = await fetch('/api/educational', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ guideTitle, bodyCopy, cta, format: 'square', brandTheme }),
+        body: JSON.stringify({ guideTitle, bodyCopy, cta, format: 'square' }),
       })
       if (!res.ok) throw new Error(`Failed: ${res.status}`)
       const data = await res.json()
@@ -160,7 +160,7 @@ export default function EducationalAssets({ brandTheme }: { brandTheme: BrandThe
       const res = await fetch('/api/educational', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ guideTitle, bodyCopy, cta, format: 'landscape', visualDirections: dirs, brandTheme }),
+        body: JSON.stringify({ guideTitle, bodyCopy, cta, format: 'landscape', visualDirections: dirs }),
       })
       if (!res.ok) throw new Error(`Failed: ${res.status}`)
       const data = await res.json()

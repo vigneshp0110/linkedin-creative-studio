@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { AdCopy, Angle, BrandTheme, Campaign, CreativeConcept, IllustrationMode, Implication, Theme } from '@/lib/types'
+import { AdCopy, Angle, Campaign, CreativeConcept, IllustrationMode, Implication, Theme } from '@/lib/types'
 
 interface Result {
   copy: AdCopy
@@ -257,11 +257,11 @@ function ImageCard({
 
 export default function CampaignThemes({
   campaignThemes,
-  brandTheme = 'classic',
+
   illustrationMode = 'with',
 }: {
   campaignThemes: { id: string; label: string; available: boolean }[]
-  brandTheme?: BrandTheme
+
   illustrationMode?: IllustrationMode
 }) {
   const [campaignThemeId, setCampaignThemeId] = useState('')
@@ -493,7 +493,7 @@ export default function CampaignThemes({
           implication: selectedImplication ?? undefined,
           layout: 'statement',
           customContext: customContext.trim() || undefined,
-          brandTheme,
+
           illustrationMode,
         }),
       })
@@ -528,7 +528,7 @@ export default function CampaignThemes({
           implication: selectedImplication ?? undefined,
           layout: 'statement',
           providedCopy: editedCopy ?? result.copy,
-          brandTheme,
+
           illustrationMode,
           imageFormat: 'landscape',
         }),
@@ -565,7 +565,7 @@ export default function CampaignThemes({
           implication: selectedImplication ?? undefined,
           layout: 'statement',
           providedCopy: editedCopy,
-          brandTheme,
+
           illustrationMode,
         }),
       })
@@ -606,7 +606,7 @@ export default function CampaignThemes({
           layout: 'statement',
           copy: editedCopy ?? result.copy,
           changeHistory: newHistory,
-          brandTheme,
+
           illustrationMode,
         }),
       })

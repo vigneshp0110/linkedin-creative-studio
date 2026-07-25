@@ -26,7 +26,6 @@ export interface KBVertical {
 
 export type LayoutTemplate = 'statement' | 'pain-story' | 'data-card' | 'testimonial'
 
-export type BrandTheme = 'classic' | 'new'
 export type IllustrationMode = 'with' | 'without'
 export type ImageFormat = 'square' | 'landscape'
 
@@ -40,7 +39,6 @@ export interface GenerateRequest {
   implication?: Implication
   customContext?: string
   providedCopy?: AdCopy
-  brandTheme?: BrandTheme
   illustrationMode?: IllustrationMode
   imageFormat?: ImageFormat
 }

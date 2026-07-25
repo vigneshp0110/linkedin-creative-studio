@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { BrandTheme, EducationalVariation } from '@/lib/types'
+import { EducationalVariation } from '@/lib/types'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -353,7 +353,7 @@ function TestimonialForm({ onGenerate, isGenerating, hasSquares }: { onGenerate:
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-export default function SocialProof({ brandTheme }: { brandTheme: BrandTheme }) {
+export default function SocialProof() {
   const [subTab, setSubTab] = useState<'badges' | 'testimonial'>('badges')
 
   const [variations, setVariations] = useState<(EducationalVariation | null)[]>([null, null, null])
@@ -403,7 +403,6 @@ export default function SocialProof({ brandTheme }: { brandTheme: BrandTheme }) 
     setHasSquares(false)
     setError(null)
     fd.set('format', 'square')
-    fd.set('brandTheme', brandTheme)
     lastFormDataRef.current = fd
     resetCopyAndRefinement()
 
@@ -480,7 +479,6 @@ export default function SocialProof({ brandTheme }: { brandTheme: BrandTheme }) 
       if (!skipKeys.has(key)) fd.append(key, value)
     }
     fd.set('format', 'square')
-    fd.set('brandTheme', origFd.get('brandTheme') as string ?? 'classic')
 
     const type = origFd.get('type') as string
     if (type === 'badges') {

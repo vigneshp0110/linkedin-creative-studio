@@ -52,7 +52,7 @@ export default function LeftNav({
 
   return (
     <aside
-      className="flex shrink-0 flex-col border-r border-white/5 bg-[#0A1628] transition-all duration-300 ease-in-out"
+      className="flex shrink-0 flex-col border-r border-white/5 bg-[#2A1425] transition-all duration-300 ease-in-out"
       style={{ width: expanded ? '192px' : '56px' }}
     >
       {/* Toggle */}
@@ -83,7 +83,7 @@ export default function LeftNav({
               title={!expanded ? item.label : undefined}
               className={`flex items-center gap-3 rounded-lg px-2.5 py-2.5 text-left transition ${
                 isActive
-                  ? 'bg-[#F5A623]/10 text-[#F5A623]'
+                  ? 'bg-[#1BA894]/15 text-[#1BA894]'
                   : 'text-white/45 hover:bg-white/5 hover:text-white/70'
               }`}
             >
