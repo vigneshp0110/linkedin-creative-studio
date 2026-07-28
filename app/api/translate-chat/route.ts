@@ -3,6 +3,7 @@ export const maxDuration = 120
 
 import { NextRequest, NextResponse } from 'next/server'
 import type { ImagesResponse } from 'openai/resources/images'
+import { postProcessImage } from '@/lib/image-post-process'
 
 export async function POST(req: NextRequest) {
   const [{ default: OpenAI, toFile }, { default: Anthropic }] = await Promise.all([
@@ -13,7 +14,7 @@ export async function POST(req: NextRequest) {
   const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
   const body = await req.json()
-  const { currentImageBase64, userMessage, extractedCopy, brandDirection, chatHistory } = body
+  const { currentImageBase64, userMessage, extractedCopy, brandDirection, chatHistory, format } = body
 
   // Step 1: Claude interprets the request in brand context and writes an edit prompt
   const systemPrompt = `You are a brand consultant helping refine an Everstage LinkedIn ad that has already been translated to the new brand design system.
@@ -71,9 +72,11 @@ Return raw JSON only:
   const imageBuffer = Buffer.from(base64Data, 'base64')
   const imageFile = await toFile(imageBuffer, 'current.png', { type: 'image/png' })
 
-  let newImage: string | null = null
+  const fmt: 'square' | 'landscape' = format === 'landscape' ? 'landscape' : 'square'
+  const size = fmt === 'landscape' ? '1536x1024' : '1024x1024'
+
+  let rawB64: string | null = null
   try {
-    const size = imageBuffer.length > 500_000 ? '1536x1024' : '1024x1024'
     const res = await (openai.images.edit({
       model: 'gpt-image-2',
       image: imageFile,
@@ -81,11 +84,15 @@ Return raw JSON only:
       n: 1,
       size,
     } as Parameters<typeof openai.images.edit>[0]) as Promise<ImagesResponse>)
-    newImage = res.data?.[0]?.b64_json ? `data:image/png;base64,${res.data[0].b64_json}` : null
+    rawB64 = res.data?.[0]?.b64_json ?? null
   } catch (e) {
     console.error('[translate-chat] image edit failed:', e)
     return NextResponse.json({ assistantMessage: "Sorry, image generation failed. Try a different request.", image: null })
   }
+
+  const newImage = rawB64
+    ? await postProcessImage(Buffer.from(rawB64, 'base64'), fmt)
+    : null
 
   return NextResponse.json({ image: newImage, assistantMessage })
 }

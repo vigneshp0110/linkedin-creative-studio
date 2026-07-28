@@ -118,6 +118,7 @@ export default function BrandTranslator() {
           extractedCopy,
           brandDirection,
           chatHistory: chatMessages,
+          format,
         }),
       })
       const raw = await res.text()

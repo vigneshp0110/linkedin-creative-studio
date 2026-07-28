@@ -6,6 +6,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import sharp from 'sharp'
 import type { ImagesResponse } from 'openai/resources/images'
+import { postProcessImage } from '@/lib/image-post-process'
 
 export async function POST(req: NextRequest) {
   const [{ default: OpenAI, toFile }, { default: Anthropic }] = await Promise.all([
@@ -106,24 +107,31 @@ BRAND REQUIREMENTS:
 - Modern, bold, editorial enterprise B2B aesthetic
 - No competitor logos or brand names`
 
-  let newImage: string | null = null
+  let rawB64: string | null = null
   try {
     if (logoFile) {
       const res = await (openai.images.edit({
         model: 'gpt-image-2', image: logoFile, prompt: imagePrompt, n: 1, size,
       } as Parameters<typeof openai.images.edit>[0]) as Promise<ImagesResponse>)
-      newImage = res.data?.[0]?.b64_json ? `data:image/png;base64,${res.data[0].b64_json}` : null
+      rawB64 = res.data?.[0]?.b64_json ?? null
     }
-    if (!newImage) {
+    if (!rawB64) {
       const res = await (openai.images.generate({
         model: 'gpt-image-2', prompt: imagePrompt, n: 1, size,
       } as Parameters<typeof openai.images.generate>[0]) as unknown as ImagesResponse)
-      newImage = res.data?.[0]?.b64_json ? `data:image/png;base64,${res.data[0].b64_json}` : null
+      rawB64 = res.data?.[0]?.b64_json ?? null
     }
   } catch (e) {
     console.error('[translate-creative] image generation failed:', e)
     return NextResponse.json({ error: 'Image generation failed' }, { status: 500 })
   }
+
+  if (!rawB64) return NextResponse.json({ error: 'No image returned' }, { status: 500 })
+
+  const newImage = await postProcessImage(
+    Buffer.from(rawB64, 'base64'),
+    format === 'landscape' ? 'landscape' : 'square',
+  )
 
   return NextResponse.json({
     image: newImage,
