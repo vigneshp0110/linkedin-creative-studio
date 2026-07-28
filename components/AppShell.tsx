@@ -7,6 +7,7 @@ import EducationalAssets from './EducationalAssets'
 import SocialProof from './SocialProof'
 import CampaignThemes from './CampaignThemes'
 import ImageEditor from './ImageEditor'
+import BrandTranslator from './BrandTranslator'
 import { IllustrationMode } from '@/lib/types'
 
 type ContentTab = 'use-cases' | 'social-proof' | 'educational'
@@ -52,11 +53,12 @@ export default function AppShell({
         <LeftNav activeMode={mode} onModeChange={handleModeChange} />
 
         <div className="flex flex-1 flex-col overflow-hidden">
-          {/* Image Editor: full-bleed, no tab strip */}
+          {/* Full-bleed modes — no tab strip */}
           {mode === 'image-editor' && <ImageEditor />}
+          {mode === 'brand-translator' && <BrandTranslator />}
 
-          {/* Tab strip + toggles — only for non-editor modes */}
-          {mode !== 'image-editor' && (
+          {/* Tab strip + toggles — only for campaign/vertical modes */}
+          {mode !== 'image-editor' && mode !== 'brand-translator' && (
             <div className="flex shrink-0 items-center justify-between border-b border-white/5 bg-[#2A1425] px-4">
               {/* Content tabs */}
               <div className="flex items-center">
@@ -109,8 +111,8 @@ export default function AppShell({
             </div>
           )}
 
-          {/* Content — only for non-editor modes */}
-          {mode !== 'image-editor' && (
+          {/* Content — only for campaign/vertical modes */}
+          {mode !== 'image-editor' && mode !== 'brand-translator' && (
             <div className="flex flex-1 flex-col overflow-hidden">
               {tab === 'use-cases' && mode === 'vertical-programs' && (
                 <CreativeStudio verticals={verticals} illustrationMode={illustrationMode} />

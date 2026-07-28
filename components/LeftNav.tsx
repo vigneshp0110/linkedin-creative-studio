@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-export type AppMode = 'vertical-programs' | 'q2-campaigns' | 'image-editor'
+export type AppMode = 'vertical-programs' | 'q2-campaigns' | 'image-editor' | 'brand-translator'
 
 const NAV_ITEMS: { id: AppMode; label: string; icon: React.ReactNode }[] = [
   {
@@ -36,6 +36,20 @@ const NAV_ITEMS: { id: AppMode; label: string; icon: React.ReactNode }[] = [
         <path d="M2 12l4-4 3 3 2.5-2.5L16 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         <path d="M11.5 5.5l1.5 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
         <path d="M13 4l1 1-4.5 4.5-1.5.5.5-1.5L13 4z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    ),
+  },
+  {
+    id: 'brand-translator',
+    label: 'Brand Translator',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <rect x="1.5" y="3" width="6.5" height="5" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
+        <rect x="10" y="10" width="6.5" height="5" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
+        <path d="M8 5.5h2M13.25 8V10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M11.5 8l1.75-2 1.75 2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M4.75 10v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M3 12l1.75 2 1.75-2" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     ),
   },
