@@ -51,7 +51,7 @@ Return raw JSON only — no markdown fences:
   "cta": "exact CTA button text",
   "intent": "1-sentence description of the ad's core message and target audience",
   "motif": "chosen motif key",
-  "brandDirection": "2-3 sentence detailed layout description using new Everstage brand — specific colours with hex codes, typography treatment, logo placement, CTA treatment",
+  "brandDirection": "2-3 sentence detailed layout description using new Everstage brand — specific colours with hex codes, typography treatment, CTA treatment. Do NOT mention logo placement — the logo is always added programmatically to the top-left corner.",
   "chatIntro": "2-3 sentence friendly message to the user: what you found in their old creative and what new brand direction you applied — conversational, not robotic"
 }`,
     messages: [{
@@ -98,7 +98,8 @@ NEW BRAND DIRECTION — apply this exactly:
 ${analysis.brandDirection || ''}
 
 BRAND REQUIREMENTS:
-- LOGO: The input image contains the official Everstage logo (colourful stacked-bar E icon + "Everstage" wordmark in Roobert). Reproduce it exactly — do not substitute. White wordmark + coloured icon on dark zones; dark maroon (#3D1935) wordmark on light zones.
+- DO NOT render any logo, wordmark, or brand icon anywhere in the image — a logo will be composited on top as a separate layer after generation
+- Leave the top-left corner (approximately 200×80px) completely clear — no text, no graphic elements, no decorations in that zone
 - Brand colours: deep eggplant #2D1022 · cream #F5F0E8 · teal #1BA894 · periwinkle #6B70D9 · orange #E8893B · tan #B8764A · hot pink #D63865
 - Headlines in FK Roman serif; body/CTA in Roobert sans-serif
 - CTA button: orange (#E8893B) background, dark maroon Roobert text

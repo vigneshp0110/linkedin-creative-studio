@@ -40,7 +40,7 @@ Your job:
 
 Return raw JSON only:
 {
-  "editPrompt": "Full detailed image generation prompt applying the user's request within the Everstage brand. Include: which motif to use, specific brand colours with hex codes, typography treatment, logo placement, exact copy to render, CTA treatment. Be specific and complete.",
+  "editPrompt": "Full detailed image generation prompt applying the user's request within the Everstage brand. Include: which motif to use, specific brand colours with hex codes, typography treatment, exact copy to render, CTA treatment. IMPORTANT: do NOT instruct the model to render any logo or wordmark — the logo is composited separately. Also instruct it to keep the top-left corner (200×80px) clear of all elements. Be specific and complete.",
   "assistantMessage": "Short friendly message (1-2 sentences) telling the user what change you're making and why it fits the brand."
 }`
 
